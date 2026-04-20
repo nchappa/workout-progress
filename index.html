@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Ravi Lifts">
+<title>Ravi Lifts</title>
+<style>
+:root {
+  --bg: #0a0a0f;
+  --card: #13131a;
+  --card2: #1c1c26;
+  --border: rgba(255,255,255,0.08);
+  --accent: #c8f53a;
+  --accent-dim: rgba(200,245,58,0.12);
+  --text: #f2f2f6;
+  --muted: #66667a;
+  --muted2: #3a3a50;
+  --push: #ff6b35;
+  --pull: #4da6ff;
+  --legs: #4dff91;
+  --upper: #e06bff;
+  --lower: #6b8fff;
+  --r: 16px;
+  --rs: 10px;
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+  --nav-h: 72px;
+  --finish-h: 80px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+html, body { height:100%; }
+
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  font-size: 14px;
+  /* Single scrolling body — screens shown/hidden via display */
+  overflow: hidden;
+}
+
+/* ─────────────────────────────
+   SCREEN SYSTEM
+   Each screen is position:fixed, full viewport.
+   display:none / display:flex toggled by JS.
+───────────────────────────── */
+.screen {
+  display: none;
+  position: fixed;
+  inset: 0;
+  flex-direction: column;
+  background: var(--bg);
+}
+.screen.active { display: flex; }
+
+/* ─────────────────────────────
+   SCROLLABLE BODY INSIDE SCREEN
+───────────────────────────── */
+.sroll {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.sroll::-webkit-scrollbar { display: none; }
+
+/* ─────────────────────────────
+   GLOBAL FIXED BOTTOM NAV
+   Hidden on session screen via JS class
+───────────────────────────── */
+.nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--nav-h);
+  background: rgba(10,10,15,0.96);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 900;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.nav.hidden { display: none; }
+.ni {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 3px; cursor: pointer;
+}
+.ni:active { opacity: 0.6; }
+.ni-icon { font-size: 22px; line-height: 1; }
+.ni-lbl { font-size: 10px; font-weight: 600; color: var(--muted); }
+.ni.active .ni-lbl { color: var(--accent); }
+
+/* ─────────────────────────────
+   FIXED FINISH BUTTON
+   Only visible on session screen
+───────────────────────────── */
+.finish-footer {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  padding: 12px 16px env(safe-area-inset-bottom, 12px);
+  background: rgba(10,10,15,0.97);
+  border-top: 1px solid var(--border);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  z-index: 900;
+  display: none;
+}
+.finish-footer.visible { display: block; }
+.finish-btn {
+  width: 100%; padding: 16px;
+  background: var(--accent); color: #000;
+  border: none; border-radius: var(--r);
+  font-family: var(--font); font-size: 16px; font-weight: 800;
+  cursor: pointer; letter-spacing: -0.3px;
+}
+.finish-btn:active { opacity: 0.85; }
+
+/* ─────────────────────────────
+   STATUS BAR
+───────────────────────────── */
+.statusbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: env(safe-area-inset-top, 14px) 20px 0;
+  padding-bottom: 0;
+  flex-shrink: 0;
+  min-height: calc(env(safe-area-inset-top, 14px) + 28px);
+}
+.sb-time { font-size: 16px; font-weight: 700; }
+.sb-icons { font-size: 12px; color: var(--muted); }
+
+/* ─────────────────────────────
+   HOME
+───────────────────────────── */
+.home-hdr { padding: 20px 20px 14px; }
+.greeting { font-size: 13px; color: var(--muted); font-weight: 500; margin-bottom: 3px; }
+.home-title { font-size: 30px; font-weight: 800; letter-spacing: -0.8px; line-height: 1.1; }
+.home-title em { color: var(--accent); font-style: normal; }
+
+.week-strip { display: flex; gap: 8px; padding: 0 20px 20px; overflow-x: auto; }
+.week-strip::-webkit-scrollbar { display: none; }
+.wd {
+  flex-shrink: 0; width: 52px; padding: 9px 4px 7px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 14px; text-align: center;
+}
+.wd.today { border-color: var(--accent); background: var(--accent-dim); }
+.wd-n { font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+.wd-d { font-size: 17px; font-weight: 800; margin: 2px 0; }
+.wd-e { font-size: 15px; }
+.wd-t { font-size: 8px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.3px; margin-top: 2px; }
+
+.sec-title { padding: 0 20px 10px; font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; }
+
+.scard {
+  margin: 0 16px 10px; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r);
+  overflow: hidden; cursor: pointer;
+}
+.scard:active { opacity: 0.85; }
+.scard-top { padding: 16px 16px 12px; display: flex; align-items: center; gap: 12px; }
+.sbadge { width: 44px; height: 44px; border-radius: 13px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.smeta { flex: 1; }
+.sday { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 2px; }
+.sname { font-size: 18px; font-weight: 800; letter-spacing: -0.4px; }
+.sarrow { color: var(--muted2); font-size: 22px; }
+.stags { padding: 0 16px 12px; display: flex; gap: 6px; flex-wrap: wrap; }
+.stag { font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; background: var(--card2); }
+.sstats { padding: 10px 16px; border-top: 1px solid var(--border); display: flex; gap: 20px; }
+.ss { font-size: 11px; color: var(--muted); }
+.ss b { color: var(--text); font-weight: 700; }
+
+/* ─────────────────────────────
+   SESSION SCREEN
+───────────────────────────── */
+.sess-hdr {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 16px; border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.back-btn {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: var(--card2); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 20px; cursor: pointer; flex-shrink: 0; color: var(--text);
+}
+.back-btn:active { opacity: 0.6; }
+.sh-info { flex: 1; min-width: 0; }
+.sh-day { font-size: 11px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.8px; }
+.sh-name { font-size: 17px; font-weight: 800; letter-spacing: -0.4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.timer-bar {
+  margin: 12px 16px 0; flex-shrink: 0;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--rs); padding: 11px 14px;
+  display: flex; align-items: center; gap: 10px;
+}
+.timer-lbl { font-size: 10px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
+.timer-val { font-size: 24px; font-weight: 800; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -0.5px; }
+.tbtn-wrap { margin-left: auto; display: flex; gap: 6px; }
+.tbtn {
+  padding: 8px 14px; border-radius: 9px;
+  border: 1px solid var(--border); background: var(--card2);
+  color: var(--text); font-size: 13px; font-weight: 700;
+  cursor: pointer; font-family: var(--font);
+}
+.tbtn:active { opacity: 0.7; }
+.tbtn.pri { background: var(--accent); color: #000; border-color: var(--accent); }
+
+/* exercises */
+.grp-hdr {
+  padding: 18px 20px 8px; font-size: 10px; font-weight: 700;
+  color: var(--muted); text-transform: uppercase; letter-spacing: 2px;
+  display: flex; align-items: center; gap: 8px;
+}
+.grp-line { flex: 1; height: 1px; background: var(--border); }
+
+.excard {
+  margin: 0 16px 10px; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+}
+.excard-hdr { padding: 14px 14px 10px; display: flex; align-items: flex-start; gap: 10px; }
+.ex-nbadge {
+  width: 26px; height: 26px; border-radius: 7px; background: var(--card2);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 800; color: var(--muted); flex-shrink: 0;
+}
+.ex-info { flex: 1; min-width: 0; }
+.ex-nm { font-size: 15px; font-weight: 700; line-height: 1.2; }
+.ex-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+.rpe-pill { padding: 4px 9px; border-radius: 7px; font-size: 11px; font-weight: 800; flex-shrink: 0; }
+.rpe7 { background: rgba(77,255,145,0.15); color: #4dff91; }
+.rpe8 { background: rgba(255,180,0,0.15); color: #ffb400; }
+.rpe9 { background: rgba(255,107,53,0.15); color: #ff6b35; }
+
+.sets-wrap { padding: 0 14px 14px; }
+.sets-hdr {
+  display: grid; grid-template-columns: 26px 1fr 1fr 1fr 38px;
+  gap: 5px; padding: 0 0 5px;
+  font-size: 9px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px;
+}
+.set-row {
+  display: grid; grid-template-columns: 26px 1fr 1fr 1fr 38px;
+  gap: 5px; align-items: center; margin-bottom: 5px;
+}
+.set-n { font-size: 12px; font-weight: 700; color: var(--muted2); text-align: center; }
+.sinput {
+  background: var(--card2); border: 1px solid var(--border);
+  border-radius: 8px; padding: 9px 4px;
+  color: var(--text); font-family: var(--font);
+  font-size: 14px; font-weight: 700; text-align: center;
+  width: 100%; outline: none; -webkit-appearance: none;
+}
+.sinput:focus { border-color: var(--accent); }
+.sinput::placeholder { color: var(--muted2); font-weight: 400; font-size: 11px; }
+.done-btn {
+  width: 36px; height: 36px; border-radius: 9px;
+  border: 2px solid var(--border); background: transparent;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; transition: all 0.15s; flex-shrink: 0;
+  color: var(--muted);
+}
+.done-btn.done { background: var(--accent); border-color: var(--accent); color: #000; }
+.addset-btn {
+  width: 100%; padding: 9px; background: transparent;
+  border: 1px dashed var(--muted2); border-radius: 9px;
+  color: var(--muted); font-family: var(--font); font-size: 12px; font-weight: 700;
+  cursor: pointer; margin-top: 4px;
+}
+.addset-btn:active { background: var(--card2); }
+.ex-note {
+  border-top: 1px solid var(--border); padding: 10px 14px 12px;
+  font-size: 11px; color: var(--muted); line-height: 1.5; font-style: italic;
+}
+.cardio-note {
+  margin: 8px 16px 4px; padding: 12px 14px;
+  background: rgba(255,107,53,0.08); border: 1px solid rgba(255,107,53,0.2);
+  border-radius: var(--rs); font-size: 12px; color: #ff6b35;
+}
+.cardio-note b { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 3px; }
+
+/* ─────────────────────────────
+   LOG SCREEN
+───────────────────────────── */
+.log-hdr { padding: 20px 20px 16px; }
+.log-title { font-size: 28px; font-weight: 800; letter-spacing: -0.8px; }
+.log-sub { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+.exp-btn {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  margin: 0 16px; padding: 15px;
+  background: var(--card); border: 1px solid var(--accent);
+  border-radius: var(--r); color: var(--accent);
+  font-family: var(--font); font-size: 14px; font-weight: 700; cursor: pointer;
+}
+.exp-btn:active { opacity: 0.8; }
+
+.exp-preview {
+  margin: 10px 16px 0; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--rs);
+  padding: 14px; font-family: monospace; font-size: 10px; color: var(--muted);
+  white-space: pre-wrap; line-height: 1.8; max-height: 160px; overflow-y: auto;
+  display: none;
+}
+.exp-preview.show { display: block; }
+
+.copy-btn {
+  display: none; margin: 8px 16px 0;
+  width: calc(100% - 32px); padding: 14px;
+  background: var(--accent); border: none; border-radius: var(--rs);
+  color: #000; font-family: var(--font); font-size: 14px; font-weight: 800; cursor: pointer;
+}
+.copy-btn.show { display: block; }
+.copy-btn:active { opacity: 0.9; }
+
+.lentry {
+  margin: 10px 16px 0; background: var(--card);
+  border: 1px solid var(--border); border-radius: var(--r); overflow: hidden;
+}
+.lentry-hdr { padding: 14px; display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.lentry-hdr:active { background: var(--card2); }
+.lentry-date { font-size: 11px; font-weight: 600; color: var(--muted); }
+.lentry-name { font-size: 15px; font-weight: 700; }
+.lentry-badge { padding: 3px 9px; border-radius: 7px; font-size: 10px; font-weight: 800; margin-left: auto; flex-shrink: 0; background: var(--accent-dim); color: var(--accent); }
+.lentry-body { padding: 0 14px 12px; display: none; }
+.lentry-body.open { display: block; }
+.lex-row { padding: 7px 0; border-top: 1px solid var(--border); display: flex; justify-content: space-between; gap: 8px; }
+.lex-nm { font-size: 12px; color: var(--muted); flex: 1; }
+.lex-data { font-size: 12px; font-weight: 700; text-align: right; }
+
+.empty { padding: 60px 24px; text-align: center; }
+.empty-ico { font-size: 52px; margin-bottom: 16px; }
+.empty-t { font-size: 18px; font-weight: 700; margin-bottom: 8px; }
+.empty-s { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ─────────────────────────────
+   MODAL
+───────────────────────────── */
+.modal-bg {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(0,0,0,0.75); backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px); display: none; align-items: flex-end;
+}
+.modal-bg.open { display: flex; }
+.modal {
+  width: 100%; background: #1c1c26;
+  border-radius: 26px 26px 0 0; padding: 20px 20px 0;
+  border-top: 1px solid var(--border);
+  padding-bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+}
+.modal-pip { width: 36px; height: 4px; background: var(--muted2); border-radius: 2px; margin: 0 auto 20px; }
+.modal-t { font-size: 22px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.4px; }
+.modal-s { font-size: 13px; color: var(--muted); margin-bottom: 22px; line-height: 1.5; }
+.mbtn {
+  width: 100%; padding: 16px; border-radius: 14px;
+  font-family: var(--font); font-size: 16px; font-weight: 800;
+  cursor: pointer; margin-bottom: 10px;
+}
+.mbtn:active { opacity: 0.8; }
+.mbtn.pri { background: var(--accent); color: #000; border: none; }
+.mbtn.sec { background: transparent; color: var(--muted); border: 1px solid var(--border); }
+
+/* ─────────────────────────────
+   TOAST
+───────────────────────────── */
+.toast {
+  position: fixed; bottom: 100px; left: 50%; transform: translateX(-50%);
+  background: var(--accent); color: #000;
+  padding: 11px 22px; border-radius: 100px;
+  font-size: 13px; font-weight: 700; z-index: 2000;
+  opacity: 0; transition: opacity 0.25s; pointer-events: none; white-space: nowrap;
+}
+.toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     HOME SCREEN
+══════════════════════════════════ -->
+<div class="screen active" id="s-home">
+  <div class="statusbar">
+    <span class="sb-time" id="clk">9:41</span>
+    <span class="sb-icons">📶 🔋</span>
+  </div>
+  <div class="sroll" style="padding-bottom: var(--nav-h)">
+    <div class="home-hdr">
+      <div class="greeting" id="greeting">Good morning,</div>
+      <div class="home-title">Let's lift, <em>Ravi.</em></div>
+    </div>
+    <div class="week-strip" id="wstrip"></div>
+    <div class="sec-title">This Week's Programme</div>
+    <div id="scards"></div>
+    <div style="height:20px"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     SESSION SCREEN
+══════════════════════════════════ -->
+<div class="screen" id="s-session">
+  <div class="statusbar">
+    <span class="sb-time" id="clk-sess">9:41</span>
+    <span class="sb-icons">📶 🔋</span>
+  </div>
+  <div class="sess-hdr">
+    <div class="back-btn" onclick="goHome()">‹</div>
+    <div class="sh-info">
+      <div class="sh-day" id="sh-day">Monday</div>
+      <div class="sh-name" id="sh-name">Push</div>
+    </div>
+  </div>
+  <div class="timer-bar">
+    <div>
+      <div class="timer-lbl">Session Timer</div>
+      <div class="timer-val" id="tdisp">0:00</div>
+    </div>
+    <div class="tbtn-wrap">
+      <button class="tbtn pri" id="tbtn" onclick="toggleTimer()">Start</button>
+      <button class="tbtn" onclick="resetTimer()">Reset</button>
+    </div>
+  </div>
+  <!-- scroll area — padded so content clears the finish button -->
+  <div class="sroll" id="sbody" style="padding-bottom: calc(var(--finish-h) + 20px); margin-top: 12px;"></div>
+</div>
+
+<!-- ══════════════════════════════════
+     LOG SCREEN
+══════════════════════════════════ -->
+<div class="screen" id="s-log">
+  <div class="statusbar">
+    <span class="sb-time" id="clk-log">9:41</span>
+    <span class="sb-icons">📶 🔋</span>
+  </div>
+  <div class="sroll" style="padding-bottom: var(--nav-h)">
+    <div class="log-hdr">
+      <div class="log-title">Session Log</div>
+      <div class="log-sub">All stored on this device</div>
+    </div>
+    <button class="exp-btn" onclick="genExport()">📋 &nbsp;Generate Lift Log Export</button>
+    <div class="exp-preview" id="eprev"></div>
+    <button class="copy-btn" id="copybtn" onclick="copyLog()">Copy to Clipboard</button>
+    <div style="height:10px"></div>
+    <div id="lentries"></div>
+    <div style="height:20px"></div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════
+     FIXED: BOTTOM NAV (home + log)
+══════════════════════════════════ -->
+<nav class="nav" id="nav">
+  <div class="ni active" id="ni-home" onclick="switchNav('home')">
+    <div class="ni-icon">🏠</div>
+    <div class="ni-lbl">Home</div>
+  </div>
+  <div class="ni" id="ni-log" onclick="switchNav('log')">
+    <div class="ni-icon">📓</div>
+    <div class="ni-lbl">Log</div>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     FIXED: FINISH BUTTON (session only)
+══════════════════════════════════ -->
+<div class="finish-footer" id="finish-footer">
+  <button class="finish-btn" onclick="finishSession()">Finish &amp; Save Session →</button>
+</div>
+
+<!-- ══════════════════════════════════
+     SAVE MODAL
+══════════════════════════════════ -->
+<div class="modal-bg" id="fmodal">
+  <div class="modal">
+    <div class="modal-pip"></div>
+    <div class="modal-t">Session Complete 💪</div>
+    <div class="modal-s" id="fmodal-sub">Save this session to your log?</div>
+    <button class="mbtn pri" onclick="saveSession()">Save to Log</button>
+    <button class="mbtn sec" onclick="closeModal()">Discard</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════
+// PROGRAMME DATA
+// ═══════════════════════════════════════════
+const P = [
+  {
+    id:'push', day:'Monday', name:'Push', emoji:'🔥',
+    color:'var(--push)', bg:'rgba(255,107,53,0.13)',
+    targets:['Chest','Shoulders','Triceps'],
+    groups:[
+      { label:'A · Chest', ex:[
+        { id:'A1', name:'Smith Machine Bench Press',  sets:4, reps:'6–8',   weight:35,  rpe:8, note:'Main compound. 2 sec lower. Control descent.' },
+        { id:'A2', name:'Incline Dumbbell Press',     sets:3, reps:'8–10',  weight:30,  rpe:7, note:'30–45° incline. Elbows ~75° flare.' },
+        { id:'A3', name:'Cable Fly (low-to-high)',    sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Slow eccentric, full stretch at bottom.' },
+      ]},
+      { label:'B · Shoulders', ex:[
+        { id:'B1', name:'Smith Machine OHP',          sets:3, reps:'8–10',  weight:30,  rpe:8, note:'Seated. Control the lockout.' },
+        { id:'B2', name:'Dumbbell Lateral Raise',     sets:3, reps:'15–20', weight:15,  rpe:7, note:'Add reps before weight. Slight forward lean.' },
+        { id:'B3', name:'Cable Face Pull',            sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Rope, high pulley.' },
+      ]},
+      { label:'C · Triceps', ex:[
+        { id:'C1', name:'Cable Tricep Pushdown',      sets:3, reps:'10–12', weight:50,  rpe:7, note:'Full extension. Lock elbow at side.' },
+        { id:'C2', name:'OH Tricep Ext (cable)',      sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Elbows tight.' },
+      ]},
+    ],
+    cardio:'20 min Zone 2 after lifting — incline walk or bike.'
+  },
+  {
+    id:'pull', day:'Tuesday', name:'Pull', emoji:'💪',
+    color:'var(--pull)', bg:'rgba(77,166,255,0.12)',
+    targets:['Back','Biceps'],
+    groups:[
+      { label:'A · Back Primary', ex:[
+        { id:'A1', name:'Pendlay Row (Smith)',         sets:4, reps:'6–8',   weight:80,  rpe:8, note:'Dead stop each rep. Explosive pull.' },
+        { id:'A2', name:'Lat Pulldown (bar)',          sets:3, reps:'8–10',  weight:115, rpe:8, note:'Chest to bar. Full stretch at top.' },
+        { id:'A3', name:'Seated Cable Row',            sets:3, reps:'10–12', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Squeeze rhomboids.' },
+      ]},
+      { label:'B · Back Accessories', ex:[
+        { id:'B1', name:'Single Arm Lat Pulldown',    sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate. Full range, no shrugging.' },
+        { id:'B2', name:'Straight Arm Pulldown',      sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate. Lat only — no elbow bend.' },
+      ]},
+      { label:'C · Biceps', ex:[
+        { id:'C1', name:'Barbell Curl',               sets:3, reps:'10–12', weight:30,  rpe:7, note:'Supinate at top. No swinging.' },
+        { id:'C2', name:'Incline Dumbbell Curl',      sets:3, reps:'12–15', weight:15,  rpe:7, note:'Stretch at bottom. Slow eccentric.' },
+        { id:'C3', name:'Cable Curl',                 sets:2, reps:'15',    weight:null, rpe:7, note:'⚠ Calibrate. Superset with hammer curl.' },
+        { id:'C4', name:'Hammer Curl',                sets:2, reps:'15',    weight:15,  rpe:7, note:'Superset with cable curl above.' },
+      ]},
+    ],
+    cardio:'20 min Zone 2 after lifting.'
+  },
+  {
+    id:'legs', day:'Wednesday', name:'Legs', emoji:'🦵',
+    color:'var(--legs)', bg:'rgba(77,255,145,0.10)',
+    targets:['Quads','Posterior Chain','Calves'],
+    groups:[
+      { label:'A · Quad Dominant', ex:[
+        { id:'A1', name:'Smith Machine Back Squat',   sets:4, reps:'6–8',   weight:35,  rpe:8, note:'Main compound. Brace hard. Full depth.' },
+        { id:'A2', name:'Bulgarian Split Squat',      sets:3, reps:'10–12', weight:20,  rpe:8, note:'⚠ Calibrate weight. Knee tracks over toe.' },
+        { id:'A3', name:'Goblet Squat (tempo)',       sets:3, reps:'12–15', weight:25,  rpe:7, note:'3 sec down, pause at bottom.' },
+      ]},
+      { label:'B · Posterior Chain', ex:[
+        { id:'B1', name:'Romanian Deadlift',          sets:3, reps:'8–10',  weight:80,  rpe:8, note:'Hip hinge. Feel the hamstring stretch.' },
+        { id:'B2', name:'Glute Bridge',               sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate. 2 sec squeeze at top.' },
+        { id:'B3', name:'Cable Pull Through',         sets:3, reps:'15',    weight:null, rpe:7, note:'⚠ Calibrate. Hip dominant — not back.' },
+      ]},
+      { label:'C · Calves', ex:[
+        { id:'C1', name:'Standing Calf Raise',        sets:4, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate. Full ROM — deep stretch each rep.' },
+        { id:'C2', name:'Seated Calf Raise',          sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate. Soleus focus.' },
+      ]},
+    ],
+    cardio:'Optional 10 min walk only — leg day is demanding.'
+  },
+  {
+    id:'upper', day:'Thursday', name:'Upper', emoji:'⚡',
+    color:'var(--upper)', bg:'rgba(224,107,255,0.10)',
+    targets:['Compounds','Shoulders','Arms'],
+    groups:[
+      { label:'A · Primary Compounds', ex:[
+        { id:'A1', name:'Incline Smith Press',        sets:4, reps:'8–10',  weight:30,  rpe:8, note:'Upper chest focus. Control the descent.' },
+        { id:'A2', name:'Dumbbell Row',               sets:4, reps:'8–10',  weight:35,  rpe:8, note:'Chest on bench. Drive elbow to hip.' },
+      ]},
+      { label:'B · Shoulders', ex:[
+        { id:'B1', name:'Arnold Press',               sets:3, reps:'10–12', weight:20,  rpe:8, note:'⚠ Calibrate. Full rotation at top.' },
+        { id:'B2', name:'Cable Lateral Raise',        sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate. Arm crosses body at start.' },
+        { id:'B3', name:'Rear Delt Fly (DB)',         sets:3, reps:'15–20', weight:10,  rpe:7, note:'Hinge forward. Elbows soft.' },
+      ]},
+      { label:'C · Accessories', ex:[
+        { id:'C1', name:'Neutral Grip Lat Pulldown',  sets:3, reps:'10–12', weight:null, rpe:7, note:'⚠ Calibrate. Full stretch overhead.' },
+        { id:'C2', name:'Dumbbell Fly',               sets:3, reps:'12–15', weight:15,  rpe:7, note:'Slight elbow bend. Deep stretch.' },
+        { id:'C3', name:'Hammer Curl',                sets:3, reps:'12–15', weight:20,  rpe:7, note:'Neutral grip. Brachialis focus.' },
+      ]},
+    ],
+    cardio:'20 min Zone 2 after lifting.'
+  },
+  {
+    id:'lower', day:'Friday', name:'Lower', emoji:'🏋️',
+    color:'var(--lower)', bg:'rgba(107,143,255,0.10)',
+    targets:['Posterior Chain','Core'],
+    groups:[
+      { label:'A · Primary Strength', ex:[
+        { id:'A1', name:'Smith Conventional DL',      sets:4, reps:'5–6',   weight:90,  rpe:9, note:'Heaviest lift of the week. Brace, push floor away.' },
+        { id:'A2', name:'Stiff Leg Deadlift',         sets:3, reps:'8–10',  weight:60,  rpe:8, note:'⚠ Calibrate. Hamstring stretch is the point.' },
+      ]},
+      { label:'B · Accessory Lower', ex:[
+        { id:'B1', name:'Sumo Deadlift (Smith)',      sets:3, reps:'10–12', weight:60,  rpe:8, note:'⚠ Calibrate. Wide stance, vertical torso.' },
+        { id:'B2', name:'Lunges (DB, walking)',       sets:3, reps:'12/leg', weight:20, rpe:7, note:'⚠ Calibrate. Slow, controlled landing.' },
+        { id:'B3', name:'Glute Bridge',               sets:3, reps:'20',    weight:0,   rpe:7, note:'Bodyweight or add plate. 2 sec squeeze.' },
+      ]},
+      { label:'C · Core', ex:[
+        { id:'C1', name:'Cable Crunch',               sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate. Round the spine — don\'t hip hinge.' },
+        { id:'C2', name:'Hanging Leg Raise',          sets:3, reps:'12–15', weight:0,   rpe:7, note:'Posterior pelvic tilt at top.' },
+        { id:'C3', name:'Pallof Press',               sets:3, reps:'12/side', weight:null, rpe:7, note:'⚠ Calibrate. Anti-rotation — don\'t twist.' },
+      ]},
+    ],
+    cardio:'15 min easy walk — end of week, keep it light.'
+  }
+];
+
+// ═══════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════
+let curSess = null;
+let timerSec = 0, timerOn = false, timerIv = null;
+let gymLog = JSON.parse(localStorage.getItem('ravi_gymlog') || '[]');
+let setCounters = {};
+
+// ═══════════════════════════════════════════
+// CLOCK
+// ═══════════════════════════════════════════
+function tick() {
+  const n = new Date();
+  const t = n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
+  ['clk','clk-sess','clk-log'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.textContent = t;
+  });
+  const h = n.getHours();
+  const el = document.getElementById('greeting');
+  if (el) el.textContent = h<12 ? 'Good morning,' : h<17 ? 'Good afternoon,' : 'Good evening,';
+}
+tick();
+setInterval(tick, 15000);
+
+// ═══════════════════════════════════════════
+// WEEK STRIP
+// ═══════════════════════════════════════════
+function buildWeek() {
+  const DN = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const DT = ['Push','Pull','Legs','Upper','Lower','Rest','Rest'];
+  const DE = ['🔥','💪','🦵','⚡','🏋️','🚶','🌿'];
+  const now = new Date();
+  const dow = now.getDay();
+  const mo = dow === 0 ? -6 : 1 - dow;
+  let h = '';
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(now);
+    d.setDate(now.getDate() + mo + i);
+    const isToday = d.toDateString() === now.toDateString();
+    const ds = d.toLocaleDateString('en-GB');
+    const isLogged = gymLog.some(e => e.date === ds);
+    h += `<div class="wd ${isToday?'today':''}">
+      <div class="wd-n">${DN[i]}</div>
+      <div class="wd-d">${d.getDate()}</div>
+      <div class="wd-e">${isLogged ? '✅' : DE[i]}</div>
+      <div class="wd-t">${DT[i]}</div>
+    </div>`;
+  }
+  document.getElementById('wstrip').innerHTML = h;
+}
+
+// ═══════════════════════════════════════════
+// SESSION CARDS
+// ═══════════════════════════════════════════
+function buildCards() {
+  let h = '';
+  P.forEach((s, i) => {
+    const totalEx   = s.groups.reduce((a, g) => a + g.ex.length, 0);
+    const totalSets = s.groups.reduce((a, g) => a + g.ex.reduce((b, e) => b + e.sets, 0), 0);
+    h += `<div class="scard" onclick="openSession(${i})">
+      <div class="scard-top">
+        <div class="sbadge" style="background:${s.bg}">${s.emoji}</div>
+        <div class="smeta">
+          <div class="sday">${s.day}</div>
+          <div class="sname">${s.name}</div>
+        </div>
+        <div class="sarrow">›</div>
+      </div>
+      <div class="stags">${s.targets.map(t => `<span class="stag" style="color:${s.color}">${t}</span>`).join('')}</div>
+      <div class="sstats">
+        <div class="ss"><b>${totalEx}</b> exercises</div>
+        <div class="ss"><b>${totalSets}</b> sets</div>
+        <div class="ss"><b>RPE 7–9</b></div>
+      </div>
+    </div>`;
+  });
+  document.getElementById('scards').innerHTML = h;
+}
+
+// ═══════════════════════════════════════════
+// OPEN SESSION
+// ═══════════════════════════════════════════
+function openSession(idx) {
+  setCounters = {};
+  const s = P[idx];
+  curSess = { idx, data: s };
+  document.getElementById('sh-day').textContent = s.day;
+  document.getElementById('sh-name').textContent = `${s.name} — ${s.targets.join(' · ')}`;
+
+  let h = '';
+  s.groups.forEach(g => {
+    h += `<div class="grp-hdr"><div class="grp-line"></div>${g.label}<div class="grp-line"></div></div>`;
+    g.ex.forEach(ex => {
+      const rc = ex.rpe >= 9 ? 'rpe9' : ex.rpe >= 8 ? 'rpe8' : 'rpe7';
+      const dw = ex.weight !== null ? ex.weight : '';
+      let rows = '';
+      for (let i = 1; i <= ex.sets; i++) {
+        rows += makeSetRow(ex.id, i, dw, dw, ex.reps, ex.rpe);
+      }
+      setCounters[ex.id] = ex.sets;
+      h += `<div class="excard">
+        <div class="excard-hdr">
+          <div class="ex-nbadge">${ex.id}</div>
+          <div class="ex-info">
+            <div class="ex-nm">${ex.name}</div>
+            <div class="ex-sub">${ex.sets} sets × ${ex.reps}</div>
+          </div>
+          <div class="rpe-pill ${rc}">RPE ${ex.rpe}</div>
+        </div>
+        <div class="sets-wrap" id="sw-${ex.id}">
+          <div class="sets-hdr"><div>#</div><div>Weight</div><div>Reps</div><div>RPE</div><div>✓</div></div>
+          ${rows}
+          <button class="addset-btn" onclick="addSet('${ex.id}','${dw}','${ex.reps}',${ex.rpe})">+ Add Set</button>
+        </div>
+        ${ex.note ? `<div class="ex-note">${ex.note}</div>` : ''}
+      </div>`;
+    });
+  });
+  h += `<div class="cardio-note"><b>🏃 Cardio</b>${s.cardio}</div>`;
+  h += `<div style="height:20px"></div>`;
+
+  document.getElementById('sbody').innerHTML = h;
+
+  // Show session screen, hide nav, show finish footer
+  showScreen('session');
+}
+
+function makeSetRow(id, i, dw, pw, reps, rpe) {
+  return `<div class="set-row" id="sr-${id}-${i}">
+    <div class="set-n">${i}</div>
+    <input class="sinput" id="w-${id}-${i}" type="number" inputmode="decimal" placeholder="${pw !== '' ? pw : 'lbs'}" value="${dw}">
+    <input class="sinput" id="r-${id}-${i}" type="number" inputmode="numeric" placeholder="${reps.split('–')[0]}">
+    <input class="sinput" id="e-${id}-${i}" type="number" inputmode="numeric" placeholder="${rpe}" min="1" max="10">
+    <button class="done-btn" id="db-${id}-${i}" onclick="toggleDone('${id}',${i})">○</button>
+  </div>`;
+}
+
+function toggleDone(id, i) {
+  const b = document.getElementById(`db-${id}-${i}`);
+  b.classList.toggle('done');
+  b.textContent = b.classList.contains('done') ? '✓' : '○';
+}
+
+function addSet(id, dw, reps, rpe) {
+  setCounters[id] = (setCounters[id] || 0) + 1;
+  const i = setCounters[id];
+  const wrap = document.getElementById(`sw-${id}`);
+  const addBtn = wrap.querySelector('.addset-btn');
+  const div = document.createElement('div');
+  div.innerHTML = makeSetRow(id, i, dw, dw, reps, rpe);
+  wrap.insertBefore(div.firstChild, addBtn);
+}
+
+// ═══════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════
+function toggleTimer() {
+  if (timerOn) {
+    clearInterval(timerIv); timerOn = false;
+    document.getElementById('tbtn').textContent = 'Resume';
+  } else {
+    timerIv = setInterval(() => {
+      timerSec++;
+      const m = Math.floor(timerSec / 60);
+      const s = (timerSec % 60).toString().padStart(2, '0');
+      document.getElementById('tdisp').textContent = `${m}:${s}`;
+    }, 1000);
+    timerOn = true;
+    document.getElementById('tbtn').textContent = 'Pause';
+  }
+}
+function resetTimer() {
+  clearInterval(timerIv); timerOn = false; timerSec = 0;
+  document.getElementById('tdisp').textContent = '0:00';
+  document.getElementById('tbtn').textContent = 'Start';
+}
+
+// ═══════════════════════════════════════════
+// FINISH / SAVE
+// ═══════════════════════════════════════════
+function finishSession() {
+  const total = document.querySelectorAll('.done-btn').length;
+  const done  = document.querySelectorAll('.done-btn.done').length;
+  document.getElementById('fmodal-sub').textContent =
+    `${done} of ${total} sets completed. Save to your log?`;
+  document.getElementById('fmodal').classList.add('open');
+}
+
+function closeModal() {
+  document.getElementById('fmodal').classList.remove('open');
+}
+
+function saveSession() {
+  const s = curSess.data;
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-GB');
+  const exercises = [];
+
+  s.groups.forEach(g => {
+    g.ex.forEach(ex => {
+      const sets = [];
+      let i = 1;
+      while (document.getElementById(`w-${ex.id}-${i}`)) {
+        const wEl   = document.getElementById(`w-${ex.id}-${i}`);
+        const rEl   = document.getElementById(`r-${ex.id}-${i}`);
+        const eEl   = document.getElementById(`e-${ex.id}-${i}`);
+        const doneEl = document.getElementById(`db-${ex.id}-${i}`);
+        // Value if typed, else fall back to placeholder (pre-filled default weight)
+        const w    = wEl.value.trim()  || wEl.placeholder  || '?';
+        const r    = rEl.value.trim()  || rEl.placeholder  || '?';
+        const e    = eEl.value.trim()  || eEl.placeholder  || String(ex.rpe);
+        const done = doneEl ? doneEl.classList.contains('done') : false;
+        sets.push({ w, r, rpe: e, done });
+        i++;
+      }
+      if (sets.length) exercises.push({ name: ex.name, sets });
+    });
+  });
+
+  const entry = {
+    date: dateStr,
+    sessName: s.name,
+    day: s.day,
+    emoji: s.emoji,
+    duration: Math.round(timerSec / 60),
+    exercises
+  };
+
+  gymLog.unshift(entry);
+  localStorage.setItem('ravi_gymlog', JSON.stringify(gymLog));
+  closeModal();
+  resetTimer();
+  showToast('Session saved! 💪');
+  buildWeek();
+  goHome();
+}
+
+// ═══════════════════════════════════════════
+// LOG SCREEN
+// ═══════════════════════════════════════════
+function buildLog() {
+  const el = document.getElementById('lentries');
+  if (!gymLog.length) {
+    el.innerHTML = `<div class="empty">
+      <div class="empty-ico">📓</div>
+      <div class="empty-t">No sessions yet</div>
+      <div class="empty-s">Tap a session on the home screen,<br>log your sets, then hit Finish.</div>
+    </div>`;
+    return;
+  }
+  el.innerHTML = gymLog.map((e, i) => {
+    const rows = e.exercises.map(ex => {
+      const s = ex.sets.map(s => `${s.w}×${s.r}`).join(', ');
+      return `<div class="lex-row"><span class="lex-nm">${ex.name}</span><span class="lex-data">${s}</span></div>`;
+    }).join('');
+    return `<div class="lentry">
+      <div class="lentry-hdr" onclick="toggleEntry(${i})">
+        <div>
+          <div class="lentry-date">${e.date}${e.duration ? ' · ' + e.duration + ' min' : ''}</div>
+          <div class="lentry-name">${e.emoji} ${e.day} — ${e.sessName}</div>
+        </div>
+        <div class="lentry-badge">${e.exercises.length} ex</div>
+      </div>
+      <div class="lentry-body" id="lb-${i}">${rows}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleEntry(i) {
+  document.getElementById(`lb-${i}`).classList.toggle('open');
+}
+
+// ═══════════════════════════════════════════
+// EXPORT
+// ═══════════════════════════════════════════
+function genExport() {
+  if (!gymLog.length) { showToast('No sessions to export yet'); return; }
+
+  let txt = '=====================================\n';
+  txt    += 'LIFT LOG\n';
+  txt    += '=====================================\n\n';
+  txt    += 'ATHLETE: Ravi\n\n';
+  txt    += '-------------------------------------\n';
+  txt    += 'SESSION LOG\n';
+  txt    += '-------------------------------------\n\n';
+
+  [...gymLog].reverse().forEach(e => {
+    txt += `[${e.date}] — ${e.sessName}\n`;
+    txt += `Week X | Block 1\n\n`;
+    txt += `Exercise          | Sets x Reps | Weight (lbs) | RPE | Notes\n`;
+    txt += `----------------------------------------------------------\n`;
+    e.exercises.forEach(ex => {
+      const setsN   = ex.sets.length;
+      const repsV   = ex.sets.map(s => s.r).join('/');
+      const weightV = ex.sets.map(s => s.w + 'lbs').join('/');
+      const rpeV    = ex.sets.map(s => s.rpe).join('/');
+      const nm      = ex.name.substring(0, 18).padEnd(18);
+      txt += `${nm}| ${(setsN + 'x' + repsV).padEnd(12)}| ${weightV.padEnd(14)}| ${rpeV}\n`;
+    });
+    txt += `\nSession notes: ${e.duration || '?'} min · ${e.day} ${e.sessName}\n\n`;
+    txt += `----------------------------------------------------------\n\n`;
+  });
+
+  txt += '=====================================\n';
+  txt += 'END OF LOG\n';
+  txt += '=====================================\n';
+
+  const prev = document.getElementById('eprev');
+  prev.textContent = txt;
+  prev.classList.add('show');
+  document.getElementById('copybtn').classList.add('show');
+}
+
+function copyLog() {
+  const txt = document.getElementById('eprev').textContent;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(txt).then(() => showToast('Copied! Paste into your Lift Log 📋'));
+  } else {
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta);
+    ta.focus(); ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    showToast('Copied! Paste into your Lift Log 📋');
+  }
+}
+
+// ═══════════════════════════════════════════
+// NAVIGATION — key: show/hide nav vs finish-footer
+// ═══════════════════════════════════════════
+function showScreen(name) {
+  // Hide all screens
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(`s-${name}`).classList.add('active');
+
+  const nav    = document.getElementById('nav');
+  const finish = document.getElementById('finish-footer');
+
+  if (name === 'session') {
+    nav.classList.add('hidden');
+    finish.classList.add('visible');
+  } else {
+    nav.classList.remove('hidden');
+    finish.classList.remove('visible');
+  }
+}
+
+function switchNav(tab) {
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  document.getElementById(`ni-${tab}`).classList.add('active');
+  if (tab === 'log') buildLog();
+  showScreen(tab);
+}
+
+function goHome() {
+  document.querySelectorAll('.ni').forEach(n => n.classList.remove('active'));
+  document.getElementById('ni-home').classList.add('active');
+  showScreen('home');
+}
+
+// ═══════════════════════════════════════════
+// TOAST
+// ═══════════════════════════════════════════
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+// ═══════════════════════════════════════════
+// INIT
+// ═══════════════════════════════════════════
+buildWeek();
+buildCards();
+</script>
+</body>
+</html>
