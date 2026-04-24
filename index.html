@@ -42,7 +42,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-size: 14px;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
   max-width: 430px;
   margin: 0 auto;
@@ -52,7 +52,7 @@ body {
 }
 
 /* ── SCREENS ── */
-.screen { display:none; flex-direction:column; height:100vh; overflow:hidden; position:absolute; inset:0; max-width:430px; margin:0 auto; }
+.screen { display:none; flex-direction:column; height:100dvh; overflow:hidden; position:absolute; inset:0; max-width:430px; margin:0 auto; }
 .screen.active { display:flex; }
 
 /* ── SAFE AREA ── */
@@ -251,7 +251,8 @@ body {
   flex-shrink: 0;
   background: rgba(10,10,15,0.97);
   border-top: 1px solid var(--border);
-  padding: 10px 16px 0;
+  padding: 12px 16px;
+  padding-bottom: calc(12px + env(safe-area-inset-bottom, 16px));
 }
 .finish-btn {
   width: 100%;
@@ -396,7 +397,6 @@ body {
   <div class="scroll-area" id="sbody" style="padding-bottom:100px;"></div>
   <div class="sess-footer">
     <button class="finish-btn" onclick="finishSession()">Finish &amp; Save Session →</button>
-    <div class="safe-bottom"></div>
   </div>
 </div>
 
@@ -457,18 +457,18 @@ const P = [
     targets:['Chest','Shoulders','Triceps'],
     groups:[
       { label:'A · Chest', ex:[
-        { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'6–8', weight:35, rpe:8, note:'Main compound. 2 sec lower. Control descent.' },
+        { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'6–8', weight:35, rpe:8, note:'Hold at 35 — reps were 6/5/5/6 Week 1. Hit 4×8 clean before going up.' },
         { id:'A2', name:'Incline Dumbbell Press', sets:3, reps:'8–10', weight:30, rpe:7, note:'30–45° incline. Elbows ~75° flare.' },
-        { id:'A3', name:'Cable Fly (low-to-high)', sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Slow eccentric, full stretch at bottom.' },
+        { id:'A3', name:'Cable Fly (low-to-high)', sets:3, reps:'12–15', weight:25, rpe:7, note:'Calibrated at 25lbs. Slow eccentric, full stretch at bottom.' },
       ]},
       { label:'B · Shoulders', ex:[
-        { id:'B1', name:'Smith Machine OHP', sets:3, reps:'8–10', weight:30, rpe:8, note:'Seated. Control the lockout.' },
+        { id:'B1', name:'Smith Machine OHP', sets:3, reps:'8–10', weight:20, rpe:8, note:'Settled at 20lbs Week 1. Hit clean top of range before adding.' },
         { id:'B2', name:'Dumbbell Lateral Raise', sets:3, reps:'15–20', weight:15, rpe:7, note:'Add reps before adding weight. Slight forward lean.' },
-        { id:'B3', name:'Cable Face Pull', sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Rope attachment, high pulley.' },
+        { id:'B3', name:'Cable Face Pull', sets:3, reps:'15–20', weight:80, rpe:7, note:'Calibrated at 80lbs — verify stack is lbs not kg next session.' },
       ]},
       { label:'C · Triceps', ex:[
-        { id:'C1', name:'Cable Tricep Pushdown', sets:3, reps:'10–12', weight:50, rpe:7, note:'Full extension. Lock elbow at side.' },
-        { id:'C2', name:'OH Tricep Extension (cable)', sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Keep elbows tight.' },
+        { id:'C1', name:'Cable Tricep Pushdown', sets:3, reps:'10–12', weight:55, rpe:7, note:'Full extension. Lock elbow at side.' },
+        { id:'C2', name:'OH Tricep Extension (cable)', sets:3, reps:'12–15', weight:55, rpe:7, note:'Calibrated at 55lbs. Keep elbows tight.' },
       ]},
     ],
     cardio:'20 min Zone 2 after lifting — incline walk or bike.'
@@ -479,19 +479,19 @@ const P = [
     targets:['Back','Biceps'],
     groups:[
       { label:'A · Back Primary', ex:[
-        { id:'A1', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:80, rpe:8, note:'Dead stop each rep. Explosive pull.' },
+        { id:'A1', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:35, rpe:8, note:'Settled at 35lbs — still light, expect jump to 40–45 next week.' },
         { id:'A2', name:'Lat Pulldown (bar)', sets:3, reps:'8–10', weight:115, rpe:8, note:'Chest to bar. Full stretch at top.' },
-        { id:'A3', name:'Seated Cable Row', sets:3, reps:'10–12', weight:null, rpe:7, note:'⚠ Calibrate Week 1. Squeeze rhomboids at end.' },
+        { id:'A3', name:'Seated Cable Row', sets:3, reps:'10–12', weight:100, rpe:7, note:'Calibrated at 100lbs. Squeeze rhomboids at end.' },
       ]},
       { label:'B · Back Accessories', ex:[
-        { id:'B1', name:'Single Arm Lat Pulldown', sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate. Full range, no shrugging.' },
-        { id:'B2', name:'Straight Arm Pulldown', sets:3, reps:'12–15', weight:null, rpe:7, note:'⚠ Calibrate. Lat only — no elbow bend.' },
+        { id:'B1', name:'Single Arm Lat Pulldown', sets:3, reps:'12–15', weight:50, rpe:7, note:'Calibrated at 50lbs. Full range, no shrugging.' },
+        { id:'B2', name:'Straight Arm Pulldown', sets:3, reps:'12–15', weight:90, rpe:7, note:'Calibrated at 90lbs. Lat only — no elbow bend.' },
       ]},
       { label:'C · Biceps', ex:[
-        { id:'C1', name:'Barbell Curl', sets:3, reps:'10–12', weight:30, rpe:7, note:'Supinate at top. No swinging.' },
+        { id:'C1', name:'Dumbbell Curl', sets:3, reps:'10–12', weight:30, rpe:7, note:'Supinate at top. No swinging.' },
         { id:'C2', name:'Incline Dumbbell Curl', sets:3, reps:'12–15', weight:15, rpe:7, note:'Stretch at bottom. Slow eccentric.' },
-        { id:'C3', name:'Cable Curl', sets:2, reps:'15', weight:null, rpe:7, note:'⚠ Calibrate. Superset with hammer curl.' },
-        { id:'C4', name:'Hammer Curl', sets:2, reps:'15', weight:15, rpe:7, note:'Superset with cable curl above.' },
+        { id:'C3', name:'Cable Curl', sets:2, reps:'15', weight:60, rpe:7, note:'Calibrated at 60lbs — verify stack is lbs. Superset with hammer curl.' },
+        { id:'C4', name:'Hammer Curl', sets:2, reps:'15', weight:25, rpe:7, note:'Superset with cable curl above.' },
       ]},
     ],
     cardio:'20 min Zone 2 after lifting.'
@@ -524,18 +524,18 @@ const P = [
     targets:['Compounds','Shoulders','Arms'],
     groups:[
       { label:'A · Primary Compounds', ex:[
-        { id:'A1', name:'Incline Smith Machine Press', sets:4, reps:'8–10', weight:30, rpe:8, note:'Upper chest focus. Control the descent.' },
-        { id:'A2', name:'Dumbbell Row', sets:4, reps:'8–10', weight:35, rpe:8, note:'Chest on bench. Drive elbow to hip.' },
+        { id:'A1', name:'Incline Smith Machine Press', sets:4, reps:'8–10', weight:30, rpe:8, note:'Upper chest focus. Hit 4×10 clean — next session try 32.5 or 35.' },
+        { id:'A2', name:'Dumbbell Row', sets:4, reps:'8–10', weight:40, rpe:8, note:'Settled at 40lbs. Drive elbow to hip.' },
       ]},
       { label:'B · Shoulders', ex:[
-        { id:'B1', name:'Arnold Press', sets:3, reps:'10–12', weight:20, rpe:8, note:'⚠ Calibrate. Full rotation at top.' },
-        { id:'B2', name:'Cable Lateral Raise', sets:3, reps:'15–20', weight:null, rpe:7, note:'⚠ Calibrate. Arm crosses body at start.' },
-        { id:'B3', name:'Rear Delt Fly (DB)', sets:3, reps:'15–20', weight:10, rpe:7, note:'Hinge forward. Elbows soft.' },
+        { id:'B1', name:'Arnold Press', sets:3, reps:'10–12', weight:25, rpe:8, note:'Settled at 25lbs. Full rotation at top.' },
+        { id:'B2', name:'Cable Lateral Raise', sets:3, reps:'15–20', weight:20, rpe:7, note:'Calibrated at 20lbs. Arm crosses body at start.' },
+        { id:'B3', name:'Rear Delt Fly (DB)', sets:3, reps:'15–20', weight:15, rpe:7, note:'Hinge forward. Elbows soft.' },
       ]},
       { label:'C · Accessories', ex:[
-        { id:'C1', name:'Neutral Grip Lat Pulldown', sets:3, reps:'10–12', weight:null, rpe:7, note:'⚠ Calibrate. Full stretch overhead.' },
-        { id:'C2', name:'Dumbbell Fly', sets:3, reps:'12–15', weight:15, rpe:7, note:'Slight elbow bend. Deep stretch.' },
-        { id:'C3', name:'Hammer Curl', sets:3, reps:'12–15', weight:20, rpe:7, note:'Neutral grip. Brachialis focus.' },
+        { id:'C1', name:'Neutral Grip Lat Pulldown', sets:3, reps:'10–12', weight:105, rpe:7, note:'Calibrated at 105lbs. Full stretch overhead.' },
+        { id:'C2', name:'Dumbbell Fly', sets:3, reps:'12–15', weight:25, rpe:7, note:'Settled at 25lbs. Slight elbow bend. Deep stretch.' },
+        { id:'C3', name:'Hammer Curl', sets:3, reps:'12–15', weight:25, rpe:7, note:'Settled at 25lbs. Neutral grip. Brachialis focus.' },
       ]},
     ],
     cardio:'20 min Zone 2 after lifting.'
@@ -648,6 +648,7 @@ function openSession(idx) {
   curSess = { idx, data:s };
   document.getElementById('sh-day').textContent = s.day;
   document.getElementById('sh-name').textContent = `${s.name} — ${s.targets.join(' · ')}`;
+  document.querySelector('.nav-bar').style.display = 'none';
 
   let h='';
   s.groups.forEach(g=>{
@@ -786,6 +787,7 @@ function saveSession(){
   log.unshift(entry);
   localStorage.setItem('ravi_gymlog', JSON.stringify(log));
   closeModal(); resetTimer();
+  document.querySelector('.nav-bar').style.display = 'flex';
   showToast('Session saved! 💪');
   buildWeek();
   goHome();
@@ -887,6 +889,7 @@ function switchScreen(name){
   document.getElementById(`screen-${name}`).classList.add('active');
 }
 function goHome(){
+  document.querySelector('.nav-bar').style.display = 'flex';
   switchScreen('home');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('nav-home').classList.add('active');
