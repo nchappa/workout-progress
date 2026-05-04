@@ -226,6 +226,26 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .mbtn.pri{background:var(--accent);color:#000;}
 .mbtn.sec{background:transparent;color:var(--muted);border:1px solid var(--border);}
 
+/* EXPORT PICKER */
+.filter-chips{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;padding-bottom:2px;flex-shrink:0;}
+.filter-chips::-webkit-scrollbar{display:none;}
+.fchip{flex-shrink:0;padding:7px 13px;border-radius:18px;background:var(--card);border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all 0.15s;font-family:var(--font);}
+.fchip:active{opacity:0.7;}
+.fchip.active{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
+.export-list{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--border);border-radius:12px;background:var(--card);margin-bottom:14px;min-height:120px;max-height:50vh;}
+.export-list::-webkit-scrollbar{display:none;}
+.export-list .empty-pick{padding:30px 20px;text-align:center;color:var(--muted);font-size:13px;}
+.exp-item{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--border);cursor:pointer;}
+.exp-item:last-child{border-bottom:none;}
+.exp-item:active{background:var(--card2);}
+.exp-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--muted2);display:flex;align-items:center;justify-content:center;font-size:13px;color:transparent;flex-shrink:0;transition:all 0.15s;}
+.exp-item.checked .exp-check{background:var(--accent);border-color:var(--accent);color:#000;}
+.exp-meta{flex:1;min-width:0;}
+.exp-d{font-size:11px;color:var(--muted);font-weight:600;}
+.exp-n{font-size:14px;font-weight:700;}
+.exp-extra{font-size:10px;color:var(--muted2);text-align:right;flex-shrink:0;font-weight:600;}
+.export-actions{display:flex;gap:10px;flex-shrink:0;}
+
 /* TOAST */
 .toast{position:fixed;bottom:calc(85px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);background:var(--accent);color:#000;padding:11px 22px;border-radius:100px;font-size:13px;font-weight:700;z-index:400;opacity:0;transition:opacity 0.25s;pointer-events:none;white-space:nowrap;}
 .toast.show{opacity:1;}
@@ -314,7 +334,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
       <div class="log-title">Session Log</div>
       <div class="log-sub">Your training history — stored on device</div>
     </div>
-    <button class="exp-btn" onclick="genExport()">📋 &nbsp;Generate Lift Log Export</button>
+    <button class="exp-btn" onclick="openExportPicker()">📋 &nbsp;Generate Lift Log Export</button>
     <div class="exp-preview" id="eprev"></div>
     <button class="copy-btn" id="copybtn" onclick="copyLog()">Copy to Clipboard</button>
     <div style="height:10px"></div>
@@ -391,6 +411,27 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
     <div class="modal-s" id="fmodal-sub">Save this session to your log?</div>
     <button class="mbtn pri" onclick="saveSession()">Save to Log</button>
     <button class="mbtn sec" onclick="closeModal()">Discard</button>
+  </div>
+</div>
+
+<!-- EXPORT PICKER MODAL -->
+<div class="modal-bg" id="emodal">
+  <div class="modal" style="max-height:85vh;display:flex;flex-direction:column;">
+    <div class="modal-pip"></div>
+    <div class="modal-t">Export Sessions</div>
+    <div class="modal-s">Pick which sessions to include in the export.</div>
+    <div class="filter-chips">
+      <div class="fchip active" onclick="applyFilter('week',this)">This week</div>
+      <div class="fchip" onclick="applyFilter('lastweek',this)">Last week</div>
+      <div class="fchip" onclick="applyFilter('7days',this)">Last 7 days</div>
+      <div class="fchip" onclick="applyFilter('all',this)">All</div>
+      <div class="fchip" onclick="applyFilter('none',this)">None</div>
+    </div>
+    <div class="export-list" id="export-list"></div>
+    <div class="export-actions">
+      <button class="mbtn sec" onclick="closeExportPicker()" style="margin:0;flex:1;">Cancel</button>
+      <button class="mbtn pri" onclick="confirmExport()" style="margin:0;flex:2;" id="export-confirm">Export</button>
+    </div>
   </div>
 </div>
 
@@ -940,10 +981,108 @@ function toggleEntry(i){ document.getElementById(`lb-${i}`).classList.toggle('op
 // ═══════════════════════════════════════════════
 // EXPORT
 // ═══════════════════════════════════════════════
-function genExport(){
+// State for export picker — keys are session indices, value is true if selected
+let exportSelection = {};
+
+function openExportPicker(){
   if(!log.length){ showToast('No sessions to export yet'); return; }
+  // Default selection: this week
+  applyFilterLogic('week');
+  renderExportList();
+  document.getElementById('emodal').classList.add('open');
+}
+
+function closeExportPicker(){
+  document.getElementById('emodal').classList.remove('open');
+}
+
+// Compute Monday 00:00 of the week containing date d
+function mondayOf(d){
+  const dow=d.getDay();
+  const off=dow===0?-6:1-dow;
+  const m=new Date(d); m.setDate(d.getDate()+off); m.setHours(0,0,0,0);
+  return m;
+}
+
+function parseEntryDate(ds){
+  const [d,m,y]=ds.split('/').map(Number);
+  return new Date(y,m-1,d);
+}
+
+function applyFilter(kind, el){
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  if(el) el.classList.add('active');
+  applyFilterLogic(kind);
+  renderExportList();
+}
+
+function applyFilterLogic(kind){
+  exportSelection={};
+  const now=new Date();
+  const thisMon=mondayOf(now);
+  const lastMon=new Date(thisMon); lastMon.setDate(thisMon.getDate()-7);
+  const lastSun=new Date(thisMon); lastSun.setDate(thisMon.getDate()-1); lastSun.setHours(23,59,59,999);
+  const sevenDaysAgo=new Date(now); sevenDaysAgo.setDate(now.getDate()-7); sevenDaysAgo.setHours(0,0,0,0);
+  log.forEach((e,i)=>{
+    const ed=parseEntryDate(e.date);
+    if(kind==='all') exportSelection[i]=true;
+    else if(kind==='none') exportSelection[i]=false;
+    else if(kind==='week' && ed>=thisMon) exportSelection[i]=true;
+    else if(kind==='lastweek' && ed>=lastMon && ed<=lastSun) exportSelection[i]=true;
+    else if(kind==='7days' && ed>=sevenDaysAgo) exportSelection[i]=true;
+  });
+}
+
+function toggleExportItem(i){
+  exportSelection[i]=!exportSelection[i];
+  // Drop chip highlight since manual selection diverges from preset
+  document.querySelectorAll('.fchip').forEach(c=>c.classList.remove('active'));
+  renderExportList();
+}
+
+function renderExportList(){
+  const el=document.getElementById('export-list');
+  if(!log.length){
+    el.innerHTML='<div class="empty-pick">No sessions logged yet.</div>';
+    updateExportConfirm();
+    return;
+  }
+  el.innerHTML=log.map((e,i)=>{
+    const checked=exportSelection[i]?'checked':'';
+    const setsTotal=e.exercises.reduce((a,ex)=>a+ex.sets.length,0);
+    return `<div class="exp-item ${checked}" onclick="toggleExportItem(${i})">
+      <div class="exp-check">✓</div>
+      <div class="exp-meta">
+        <div class="exp-d">${e.date}${e.duration?' · '+e.duration+'m':''}</div>
+        <div class="exp-n">${e.emoji||'💪'} ${e.day} — ${e.sessName}</div>
+      </div>
+      <div class="exp-extra">${e.exercises.length} ex<br>${setsTotal} sets</div>
+    </div>`;
+  }).join('');
+  updateExportConfirm();
+}
+
+function updateExportConfirm(){
+  const n=Object.values(exportSelection).filter(v=>v).length;
+  const btn=document.getElementById('export-confirm');
+  btn.textContent=n===0?'Export':`Export (${n})`;
+  btn.style.opacity=n===0?'0.5':'1';
+  btn.style.pointerEvents=n===0?'none':'auto';
+}
+
+function confirmExport(){
+  const indices=Object.keys(exportSelection).filter(k=>exportSelection[k]).map(k=>parseInt(k));
+  if(!indices.length){ showToast('Pick at least one session'); return; }
+  const selected=indices.map(i=>log[i]);
+  generateExportText(selected);
+  closeExportPicker();
+}
+
+function generateExportText(entries){
   let txt='=====================================\nLIFT LOG\n=====================================\n\nATHLETE: Ravi\n\n-------------------------------------\nSESSION LOG\n-------------------------------------\n\n';
-  [...log].reverse().forEach(e=>{
+  // Sort chronologically (oldest first)
+  const sorted=[...entries].sort((a,b)=>parseEntryDate(a.date)-parseEntryDate(b.date));
+  sorted.forEach(e=>{
     txt+=`[${e.date}] — ${e.sessName}\n\nExercise          | Sets x Reps | Weight (lbs) | RPE\n----------------------------------------------------------\n`;
     e.exercises.forEach(ex=>{
       const setsN=ex.sets.length;
@@ -959,6 +1098,7 @@ function genExport(){
   const prev=document.getElementById('eprev');
   prev.textContent=txt; prev.classList.add('show');
   document.getElementById('copybtn').classList.add('show');
+  showToast(`Exported ${entries.length} session${entries.length>1?'s':''}`);
 }
 
 function copyLog(){
