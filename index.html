@@ -141,8 +141,11 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .done-btn{width:36px;height:36px;border-radius:9px;border:2px solid var(--border);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;transition:all 0.15s;flex-shrink:0;}
 .done-btn:active{transform:scale(0.9);}
 .done-btn.done{background:var(--accent);border-color:var(--accent);}
-.addset-btn{width:100%;padding:9px;background:transparent;border:1px dashed var(--muted2);border-radius:9px;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;margin-top:4px;}
+.set-actions{display:flex;gap:6px;margin-top:4px;}
+.addset-btn{flex:2;padding:9px;background:transparent;border:1px dashed var(--muted2);border-radius:9px;color:var(--muted);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;}
 .addset-btn:active{background:var(--card2);}
+.rmset-btn{flex:1;padding:9px;background:transparent;border:1px dashed rgba(255,77,107,0.4);border-radius:9px;color:rgba(255,107,107,0.8);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;}
+.rmset-btn:active{background:rgba(255,77,107,0.08);}
 .ex-note{border-top:1px solid var(--border);padding:10px 14px 12px;font-size:11px;color:var(--muted);line-height:1.5;font-style:italic;}
 .ex-tip{border-top:1px solid var(--border);padding:8px 14px;font-size:11px;color:var(--accent);font-weight:600;background:var(--accent-dim);}
 
@@ -273,13 +276,13 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
     <div class="phase-banner">
       <div class="phase-icon">🎯</div>
       <div class="phase-info">
-        <div class="phase-title">Hypertrophy + Fat Loss · Block 1</div>
-        <div class="phase-sub">Compounds first · Zone 2 cardio after</div>
+        <div class="phase-title" id="phase-title">Hypertrophy + Fat Loss · Block 1</div>
+        <div class="phase-sub" id="phase-sub">Compounds first · Zone 2 cardio after</div>
       </div>
-      <div class="phase-week">WK 3</div>
+      <div class="phase-week" id="phase-week">WK 3</div>
     </div>
     <div class="week-strip" id="wstrip"></div>
-    <div class="sec-title">This week's split</div>
+    <div class="sec-title" id="sec-title">This week's split</div>
     <div id="scards"></div>
     <div class="safe-bottom"></div>
   </div>
@@ -478,10 +481,10 @@ const P = [
           note:'W2: 3×15 @ 55 ✅. Bumped to 60.', tip:'Long head emphasis. Stretch deep at bottom.' },
       ]},
       { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Cable Crunch', sets:3, reps:'15–20', weight:50, rpe:7,
-          note:'⚠ CALIBRATE — pick a real weight this time. 50 is a starting estimate. Spinal flexion against load.', tip:'Round spine, crunch chest to hips, hold 1 sec.' },
-        { id:'D2', name:'Pallof Press', sets:3, reps:'12/side', weight:30, rpe:7,
-          note:'⚠ CALIBRATE — 30lbs estimate. Anti-rotation, NOT a chest press.', tip:'Brace and hold — don\'t let the cable twist you.' },
+        { id:'D1', name:'Weighted Decline Crunch', sets:3, reps:'12–15', weight:25, rpe:8,
+          note:'NEW — replaces Cable Crunch (you weren\'t feeling it). Adjustable bench at slight decline (~15-20°). Hold a plate on chest, crunch up. Direct rectus abdominis loading. Start at 25lbs (one plate), bump as it gets easier.', tip:'Round upper back, crunch ribs toward hips. Hold 1 sec at top.' },
+        { id:'D2', name:'Pallof Press', sets:3, reps:'12/side', weight:35, rpe:7,
+          note:'W3: tested 40-45lbs at RPE 7. Settling at 35 across ALL three days (Mon/Thu/Fri) for consistency. Anti-rotation, NOT a chest press.', tip:'Brace and hold — don\'t let the cable twist you.' },
       ]},
     ],
     cardio:'15–20 min Zone 2 — incline walk (12% grade, 3.0–3.5 mph) or bike. HR ~130–140. This is where fat loss happens.'
@@ -550,8 +553,8 @@ const P = [
           note:'NEW — direct rear delt + upper back work. Critical for posture and the "3D shoulder" look. Rope, high pulley, pull rope to forehead, elbows wide and high.', tip:'Pull rope APART at end range. Like flexing your back in the mirror.' },
       ]},
       { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Hanging Leg Raise', sets:3, reps:'12–15', weight:0, rpe:8,
-          note:'W2: 3×12 @ BW — chase 15 clean before adding. Already warmed up from pulling.', tip:'Posterior pelvic tilt. Don\'t swing.' },
+        { id:'D1', name:'Lying Leg Raise', sets:3, reps:'12–15', weight:0, rpe:8,
+          note:'NEW — replaces Hanging Leg Raise (forearms toast after pull day, can\'t hang properly). Lie on floor or bench, hands under hips, raise legs to vertical, lower slowly. Same movement pattern, no grip demand.', tip:'Press lower back into floor. Slow lower (3 sec). Don\'t let feet touch down between reps.' },
       ]},
     ],
     cardio:'15–20 min Zone 2 — incline walk preferred. Lower body is fresh, easy day to push heart rate.'
@@ -591,8 +594,8 @@ const P = [
           note:'Pump finisher. Lighter than Mon (Mon was 60 @ 10–12).', tip:'Single arm if you want extra ROM.' },
       ]},
       { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Pallof Press', sets:3, reps:'12/side', weight:30, rpe:7,
-          note:'⚠ Use the same calibrated weight from Mon. Anti-rotation.', tip:'Don\'t let cable twist your torso. Slow tempo.' },
+        { id:'D1', name:'Pallof Press', sets:3, reps:'12/side', weight:35, rpe:7,
+          note:'Locked at 35lbs across all 3 days. Anti-rotation, brace-focused.', tip:'Don\'t let cable twist your torso. Slow tempo.' },
       ]},
     ],
     cardio:'15–20 min Zone 2 — easy bike. Don\'t crush yourself before deadlift day.'
@@ -620,12 +623,12 @@ const P = [
           note:'NEW — gives calves their 2nd hit of the week. Calves are stubborn, need 2x/week to grow. Same load as Tuesday.', tip:'Pause + stretch each rep. 2 sec at bottom.' },
       ]},
       { label:'C · Core (Hard Finisher)', ex:[
-        { id:'C1', name:'Cable Crunch', sets:3, reps:'12–15', weight:60, rpe:8,
-          note:'Push harder than Mon — 60lbs, lower reps. Visible abs come from progressive overload here too.', tip:'Round spine, hips don\'t move.' },
-        { id:'C2', name:'Hanging Leg Raise', sets:3, reps:'12–15', weight:0, rpe:8,
-          note:'W2: 3×12 @ BW — chase 15 clean.', tip:'Slow lower. Don\'t rest at bottom.' },
-        { id:'C3', name:'Pallof Press', sets:3, reps:'12/side', weight:30, rpe:7,
-          note:'Anti-rotation finisher.', tip:'Brace as you press out.' },
+        { id:'C1', name:'Weighted Decline Crunch', sets:3, reps:'10–12', weight:35, rpe:8,
+          note:'Heavier than Mon (25lbs there) — this is the hard core day. Adjustable bench at slight decline. Plate on chest. Lower rep, more load.', tip:'Round upper back, crunch ribs to hips. Hold 1 sec at top, slow descent.' },
+        { id:'C2', name:'Lying Leg Raise', sets:3, reps:'12–15', weight:0, rpe:8,
+          note:'NEW — replaces Hanging Leg Raise. Lie on floor/bench, hands under hips, raise legs to vertical, lower slowly. After heavy deadlift day, no grip demand is the right call.', tip:'Press lower back to floor. 3 sec lower. Feet don\'t touch between reps.' },
+        { id:'C3', name:'Pallof Press', sets:3, reps:'12/side', weight:35, rpe:7,
+          note:'Anti-rotation finisher. Lock weight at 35lbs across all 3 days for consistency.', tip:'Brace as you press out. Don\'t let cable rotate you.' },
       ]},
     ],
     cardio:'10–15 min easy walk. End of week, prioritize recovery.'
@@ -648,8 +651,8 @@ const DAY_EMOJIS = ['🔥','🦵','💪','⚡','🏋️'];
 // STATE
 // ═══════════════════════════════════════════════
 let curSess = null;
-let timerSec = 0, timerOn = false, timerIv = null;
-let restSec = 0, restOn = false, restIv = null;
+let timerStart = null, timerAccumulated = 0, timerOn = false, timerIv = null;
+let restStart = null, restOn = false, restIv = null;
 let log = JSON.parse(localStorage.getItem('ravi_gymlog_v3') || '[]');
 let bwLog = JSON.parse(localStorage.getItem('ravi_bw_v3') || '[]');
 let setCounters = {};
@@ -676,6 +679,68 @@ function tick() {
   document.getElementById('greeting').textContent = h<12?'Good morning,':h<17?'Good afternoon,':'Good evening,';
 }
 tick(); setInterval(tick, 15000);
+
+// ═══════════════════════════════════════════════
+// PROGRAMME TIMELINE
+// ═══════════════════════════════════════════════
+// Anchor: Mon Apr 20, 2026 = Block 1 Week 1 Monday
+// Each block = 4 weeks (Wk 4 of each block is a deload)
+const PROG_ANCHOR = new Date(2026, 3, 20); // April 20, 2026 (month is 0-indexed)
+const WEEKS_PER_BLOCK = 4;
+
+function getProgramPosition(now){
+  // Returns {block, week, isDeload, daysIntoWeek, daysToNextBlock}
+  const n = new Date(now); n.setHours(0,0,0,0);
+  const a = new Date(PROG_ANCHOR);
+  const days = Math.floor((n - a) / 86400000);
+  if(days < 0) return {block:1, week:1, isDeload:false, daysIntoWeek:0, daysToNextBlock:WEEKS_PER_BLOCK*7};
+  const weekIdx = Math.floor(days / 7);          // 0-indexed weeks since anchor
+  const block = Math.floor(weekIdx / WEEKS_PER_BLOCK) + 1;
+  const week = (weekIdx % WEEKS_PER_BLOCK) + 1;
+  const isDeload = week === WEEKS_PER_BLOCK;
+  const daysIntoWeek = days % 7;                  // 0=Mon, 6=Sun
+  const daysToNextBlock = (WEEKS_PER_BLOCK - week) * 7 + (7 - daysIntoWeek - 1);
+  return {block, week, isDeload, daysIntoWeek, daysToNextBlock, weekIdx};
+}
+
+function buildBanner(){
+  const pos = getProgramPosition(new Date());
+  const titleEl = document.getElementById('phase-title');
+  const subEl = document.getElementById('phase-sub');
+  const wkEl = document.getElementById('phase-week');
+  const secEl = document.getElementById('sec-title');
+  if(!titleEl) return;
+
+  // Only blocks 1-3 are planned (12-week mesocycle). After that, prompt redesign.
+  if(pos.block > 3){
+    titleEl.textContent = `🚨 Programme expired · Time to design next mesocycle`;
+    subEl.textContent = `You completed the 12-week plan. Ask Claude for Block 4+.`;
+    wkEl.textContent = `DONE`;
+    secEl.textContent = `Past programme · run maintenance until updated`;
+    return;
+  }
+
+  titleEl.textContent = `Hypertrophy + Fat Loss · Block ${pos.block}`;
+  wkEl.textContent = `WK ${pos.week}`;
+
+  if(pos.isDeload){
+    if(pos.block === 3){
+      subEl.textContent = `🔵 Final deload · Programme ends in ${pos.daysToNextBlock+1} day${pos.daysToNextBlock===0?'':'s'} · Plan Block 4`;
+    } else {
+      subEl.textContent = `🔵 Deload week · Block ${pos.block+1} starts in ${pos.daysToNextBlock+1} day${pos.daysToNextBlock===0?'':'s'}`;
+    }
+  } else if(pos.daysToNextBlock <= 7){
+    if(pos.block === 3){
+      subEl.textContent = `Last week of Block 3 · Plan Block 4 with Claude`;
+    } else {
+      subEl.textContent = `Block ${pos.block+1} starts in ${pos.daysToNextBlock+1} days`;
+    }
+  } else {
+    subEl.textContent = `Compounds first · Zone 2 cardio after`;
+  }
+
+  secEl.textContent = `Block ${pos.block} · Week ${pos.week} split`;
+}
 
 // ═══════════════════════════════════════════════
 // WEEK STRIP
@@ -799,7 +864,10 @@ function openSession(idx) {
         <div class="sets-wrap" id="sw-${ex.id}">
           <div class="sets-hdr"><div>#</div><div>Weight</div><div>Reps</div><div>RPE</div><div>✓</div></div>
           ${rows}
-          <button class="addset-btn" onclick="addSet('${ex.id}','${dw}','${ex.reps}',${ex.rpe})">+ Add Set</button>
+          <div class="set-actions" id="sa-${ex.id}">
+            <button class="addset-btn" onclick="addSet('${ex.id}','${dw}','${ex.reps}',${ex.rpe})">+ Add Set</button>
+            <button class="rmset-btn" onclick="removeSet('${ex.id}')">− Remove</button>
+          </div>
         </div>
         ${ex.tip?`<div class="ex-tip">${ex.tip}</div>`:''}
         ${ex.note?`<div class="ex-note">${ex.note}</div>`:''}
@@ -849,45 +917,72 @@ function addSet(id,dw,reps,rpe){
   setCounters[id]=(setCounters[id]||0)+1;
   const i=setCounters[id];
   const wrap=document.getElementById(`sw-${id}`);
-  const addBtn=wrap.querySelector('.addset-btn');
+  const actions=document.getElementById(`sa-${id}`);
   const div=document.createElement('div');
   div.innerHTML=makeSetRow(id,i,dw,dw,reps,rpe);
-  wrap.insertBefore(div.firstChild,addBtn);
+  wrap.insertBefore(div.firstChild,actions);
+  updateProgress();
+}
+
+function removeSet(id){
+  const i=setCounters[id]||0;
+  if(i<=1){ showToast('At least 1 set required'); return; }
+  const row=document.getElementById(`sr-${id}-${i}`);
+  if(row) row.remove();
+  setCounters[id]=i-1;
   updateProgress();
 }
 
 // ═══════════════════════════════════════════════
-// TIMERS
+// TIMERS — timestamp-based so they survive backgrounding
 // ═══════════════════════════════════════════════
+function getElapsedSec(){
+  // Returns total elapsed seconds for session timer
+  if(timerOn && timerStart) return timerAccumulated + Math.floor((Date.now()-timerStart)/1000);
+  return timerAccumulated;
+}
+function getRestSec(){
+  if(restOn && restStart) return Math.floor((Date.now()-restStart)/1000);
+  return 0;
+}
+function fmtTime(s){
+  const m=Math.floor(s/60), sec=(s%60).toString().padStart(2,'0');
+  return `${m}:${sec}`;
+}
+function tickSession(){
+  document.getElementById('tdisp').textContent=fmtTime(getElapsedSec());
+}
+function tickRest(){
+  document.getElementById('rdisp').textContent=fmtTime(getRestSec());
+}
+
 function toggleTimer(){
   if(timerOn){
-    clearInterval(timerIv); timerOn=false;
+    // Freeze accumulated time, stop ticking
+    timerAccumulated=getElapsedSec();
+    timerStart=null; timerOn=false;
+    clearInterval(timerIv);
     document.getElementById('tbtn').textContent='Resume';
   } else {
-    timerIv=setInterval(()=>{
-      timerSec++;
-      const m=Math.floor(timerSec/60), s=(timerSec%60).toString().padStart(2,'0');
-      document.getElementById('tdisp').textContent=`${m}:${s}`;
-    },1000);
+    timerStart=Date.now();
     timerOn=true;
+    timerIv=setInterval(tickSession,1000);
+    tickSession();
     document.getElementById('tbtn').textContent='Pause';
   }
 }
 function resetTimer(){
-  clearInterval(timerIv); timerOn=false; timerSec=0;
+  clearInterval(timerIv); timerOn=false;
+  timerStart=null; timerAccumulated=0;
   document.getElementById('tdisp').textContent='0:00';
   document.getElementById('tbtn').textContent='Start';
 }
 
 function startRest(){
-  clearInterval(restIv); restSec=0;
-  document.getElementById('rdisp').textContent='0:00';
-  restIv=setInterval(()=>{
-    restSec++;
-    const m=Math.floor(restSec/60), s=(restSec%60).toString().padStart(2,'0');
-    document.getElementById('rdisp').textContent=`${m}:${s}`;
-  },1000);
-  restOn=true;
+  clearInterval(restIv);
+  restStart=Date.now(); restOn=true;
+  restIv=setInterval(tickRest,1000);
+  tickRest();
   document.getElementById('rbtn').textContent='Stop';
 }
 function toggleRest(){
@@ -895,7 +990,7 @@ function toggleRest(){
   else { startRest(); }
 }
 function resetRest(){
-  clearInterval(restIv); restOn=false; restSec=0;
+  clearInterval(restIv); restOn=false; restStart=null;
   document.getElementById('rdisp').textContent='0:00';
   document.getElementById('rbtn').textContent='Rest';
 }
@@ -906,7 +1001,7 @@ function resetRest(){
 function finishSession(){
   const total=document.querySelectorAll('.done-btn').length;
   const done=document.querySelectorAll('.done-btn.done').length;
-  document.getElementById('fmodal-sub').textContent=`${done} of ${total} sets completed in ${Math.round(timerSec/60)} min. Save to your log?`;
+  document.getElementById('fmodal-sub').textContent=`${done} of ${total} sets completed in ${Math.round(getElapsedSec()/60)} min. Save to your log?`;
   document.getElementById('fmodal').classList.add('open');
 }
 function closeModal(){ document.getElementById('fmodal').classList.remove('open'); }
@@ -938,7 +1033,7 @@ function saveSession(){
   const entry={
     date:dateStr, sessName:s.name, sessId:s.id,
     day:s.day, emoji:s.emoji, color:s.color,
-    duration:Math.round(timerSec/60), exercises
+    duration:Math.round(getElapsedSec()/60), exercises
   };
   log.unshift(entry);
   localStorage.setItem('ravi_gymlog_v3',JSON.stringify(log));
@@ -1328,7 +1423,7 @@ function buildVolBars(){
 function switchNav(tab){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById(`nav-${tab}`).classList.add('active');
-  if(tab==='home'){ buildCards(); switchScreen('home'); }
+  if(tab==='home'){ buildBanner(); buildWeek(); buildCards(); switchScreen('home'); }
   if(tab==='log'){ buildLog(); switchScreen('log'); }
   if(tab==='progress'){ buildProgress(); switchScreen('progress'); }
 }
@@ -1338,6 +1433,7 @@ function switchScreen(name){
 }
 function goHome(){
   document.querySelector('.nav-bar').style.display='flex';
+  buildBanner(); buildWeek(); buildCards();
   switchScreen('home');
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   document.getElementById('nav-home').classList.add('active');
@@ -1369,7 +1465,16 @@ self.addEventListener('fetch',e=>{
   }catch(e){}
 }
 
+// Re-sync timer displays when app comes back to foreground
+document.addEventListener('visibilitychange', () => {
+  if(!document.hidden){
+    if(timerOn) tickSession();
+    if(restOn) tickRest();
+  }
+});
+
 // INIT
+buildBanner();
 buildWeek();
 buildCards();
 </script>
