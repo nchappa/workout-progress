@@ -481,8 +481,8 @@ const P = [
           note:'W2: 3×15 @ 55 ✅. Bumped to 60.', tip:'Long head emphasis. Stretch deep at bottom.' },
       ]},
       { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Weighted Decline Crunch', sets:3, reps:'12–15', weight:25, rpe:8,
-          note:'NEW — replaces Cable Crunch (you weren\'t feeling it). Adjustable bench at slight decline (~15-20°). Hold a plate on chest, crunch up. Direct rectus abdominis loading. Start at 25lbs (one plate), bump as it gets easier.', tip:'Round upper back, crunch ribs toward hips. Hold 1 sec at top.' },
+        { id:'D1', name:'Lying Crunch (weighted)', sets:3, reps:'12–15', weight:25, rpe:8,
+          note:'NEW — bench doesn\'t support decline. Lie flat on floor or bench. Hold plate on chest. Crunch ribs to hips, slow lower. Same target muscle, no equipment dependency.', tip:'Press lower back into floor at top. Hold 1 sec at peak contraction.' },
         { id:'D2', name:'Pallof Press', sets:3, reps:'12/side', weight:35, rpe:7,
           note:'W3: tested 40-45lbs at RPE 7. Settling at 35 across ALL three days (Mon/Thu/Fri) for consistency. Anti-rotation, NOT a chest press.', tip:'Brace and hold — don\'t let the cable twist you.' },
       ]},
@@ -539,8 +539,8 @@ const P = [
           note:'W2 Upper day: 4×12 @ 40. This is now the heavy row variant — using 50 (your DB cap). Lower reps, more load.', tip:'Brace on bench, pull elbow to hip, full stretch at bottom.' },
         { id:'B2', name:'Seated Cable Row (close grip)', sets:3, reps:'10–12', weight:110, rpe:7,
           note:'W2: 3×12 @ 100 — bump to 110. Mid-back thickness.', tip:'Squeeze shoulder blades, don\'t lean back excessively.' },
-        { id:'B3', name:'Chest-Supported DB Row (lat-bias)', sets:3, reps:'10–12', weight:35, rpe:7,
-          note:'NEW — replaces Straight Arm Pulldown (you weren\'t feeling it). Lie face-down on incline bench (~30°). DBs hanging straight down. Pull with elbows WIDE (45° from torso, not tucked). This is a lat-bias row — totally different feel from Pendlay (mid-back) and DB Row (lower lat). Start light at 35lbs to find the feel.', tip:'Elbows wide. Pull DBs toward your hips, not chest. Hard squeeze at top.' },
+        { id:'B3', name:'DB Pullover', sets:3, reps:'10–12', weight:40, rpe:7,
+          note:'NEW — bench doesn\'t support chest-down incline. Lie FLAT on bench (chest up). DB held over chest with both hands. Lower behind head in arc, pull back over chest. Pure lat stretch. Different stimulus from rows.', tip:'Keep ribs down (don\'t arch back). Slight elbow bend, lock in. Feel lats stretch at bottom.' },
       ]},
       { label:'C · Biceps + Rear Delts', ex:[
         { id:'C1', name:'Dumbbell Curl', sets:3, reps:'10–12', weight:30, rpe:8,
@@ -623,8 +623,8 @@ const P = [
           note:'NEW — gives calves their 2nd hit of the week. Calves are stubborn, need 2x/week to grow. Same load as Tuesday.', tip:'Pause + stretch each rep. 2 sec at bottom.' },
       ]},
       { label:'C · Core (Hard Finisher)', ex:[
-        { id:'C1', name:'Weighted Decline Crunch', sets:3, reps:'10–12', weight:35, rpe:8,
-          note:'Heavier than Mon (25lbs there) — this is the hard core day. Adjustable bench at slight decline. Plate on chest. Lower rep, more load.', tip:'Round upper back, crunch ribs to hips. Hold 1 sec at top, slow descent.' },
+        { id:'C1', name:'Lying Crunch (weighted)', sets:3, reps:'10–12', weight:35, rpe:8,
+          note:'Heavier than Mon (25lbs) — Friday is hard core day. Lie flat. Hold plate on chest. Lower rep, more load. NOTE: you did this BW on W4 — start at 25lbs and build to 35.', tip:'Crunch ribs to hips. Hold 1 sec at top. Slow lower. No momentum.' },
         { id:'C2', name:'Lying Leg Raise', sets:3, reps:'12–15', weight:0, rpe:8,
           note:'NEW — replaces Hanging Leg Raise. Lie on floor/bench, hands under hips, raise legs to vertical, lower slowly. After heavy deadlift day, no grip demand is the right call.', tip:'Press lower back to floor. 3 sec lower. Feet don\'t touch between reps.' },
         { id:'C3', name:'Pallof Press', sets:3, reps:'12/side', weight:35, rpe:7,
@@ -683,9 +683,11 @@ tick(); setInterval(tick, 15000);
 // ═══════════════════════════════════════════════
 // PROGRAMME TIMELINE
 // ═══════════════════════════════════════════════
-// Anchor: Mon Apr 20, 2026 = Block 1 Week 1 Monday
+// Anchor: Mon Apr 27, 2026 = Block 1 Week 1 Monday (new Upper/Lower programme start)
 // Each block = 4 weeks (Wk 4 of each block is a deload)
-const PROG_ANCHOR = new Date(2026, 3, 20); // April 20, 2026 (month is 0-indexed)
+// Note: the original PPL+UL programme ran Apr 13-26. The new Upper/Lower programme started Apr 27.
+// May 18 = Block 1 Week 4 DELOAD. May 25 = Block 2 Week 1.
+const PROG_ANCHOR = new Date(2026, 3, 27); // April 27, 2026
 const WEEKS_PER_BLOCK = 4;
 
 function getProgramPosition(now){
@@ -835,7 +837,18 @@ function openSession(idx) {
   document.getElementById('sh-name').textContent=s.name;
   document.querySelector('.nav-bar').style.display='none';
 
+  // DELOAD detection: when current week is deload, reduce volume + intensity
+  const pos = getProgramPosition(new Date());
+  const isDeload = pos.isDeload;
+
   let h='';
+  if(isDeload){
+    h+=`<div class="coach-note" style="background:rgba(77,166,255,0.15);border-color:var(--accent2);">
+      <div class="coach-icon">🔵</div>
+      <div><b style="color:var(--accent2);">DELOAD WEEK — Block ${pos.block} Wk ${pos.week}</b><br>
+      Sets reduced. Weights held. <b>RPE target: 6–7 (leave 3+ reps in tank).</b> DO NOT PR. This week locks in gains.</div>
+    </div>`;
+  }
   if(s.coach){
     h+=`<div class="coach-note"><div class="coach-icon">🎯</div><div><b>Coach:</b> ${s.coach}</div></div>`;
   }
@@ -843,36 +856,46 @@ function openSession(idx) {
   s.groups.forEach(g=>{
     h+=`<div class="grp-hdr"><div class="grp-line"></div>${g.label}<div class="grp-line"></div></div>`;
     g.ex.forEach(ex=>{
-      const rc=ex.rpe>=9?'rpe9':ex.rpe>=8?'rpe8':'rpe7';
+      // Apply deload modifications
+      let effSets = ex.sets;
+      let effRpe = ex.rpe;
+      if(isDeload){
+        // Compound: 4 → 3 sets. Accessory: 3 → 2 sets. Core/finishers: 3 → 2.
+        if(ex.compound){ effSets = Math.max(3, ex.sets - 1); }
+        else { effSets = Math.max(2, ex.sets - 1); }
+        effRpe = 7; // Cap RPE at 7 during deload
+      }
+      const rc=effRpe>=9?'rpe9':effRpe>=8?'rpe8':'rpe7';
       const dw=ex.weight!==null?ex.weight:'';
       const last = getLastPerformance(ex.name);
       let lastHTML = '';
       if(last){
-        const upArrow = last.maxW < ex.weight ? '↑' : '';
+        const upArrow = !isDeload && last.maxW < ex.weight ? '↑' : '';
         const cls = upArrow ? 'up' : '';
         lastHTML = `<div class="last-row ${cls}">📊 Last: <b>${last.maxW}lb × ${last.lastSets.length} sets</b> · ${last.date} ${upArrow?`<span style="margin-left:auto;color:var(--good);font-weight:800;">${upArrow} +${(ex.weight-last.maxW).toFixed(1)}lb</span>`:''}</div>`;
       }
       let rows='';
-      for(let i=1;i<=ex.sets;i++) rows+=makeSetRow(ex.id,i,dw,dw,ex.reps,ex.rpe);
+      for(let i=1;i<=effSets;i++) rows+=makeSetRow(ex.id,i,dw,dw,ex.reps,effRpe);
+      const deloadTag = isDeload ? ' · 🔵 deload' : (ex.compound?' · COMPOUND':'');
       h+=`<div class="excard">
         <div class="excard-hdr">
           <div class="ex-nbadge ${ex.compound?'compound':''}">${ex.compound?'⚡':ex.id}</div>
-          <div class="ex-info"><div class="ex-nm">${ex.name}</div><div class="ex-sub">${ex.sets} sets × ${ex.reps}${ex.compound?' · COMPOUND':''}</div></div>
-          <div class="rpe-pill ${rc}">RPE ${ex.rpe}</div>
+          <div class="ex-info"><div class="ex-nm">${ex.name}</div><div class="ex-sub">${effSets} sets × ${ex.reps}${deloadTag}</div></div>
+          <div class="rpe-pill ${rc}">RPE ${effRpe}</div>
         </div>
         ${lastHTML}
         <div class="sets-wrap" id="sw-${ex.id}">
           <div class="sets-hdr"><div>#</div><div>Weight</div><div>Reps</div><div>RPE</div><div>✓</div></div>
           ${rows}
           <div class="set-actions" id="sa-${ex.id}">
-            <button class="addset-btn" onclick="addSet('${ex.id}','${dw}','${ex.reps}',${ex.rpe})">+ Add Set</button>
+            <button class="addset-btn" onclick="addSet('${ex.id}','${dw}','${ex.reps}',${effRpe})">+ Add Set</button>
             <button class="rmset-btn" onclick="removeSet('${ex.id}')">− Remove</button>
           </div>
         </div>
         ${ex.tip?`<div class="ex-tip">${ex.tip}</div>`:''}
         ${ex.note?`<div class="ex-note">${ex.note}</div>`:''}
       </div>`;
-      setCounters[ex.id]=ex.sets;
+      setCounters[ex.id]=effSets;
     });
   });
   h+=`<div class="cardio-note"><b>🏃 Cardio (Fat Loss)</b>${s.cardio}</div><div style="height:24px"></div>`;
