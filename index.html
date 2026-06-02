@@ -689,16 +689,33 @@ tick(); setInterval(tick, 15000);
 // Each block = 4 weeks (Wk 4 of each block is a deload)
 // Note: the original PPL+UL programme ran Apr 13-26. The new Upper/Lower programme started Apr 27.
 // May 18 = Block 1 Week 4 DELOAD. May 25 = Block 2 Week 1.
+// Anchor: Mon Apr 27, 2026 = Block 1 Week 1 Monday (new Upper/Lower programme start)
+// Each block = 4 weeks (Wk 4 of each block is a deload)
+// Note: User missed Jun 1-7 due to wisdom tooth extraction. Block 2 effectively
+// extends by one week. The app's auto-detection still says current week based on
+// calendar, so during week of Jun 8 it'll show B2 W3 — user should manually treat
+// it as B2 W2 prescriptions until back on track. We absorb the missed week.
 const PROG_ANCHOR = new Date(2026, 3, 27); // April 27, 2026
 const WEEKS_PER_BLOCK = 4;
+// Skipped weeks: user took Jun 1-7 off for wisdom tooth recovery
+const SKIPPED_WEEKS = [
+  // Week starting Mon Jun 1, 2026
+  new Date(2026, 5, 1).getTime()
+];
 
 function getProgramPosition(now){
   // Returns {block, week, isDeload, daysIntoWeek, daysToNextBlock}
+  // Accounts for SKIPPED_WEEKS (e.g. due to injury/illness) by subtracting them
+  // from the week count so the programme effectively pauses during those weeks.
   const n = new Date(now); n.setHours(0,0,0,0);
   const a = new Date(PROG_ANCHOR);
   const days = Math.floor((n - a) / 86400000);
   if(days < 0) return {block:1, week:1, isDeload:false, daysIntoWeek:0, daysToNextBlock:WEEKS_PER_BLOCK*7};
-  const weekIdx = Math.floor(days / 7);          // 0-indexed weeks since anchor
+  let weekIdx = Math.floor(days / 7);
+  // Subtract any skipped weeks that occurred at or before the current week
+  const currentWeekStart = a.getTime() + weekIdx*7*86400000;
+  const skippedCount = SKIPPED_WEEKS.filter(t => t <= currentWeekStart).length;
+  weekIdx = Math.max(0, weekIdx - skippedCount);
   const block = Math.floor(weekIdx / WEEKS_PER_BLOCK) + 1;
   const week = (weekIdx % WEEKS_PER_BLOCK) + 1;
   const isDeload = week === WEEKS_PER_BLOCK;
