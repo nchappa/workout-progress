@@ -458,25 +458,25 @@ const P = [
     id:'upper_push', day:'Monday', name:'Upper (Push focus)', emoji:'🔥',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Shoulders','Triceps','Core'],
-    coach:'BLOCK 3 — final block of the 12-week plan. Same structure, earned progressions. Lateral raises now use lengthened partials. Finish strong.',
+    coach:'BLOCK 3 W2. Squat 32.5, Deadlift 90, Lat PD 140, Stiff Leg 65 — earned jumps. OHP holds at 40 (chase 4×6). Lateral partials continue. Finish strong.',
     groups:[
       { label:'A · Primary Compounds', ex:[
         { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'5–6', weight:47.5, rpe:8, compound:true,
           note:'BLOCK 3 W1: 47.5lbs — EARNED with a clean 4×6 @ 45 in B2W4. Chase 4×5-6, then 50.', tip:'⚡ Heaviest lift of the day. Pause 1 sec at chest. Drive feet hard.' },
         { id:'A2', name:'Smith Machine OHP', sets:4, reps:'5–6', weight:40, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 40lbs. You hit 37.5×4×5 in B2W4. Chase 4×5-6.', tip:'⚡ No leg drive. Smooth bar path. Full lockout.' },
+          note:'W2: HOLD 40lbs (you got 4×4 in W1 — slowest press, needs time). Chase 4×5, then 4×6. No bump until you own 4×6.', tip:'⚡ No leg drive. Smooth bar path. Full lockout.' },
       ]},
       { label:'B · Push Hypertrophy', ex:[
-        { id:'B1', name:'Incline Dumbbell Press', sets:4, reps:'8–10', weight:40, rpe:8, compound:true,
-          note:'W3: hold 40lbs (DBs only go in 5lb jumps — no 42.5). You hit 4×8 @ 40 — now chase 4×10. When you hit 4×10 clean, jump to 45.', tip:'30–45° bench. Pause 1 sec at chest. Stop short of lockout.' },
+        { id:'B1', name:'Incline Dumbbell Press', sets:4, reps:'6–8', weight:45, rpe:8, compound:true,
+          note:'W2: 45lbs (you did 45×4×10 in W1 — app mislogged as 40). Near 50 DB cap. Chase 4×6-8, then 50 (cap → add sets after).', tip:'30–45° bench. Pause 1 sec at chest. Stop short of lockout.' },
         { id:'B2', name:'Cable Fly (low-to-high)', sets:3, reps:'12–15', weight:35, rpe:7,
           note:'W4: 35lbs. You hit 30×3×15 clean in W3. Push to 35.', tip:'Slight forward lean, meet hands at chin level. Slow eccentric.' },
       ]},
       { label:'C · Shoulders + Triceps', ex:[
         { id:'C1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12+partials', weight:20, rpe:9,
           note:'BLOCK 3 TWEAK: 20lbs. Do 12 full reps, THEN 4-6 bottom-third partials (stretched position) to failure. Breaks your 25lb cap — side delts grow from the lengthened position + metabolic stress, not heavier load.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure. Partials are the growth driver.' },
-        { id:'C2', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:85, rpe:8,
-          note:'W4: 85lbs. W3 you did 80×3×10. Push to 85 this week.', tip:'Elbows pinned. Full lockout. No body english.' },
+        { id:'C2', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:90, rpe:8,
+          note:'W2: hold 90lbs (you hit 90×3×8 in W1), chase 3×10.', tip:'Elbows pinned. Full lockout. No body english.' },
         { id:'C3', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:45, rpe:7,
           note:'W4: hold 45lbs (you did 45×3×8 in W3), chase 3×10. Long head focus.', tip:'Long head emphasis. Stretch deep at bottom. Elbows tight.' },
       ]},
@@ -498,10 +498,10 @@ const P = [
     coach:'Block 2 squat day. Building from honest full-depth 20lb baseline. +2.5 lb/wk on squat. Quads are showing — keep stimulus going.',
     groups:[
       { label:'A · Primary Compound', ex:[
-        { id:'A1', name:'Smith Machine Back Squat', sets:4, reps:'6–8', weight:30, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 30lbs FULL DEPTH. You hit 27.5×4×8 in B2W4. Chase 4×6-8 at depth.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
+        { id:'A1', name:'Smith Machine Back Squat', sets:4, reps:'6–8', weight:32.5, rpe:8, compound:true,
+          note:'W2: 32.5lbs FULL DEPTH (you hit 30×4×8 clean in W1). Chase 4×6-8 at depth.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
         { id:'A2', name:'Bulgarian Split Squat', sets:4, reps:'10–12', weight:20, rpe:8, compound:true,
-          note:'W4: hold 20lb DBs, add a 4TH set (volume, not load — 25 would break form). You hit 20×3×12 in W3.', tip:'Front foot far. Knee tracks over midfoot. Slow descent.' },
+          note:'W2: hold 20lb DBs, chase 4×12 (you hit 4×10 in W1). Form-capped — reps not load.', tip:'Front foot far. Knee tracks over midfoot. Slow descent.' },
       ]},
       { label:'B · Quad Hypertrophy', ex:[
         { id:'B1', name:'Goblet Squat (3 sec eccentric)', sets:3, reps:'10–12', weight:45, rpe:8,
@@ -512,10 +512,10 @@ const P = [
       { label:'C · Glutes + Calves', ex:[
         { id:'C1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:90, rpe:7,
           note:'W4: hold 90lbs (you hit 90×3×12 in W3), chase 3×15.', tip:'Drive HIPS forward, not just standing up. Squeeze at top.' },
-        { id:'C2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:100, rpe:7,
-          note:'W4: 100 lbs TOTAL on bar (50/side — what you did in W3 at RPE 7). LOG TOTAL not per-side going forward. Calves can take a lot — when 4×15 @ 100 is easy, go to 110.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (big diamond calf muscle). FORM: bar across upper traps, balls of feet on a plate/block, heels hang. 1-sec squeeze at top, 2-sec stretch at bottom (heel drops below block). Legs straight for gastroc.' },
-        { id:'C3', name:'Seated Calf Raise (Smith)', sets:3, reps:'15–20', weight:60, rpe:7,
-          note:'W4: 60 lbs TOTAL on bar (lighter than standing — seated/bent-knee is weaker). LOG TOTAL. If seated setup is awkward, sub a 2nd standing Smith raise with knees SLIGHTLY bent (soleus emphasis).', tip:'MUSCLES YOU SHOULD FEEL: Soleus (lower calf, under the gastroc — bent knee targets it). FORM: higher reps, slow tempo, full stretch each rep. Bent knee makes it soleus-dominant.' },
+        { id:'C2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7,
+          note:'W2: 120 total (you hit 110×4×12-15 in W1). LOG TOTAL. Calves take a lot — keep climbing.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (big diamond calf muscle). FORM: bar across upper traps, balls of feet on a plate/block, heels hang. 1-sec squeeze at top, 2-sec stretch at bottom (heel drops below block). Legs straight for gastroc.' },
+        { id:'C3', name:'Seated Calf Raise (Smith)', sets:3, reps:'15–20', weight:110, rpe:7,
+          note:'W2: 110 total (you did 110×3×20 in W1 — matched standing). LOG TOTAL. Soleus focus, slow tempo.', tip:'MUSCLES YOU SHOULD FEEL: Soleus (lower calf, under the gastroc — bent knee targets it). FORM: higher reps, slow tempo, full stretch each rep. Bent knee makes it soleus-dominant.' },
       ]},
     ],
     cardio:'10–15 min Zone 2 walk only. Don\'t bike hard — quads need to recover.'
@@ -530,9 +530,9 @@ const P = [
     groups:[
       { label:'A · Primary Compounds', ex:[
         { id:'A1', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:62.5, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 62.5lbs. You hit 60×4×7 in B2W4. Dead stop each rep.', tip:'⚡ Pull bar to lower ribs. Full reset on floor between reps. Dead stop.' },
+          note:'W2: hold 62.5lbs, chase 4×6-7 (2.5lb jump cost you reps — got 4×5 in W1). Dead stop each rep.', tip:'⚡ Pull bar to lower ribs. Full reset on floor between reps. Dead stop.' },
         { id:'A2', name:'Lat Pulldown (wide grip)', sets:4, reps:'6–8', weight:140, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 140lbs. You hit 135×4×7 in B2W4. Drive elbows down.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows DOWN, not back.' },
+          note:'W2: 140lbs (you held 135×4×8 in W1 — ready for the jump). Chase 4×6-8. Drive elbows down.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows DOWN, not back.' },
       ]},
       { label:'B · Back Hypertrophy', ex:[
         { id:'B1', name:'Dumbbell Row (heavy)', sets:5, reps:'5–6', weight:50, rpe:8, compound:true,
@@ -573,7 +573,7 @@ const P = [
         { id:'A2', name:'Single Arm DB Row', sets:5, reps:'8–10', weight:50, rpe:8, compound:true,
           note:'W3: 50lb cap — chase 5×8 then 5×10 (rep progression). You did 5×6 last week off the app. Push reps now.', tip:'Brace on bench. Drive elbow to hip pocket. Hard squeeze.' },
         { id:'A3', name:'Close Grip Smith Bench', sets:4, reps:'6–8', weight:42.5, rpe:8, compound:true,
-          note:'W4: START at 42.5 and HOLD all 4 sets (in W3 you started 45 but dropped to 40 by set 3 — 45 was too heavy to hold). Build 4×8 @ 42.5 first, then 45. Tricep mass builder.', tip:'Hands shoulder-width. Elbows tight. Drive into mid-chest.' },
+          note:'W2: hold 42.5 (you did 4×7 clean in W1), chase 4×8, then 45. Tricep mass builder.', tip:'Hands shoulder-width. Elbows tight. Drive into mid-chest.' },
       ]},
       { label:'B · Shoulders + Chest Hypertrophy', ex:[
         { id:'B1', name:'Arnold Press', sets:3, reps:'10–12', weight:30, rpe:8, compound:true,
@@ -609,18 +609,18 @@ const P = [
     coach:'Block 2 deadlift day. Recovery is real now after deload. Start AT working weight — no ramping in working sets.',
     groups:[
       { label:'A · Primary Compound', ex:[
-        { id:'A1', name:'Smith Conventional Deadlift', sets:4, reps:'4–5', weight:87.5, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 87.5lbs. You hit 85×4×5 in B2W4. Warm up separately, then 4×4-5 working sets. No ramping.', tip:'⚡ Brace, push floor away, hips and shoulders rise together. Lockout glutes.' },
+        { id:'A1', name:'Smith Conventional Deadlift', sets:4, reps:'4–5', weight:90, rpe:8, compound:true,
+          note:'W2: 90lbs (you hit 87.5×4×5 clean in W1). Warm up separately, then 4×4-5. No ramping.', tip:'⚡ Brace, push floor away, hips and shoulders rise together. Lockout glutes.' },
         { id:'A2', name:'Romanian Deadlift', sets:4, reps:'6–8', weight:75, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 75lbs. You hit 72.5×4×6 in B2W4. Hamstring stretch — push hips back.', tip:'Push hips back, knees soft, bar hugs legs. Deep stretch at bottom.' },
+          note:'W2: hold 75lbs (you hit 4×8 in W1), chase clean 4×8 again then 77.5. Hamstring stretch.', tip:'Push hips back, knees soft, bar hugs legs. Deep stretch at bottom.' },
       ]},
       { label:'B · Posterior + Quads + Calves', ex:[
-        { id:'B1', name:'Stiff Leg Deadlift', sets:3, reps:'8–10', weight:62.5, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 62.5lbs. You hit 60×3×10 in B2W4. Locked legs, max stretch.', tip:'Legs straight (not locked). Feel hamstrings load.' },
+        { id:'B1', name:'Stiff Leg Deadlift', sets:3, reps:'8–10', weight:65, rpe:8, compound:true,
+          note:'W2: 65lbs (you hit 62.5×3×10 in W1). Locked legs, max stretch.', tip:'Legs straight (not locked). Feel hamstrings load.' },
         { id:'B2', name:'Goblet Squat (high rep)', sets:3, reps:'10–12', weight:50, rpe:7,
           note:'W4: 50lbs (DB CAP — you hit 45×3×15 in W3). Chase 3×10-12, then add sets. Quad pump after deadlifts.', tip:'Hold DB at chest. Full depth. Drive through midfoot.' },
-        { id:'B3', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:100, rpe:7,
-          note:'W4: 100 lbs TOTAL on bar (50/side, RPE 7 in W3). LOG TOTAL not per-side. 2nd calf hit of the week — when 4×15 is easy, go to 110.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (big calf muscle). FORM: bar across upper traps, balls of feet on block, heels hang. 1-sec squeeze top, 2-sec stretch bottom. Legs straight.' },
+        { id:'B3', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7,
+          note:'W2: 120 total (you hit 110×4×15 in W1). LOG TOTAL. 2nd calf hit of the week.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (big calf muscle). FORM: bar across upper traps, balls of feet on block, heels hang. 1-sec squeeze top, 2-sec stretch bottom. Legs straight.' },
       ]},
       { label:'C · Core + Obliques (Hard Finisher)', ex:[
         { id:'C1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:8,
