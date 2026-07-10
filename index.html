@@ -276,10 +276,10 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
     <div class="phase-banner">
       <div class="phase-icon">🎯</div>
       <div class="phase-info">
-        <div class="phase-title" id="phase-title">Hypertrophy + Fat Loss · Block 1</div>
-        <div class="phase-sub" id="phase-sub">Compounds first · Zone 2 cardio after</div>
+        <div class="phase-title" id="phase-title">Fat Loss Cut</div>
+        <div class="phase-sub" id="phase-sub">Deficit · compounds heavy · everything else supersets</div>
       </div>
-      <div class="phase-week" id="phase-week">WK 3</div>
+      <div class="phase-week" id="phase-week">WK 1</div>
     </div>
     <div class="week-strip" id="wstrip"></div>
     <div class="sec-title" id="sec-title">This week's split</div>
@@ -442,15 +442,15 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 
 <script>
 // ═══════════════════════════════════════════════
-// WEEK 3 · BLOCK 1
-// SPLIT: Upper / Lower-Quad / Pull / Upper / Lower-Posterior
-// PHILOSOPHY:
-//   - Compounds anchor every session (compound exercises marked .compound)
-//   - Quads 2x/wk (Tue + light on Fri optional), Posterior chain 2x/wk
-//   - Triceps + arms 2x/wk
-//   - Core finishers Mon/Thu (anti-rotation, anti-extension; visceral fat is from deficit + compound load)
-//   - Zone 2 cardio after every lifting day for fat loss
-//   - DBs capped at 50lbs (hardware limit)
+// CUT PHASE (Mesocycle 02) · Wk 1 = calibration deload · re-anchored Jul 13, 2026
+// SPLIT: Upper-Push / Lower-Quad / Pull / Upper-Pull-Arm / Lower-Posterior
+// PHILOSOPHY (fat-loss cut — RETAIN muscle in a deficit):
+//   - Heavy primaries stay STRAIGHT sets (heavy load = the muscle-retention signal)
+//   - Everything else pairs into SUPERSETS (ss field) for density + short sessions
+//   - NEW: Decline DB Press + High-to-Low Crossover (lower chest), Pull-ups 2x/wk
+//   - Progression wired WEEKLY from Friday logs (loads live in the app, not chat)
+//   - Deloads set explicitly (FORCE_DELOAD_WEEKS); calories to maintenance those weeks
+//   - DBs cap 50lb, 5lb jumps only; bench decline ~10-15deg; calves on Smith (total load)
 // ═══════════════════════════════════════════════
 const P = [
   // =============== MONDAY · UPPER (Push focus) ===============
@@ -458,33 +458,41 @@ const P = [
     id:'upper_push', day:'Monday', name:'Upper (Push focus)', emoji:'🔥',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Shoulders','Triceps','Core'],
-    coach:'BLOCK 3 W2. Squat 32.5, Deadlift 90, Lat PD 140, Stiff Leg 65 — earned jumps. OHP holds at 40 (chase 4×6). Lateral partials continue. Finish strong.',
+    coach:'CUT PHASE opens · Wk 1 = calibration deload. Groove the new moves LIGHT and find their weights: Decline DB Press (~40 start) and High-Low Crossover (~30 start) — we lock them Friday. Heavy primaries stay STRAIGHT sets (that load protects muscle in the deficit). Everything else supersets (‖) for density. Retain, don\'t chase PRs.',
     groups:[
-      { label:'A · Primary Compounds', ex:[
+      { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'5–6', weight:47.5, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 47.5lbs — EARNED with a clean 4×6 @ 45 in B2W4. Chase 4×5-6, then 50.', tip:'⚡ Heaviest lift of the day. Pause 1 sec at chest. Drive feet hard.' },
+          note:'WORKING: 47.5lbs, chase 4×5-6 then 50. On a cut this HOLDS while the waist drops — that is the win, not a stall.', tip:'⚡ Heaviest lift of the day. Pause 1 sec at chest. Drive feet hard.' },
         { id:'A2', name:'Smith Machine OHP', sets:4, reps:'5–6', weight:40, rpe:8, compound:true,
-          note:'W2: HOLD 40lbs (you got 4×4 in W1 — slowest press, needs time). Chase 4×5, then 4×6. No bump until you own 4×6.', tip:'⚡ No leg drive. Smooth bar path. Full lockout.' },
+          note:'WORKING: 40lbs, chase 4×5 then 4×6. No bump until you own 4×6 — slowest press, be patient.', tip:'⚡ No leg drive. Smooth bar path. Full lockout.' },
       ]},
-      { label:'B · Push Hypertrophy', ex:[
+      { label:'B · Chest Hypertrophy', ex:[
         { id:'B1', name:'Incline Dumbbell Press', sets:4, reps:'6–8', weight:45, rpe:8, compound:true,
-          note:'W2: 45lbs (you did 45×4×10 in W1 — app mislogged as 40). Near 50 DB cap. Chase 4×6-8, then 50 (cap → add sets after).', tip:'30–45° bench. Pause 1 sec at chest. Stop short of lockout.' },
-        { id:'B2', name:'Cable Fly (low-to-high)', sets:3, reps:'12–15', weight:35, rpe:7,
-          note:'W4: 35lbs. You hit 30×3×15 clean in W3. Push to 35.', tip:'Slight forward lean, meet hands at chin level. Slow eccentric.' },
+          note:'WORKING: 45lbs (near 50 DB cap). Chase 4×6-8, then 50 → add sets after the cap. Upper chest.', tip:'30–45° bench. Pause 1 sec at chest. Stop short of lockout.' },
+        { id:'B2', name:'Decline Dumbbell Press', sets:3, reps:'10–12', weight:40, rpe:8, compound:false,
+          note:'🆕 NEW — 10–15° decline (go steeper if the bench safely allows, more lower-pec that way). CALIBRATE this week: start ~40lbs, adjust to land 10-12 clean reps, we lock it Friday. Hits the lower/sternal chest that flat pressing under-works.', tip:'MUSCLES YOU SHOULD FEEL: Lower/sternal pec (bottom of the chest). FORM: slight decline, DBs start at lower-chest level, press up and slightly together, control the stretch at the bottom. Shoulder blades pinned. No bouncing off the chest.' },
       ]},
-      { label:'C · Shoulders + Triceps', ex:[
-        { id:'C1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12+partials', weight:20, rpe:9,
-          note:'BLOCK 3 TWEAK: 20lbs. Do 12 full reps, THEN 4-6 bottom-third partials (stretched position) to failure. Breaks your 25lb cap — side delts grow from the lengthened position + metabolic stress, not heavier load.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure. Partials are the growth driver.' },
-        { id:'C2', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:90, rpe:8,
-          note:'W2: hold 90lbs (you hit 90×3×8 in W1), chase 3×10.', tip:'Elbows pinned. Full lockout. No body english.' },
-        { id:'C3', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:45, rpe:7,
-          note:'W4: hold 45lbs (you did 45×3×8 in W3), chase 3×10. Long head focus.', tip:'Long head emphasis. Stretch deep at bottom. Elbows tight.' },
+      { label:'C · Superset 1 · Lower chest + rear delt (alternate, rest after the pair)', ex:[
+        { id:'C1', name:'High-to-Low Cable Crossover', sets:3, reps:'12–15', weight:30, rpe:8, ss:'SS1',
+          note:'🆕 NEW (replaces the low-to-high fly) — your PRIMARY lower-pec fly. High anchors, hands sweep DOWN to meet at the hips. CALIBRATE ~30lbs this week. The high-to-low path matches the lower chest line of pull.', tip:'MUSCLES YOU SHOULD FEEL: Lower/inner pec. FORM: cables set HIGH, slight forward lean, arms sweep down and together to hip level, 1 sec squeeze, slow return. Soft elbow bend held constant — it is a fly, not a press.' },
+        { id:'C2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'15–20', weight:25, rpe:7, ss:'SS1',
+          note:'‖ Superset with the crossover (antagonist — chest pulls in, rear delt pulls apart). WORKING: 25lbs, chase 3×18.', tip:'Lead with the pinky, squeeze shoulder blades together. Slow eccentric.' },
       ]},
-      { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:8,
-          note:'BODYWEIGHT OVERLOAD VARIANT — no equipment needed. Hands behind head (NOT pulling neck) with elbows pointed back. Use TEMPO: 3 sec up, 1 sec hold at peak contraction, 3 sec down. Each rep should take ~7 seconds. This makes BW brutal without needing a plate.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis (the visible "6-pack" muscles, especially top 4). FORM: lie flat, knees bent 90°, feet flat. Crunch ribs DOWN toward hips (don\'t pull head up). Lower back stays on floor. Hold 1 sec squeeze at top — that\'s where the work is. If you feel it in neck = elbows too far forward, push them back behind ears.' },
-        { id:'D2', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7,
-          note:'BLOCK 3: 70lbs (you progressed here, still RPE 7) (40-50 felt too easy). Push higher when 60 stops fighting your brace. Once 65+ becomes easy at 12/side, switch to harder variation (half-kneeling or offset stance).', tip:'MUSCLES YOU SHOULD FEEL: Obliques (sides of your core, both sides) + deep transverse abdominis (the "corset" muscle). FORM: stand sideways to cable stack (cable at chest height). Hold handle at sternum with both hands. Press straight out from chest, hold 2 sec resisting rotation, return slow. The cable WANTS to pull you toward the stack — your job is to stay square. NOT a chest press — arms just hold the cable steady, the core does the work.' },
+      { label:'D · Superset 2 · Delts + triceps', ex:[
+        { id:'D1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12+partials', weight:20, rpe:9, ss:'SS2',
+          note:'‖ Superset with pushdown (non-competing). 20lbs: 12 full reps THEN 4-6 bottom-third partials to failure. The partials are the growth driver — they beat your 25lb cap via the stretched position + metabolic stress.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure.' },
+        { id:'D2', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:90, rpe:8, ss:'SS2',
+          note:'‖ Superset with laterals. WORKING: 90lbs, chase 3×10. Heavy tricep day.', tip:'Elbows pinned. Full lockout. No body english.' },
+      ]},
+      { label:'E · Triceps', ex:[
+        { id:'E1', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:45, rpe:7,
+          note:'WORKING: 45lbs, chase 3×12. Long-head focus — the mass of the arm.', tip:'Stretch deep at the bottom, elbows tight. The long head loves the overhead stretch.' },
+      ]},
+      { label:'F · Superset 3 · Core finisher', ex:[
+        { id:'F1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:8, ss:'SS3',
+          note:'‖ Superset with Pallof. Tempo: 3s up, 1s squeeze, 3s down (~7s per rep). Makes bodyweight brutal without a plate.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis (top of the 6-pack). FORM: knees bent, feet flat, crunch ribs DOWN toward hips (do not pull the head). Lower back stays down. Elbows behind the ears — if you feel the neck, they are too far forward.' },
+        { id:'F2', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7, ss:'SS3',
+          note:'‖ Superset with crunch. 70lbs across all days. Push higher when the brace stops fighting you (then try half-kneeling).', tip:'MUSCLES YOU SHOULD FEEL: Obliques + deep transverse abdominis. FORM: sideways to the cable at chest height, press straight out, hold 2s resisting rotation, return slow. Stay square — the arms just hold, the core works.' },
       ]},
     ],
     cardio:'15–20 min Zone 2 — incline walk (12% grade, 3.0–3.5 mph). Hard 90-min cap on the whole session.'
@@ -495,30 +503,32 @@ const P = [
     id:'lower_quad', day:'Tuesday', name:'Lower (Quad focus)', emoji:'🦵',
     color:'var(--lower)', bg:'var(--lowerA)',
     targets:['Quads','Glutes','Calves'],
-    coach:'Block 2 squat day. Building from honest full-depth 20lb baseline. +2.5 lb/wk on squat. Quads are showing — keep stimulus going.',
+    coach:'CUT PHASE · Wk 1 calibration deload (auto-reduced, RPE ≤7). Legs hold load through the cut; calves and the quad pump superset with the big lifts for density. Full depth on squats, form-capped on unilateral work.',
     groups:[
-      { label:'A · Primary Compound', ex:[
+      { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Machine Back Squat', sets:4, reps:'6–8', weight:32.5, rpe:8, compound:true,
-          note:'W2: 32.5lbs FULL DEPTH (you hit 30×4×8 clean in W1). Chase 4×6-8 at depth.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
+          note:'WORKING: 32.5lbs FULL DEPTH, chase 4×6-8 at depth then 35. Hold honest depth over ego load.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
         { id:'A2', name:'Bulgarian Split Squat', sets:4, reps:'10–12', weight:20, rpe:8, compound:true,
-          note:'W2: hold 20lb DBs, chase 4×12 (you hit 4×10 in W1). Form-capped — reps not load.', tip:'Front foot far. Knee tracks over midfoot. Slow descent.' },
+          note:'WORKING: 20lb DBs, chase 4×12. Form-capped — reps not load. Add a set before jumping.', tip:'Front foot far out. Knee tracks over midfoot. Slow descent, drive through the front heel.' },
       ]},
-      { label:'B · Quad Hypertrophy', ex:[
-        { id:'B1', name:'Goblet Squat (3 sec eccentric)', sets:3, reps:'10–12', weight:45, rpe:8,
-          note:'W4: 45lbs (you hit 40×3×15 clean in W3 — earned the jump). 3-sec eccentric, chase 3×12.', tip:'3 sec down, 1 sec pause at bottom, drive up.' },
-        { id:'B2', name:'DB Walking Lunges', sets:3, reps:'12/leg', weight:30, rpe:8,
-          note:'BACK TO 30lbs — 40 was breaking your form. Walking lunges are about clean reps + balance, not max load. Chase 3×12/leg strict, then add a 4th set before jumping to 35. Form > load on unilateral work.', tip:'MUSCLES YOU SHOULD FEEL: Quads (front thigh) of the working leg + glute. FORM: long stride, front knee tracks over toes (not caving in), torso upright, controlled step — no falling forward. Push through the front heel to stand.' },
+      { label:'B · Superset 1 · Quad + calf', ex:[
+        { id:'B1', name:'Goblet Squat (3 sec eccentric)', sets:3, reps:'10–12', weight:45, rpe:8, ss:'SS1',
+          note:'‖ Superset with standing calf (non-competing). WORKING: 45lbs, 3-sec eccentric, chase 3×12.', tip:'3s down, 1s pause at the bottom, drive up. Upright torso.' },
+        { id:'B2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7, ss:'SS1',
+          note:'‖ Superset with goblet squat. 120 TOTAL on the bar (not per side). Keep climbing — calves take load.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (diamond calf). FORM: balls of feet on a block, heels hang, 1s squeeze top, 2s stretch bottom. Legs straight for the gastroc.' },
       ]},
-      { label:'C · Glutes + Calves', ex:[
-        { id:'C1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:90, rpe:7,
-          note:'W4: hold 90lbs (you hit 90×3×12 in W3), chase 3×15.', tip:'Drive HIPS forward, not just standing up. Squeeze at top.' },
-        { id:'C2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7,
-          note:'W2: 120 total (you hit 110×4×12-15 in W1). LOG TOTAL. Calves take a lot — keep climbing.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (big diamond calf muscle). FORM: bar across upper traps, balls of feet on a plate/block, heels hang. 1-sec squeeze at top, 2-sec stretch at bottom (heel drops below block). Legs straight for gastroc.' },
-        { id:'C3', name:'Seated Calf Raise (Smith)', sets:3, reps:'15–20', weight:110, rpe:7,
-          note:'W2: 110 total (you did 110×3×20 in W1 — matched standing). LOG TOTAL. Soleus focus, slow tempo.', tip:'MUSCLES YOU SHOULD FEEL: Soleus (lower calf, under the gastroc — bent knee targets it). FORM: higher reps, slow tempo, full stretch each rep. Bent knee makes it soleus-dominant.' },
+      { label:'C · Superset 2 · Lunge + calf', ex:[
+        { id:'C1', name:'DB Walking Lunges', sets:3, reps:'12/leg', weight:25, rpe:8, ss:'SS2',
+          note:'‖ Superset with seated calf. HELD at 25lbs — 40 broke your form. Clean reps + balance, not max load. Add a 4th set before 30.', tip:'MUSCLES YOU SHOULD FEEL: Quad + glute of the working leg. FORM: long stride, front knee over toes (not caving), upright torso, push through the front heel.' },
+        { id:'C2', name:'Seated Calf Raise (Smith)', sets:3, reps:'15–20', weight:110, rpe:7, ss:'SS2',
+          note:'‖ Superset with lunges. 110 TOTAL on the bar. Soleus focus — slow tempo, full stretch.', tip:'MUSCLES YOU SHOULD FEEL: Soleus (under the gastroc — the bent knee targets it). FORM: high reps, slow tempo, full stretch each rep.' },
+      ]},
+      { label:'D · Glutes', ex:[
+        { id:'D1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:90, rpe:7,
+          note:'WORKING: 90lbs, chase 3×15. Hip hinge — drive the hips forward, squeeze glutes at the top.', tip:'Drive HIPS forward, not just standing up. Hard glute squeeze at lockout.' },
       ]},
     ],
-    cardio:'10–15 min Zone 2 walk only. Don\'t bike hard — quads need to recover.'
+    cardio:'10–15 min Zone 2 walk only. Do not bike hard — quads need to recover.'
   },
 
   // =============== WEDNESDAY · PULL ===============
@@ -526,38 +536,42 @@ const P = [
     id:'pull', day:'Wednesday', name:'Pull', emoji:'💪',
     color:'var(--pull)', bg:'var(--pullA)',
     targets:['Back','Biceps','Rear Delts','Core'],
-    coach:'Block 2 pull day. Rows heavier. DBs at cap → adding sets, not weight. Lats are the focus — 4 rowing/pulling movements.',
+    coach:'CUT PHASE · Wk 1 calibration deload. 🆕 PULL-UPS are in as your primary vertical pull — keep them LIGHT this week (a couple of easy sets, groove the pattern, nowhere near your 4-rep max). As you lean out they get easier every week. Arm/rear-delt work supersets non-competing (the "B" pairings) so each keeps its load.',
     groups:[
-      { label:'A · Primary Compounds', ex:[
-        { id:'A1', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:62.5, rpe:8, compound:true,
-          note:'W2: hold 62.5lbs, chase 4×6-7 (2.5lb jump cost you reps — got 4×5 in W1). Dead stop each rep.', tip:'⚡ Pull bar to lower ribs. Full reset on floor between reps. Dead stop.' },
-        { id:'A2', name:'Lat Pulldown (wide grip)', sets:4, reps:'6–8', weight:140, rpe:8, compound:true,
-          note:'W2: 140lbs (you held 135×4×8 in W1 — ready for the jump). Chase 4×6-8. Drive elbows down.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows DOWN, not back.' },
+      { label:'A · Primary Compounds (straight sets)', ex:[
+        { id:'A1', name:'Pull-ups', sets:4, reps:'3–4', weight:0, rpe:8, compound:true,
+          note:'🆕 NEW primary vertical pull. THIS WEEK: light — 2 easy sets of 2-3, 2+ reps in the tank, just groove it. WORKING (from Jul 20): 4 sets, chase the rep total up (3→4 clean, ~1 in tank). Relative strength climbs as bodyweight drops — the reps will come.', tip:'MUSCLES YOU SHOULD FEEL: Lats (width) + mid-back + biceps. FORM: dead-hang start, drive elbows down to the ribs, chest to bar, control the lower (2-3s). No kipping. Stop 1 rep short of failure — protect the joints on a cut.' },
+        { id:'A2', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:62.5, rpe:8, compound:true,
+          note:'WORKING: 62.5lbs, chase 4×6-7 then 65. Dead stop each rep on the floor.', tip:'⚡ Pull the bar to the lower ribs. Full reset on the floor between reps. Explosive pull.' },
       ]},
       { label:'B · Back Hypertrophy', ex:[
-        { id:'B1', name:'Dumbbell Row (heavy)', sets:5, reps:'5–6', weight:50, rpe:8, compound:true,
-          note:'B1: 3×8 @ 50 (DB cap). Block 2: 5 sets × 5-6 reps @ 50. Adding sets since we can\'t add weight.', tip:'Brace hard on bench. Pull elbow to hip pocket. Hard squeeze.' },
+        { id:'B1', name:'Lat Pulldown (wide grip)', sets:3, reps:'8–10', weight:140, rpe:8, compound:true,
+          note:'WORKING: 140lbs, chase 3×10 then 145. Pull-ups now cover heavy vertical, so this is back-off volume. Drive elbows DOWN.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows down, not back.' },
         { id:'B2', name:'Seated Cable Row (close grip)', sets:3, reps:'8–10', weight:130, rpe:8,
-          note:'W4: hold 130lbs (you hit 130×3×8 in W3), chase 3×10.', tip:'Squeeze shoulder blades. Don\'t lean back excessively. Pull to lower ribs.' },
+          note:'WORKING: 130lbs, chase 3×10. Squeeze the mid-back.', tip:'Shoulder blades together. Pull to the lower ribs. Do not over-lean.' },
         { id:'B3', name:'DB Pullover', sets:3, reps:'12–15', weight:45, rpe:7,
-          note:'W4: 45lbs (you hit 40×3×12 clean in W3 — earned the jump). Chase 3×12-15. Pure lat stretch.', tip:'Keep ribs down (don\'t arch). Slight elbow bend. Feel lats stretch at bottom.' },
+          note:'WORKING: 45lbs, chase 3×12-15. Pure lat stretch — flat on the bench.', tip:'Keep ribs down (do not arch). Slight elbow bend. Feel the lat stretch at the bottom.' },
       ]},
-      { label:'C · Biceps + Rear Delts', ex:[
-        { id:'C1', name:'Dumbbell Curl', sets:3, reps:'12–15', weight:25, rpe:8,
-          note:'W3 CHANGE: back to 25lbs — 35 was breaking your form (swing/momentum). Biceps grow from STRICT reps + squeeze, not heavy swinging. Double progression: hit 3×15 strict → add 4-sec eccentric → add 4th set → THEN jump to 30 at lower reps. No 2.5 increments available, so squeeze everything from 25 first.', tip:'MUSCLES YOU SHOULD FEEL: Biceps (front of upper arm), peak contraction at top. FORM: elbows pinned to sides, NO swinging, full supination (pinky rotates up) at top, 2-sec squeeze, slow 3-sec lower. If shoulders/back are helping = too heavy.' },
-        { id:'C2', name:'Hammer Curl', sets:3, reps:'12–15', weight:25, rpe:8,
-          note:'W3 CHANGE: back to 25lbs to match DB Curl form fix. Strict reps build the brachialis better than heavy swings. Same double-progression path.', tip:'MUSCLES YOU SHOULD FEEL: Brachialis (outer upper arm, pushes bicep UP for width) + forearm. FORM: neutral grip (thumbs up) throughout, elbows pinned, no swing, 1-sec hold at top, slow lower.' },
-        { id:'C3', name:'Cable Rear Delt Fly (cross)', sets:4, reps:'15–20', weight:25, rpe:7,
-          note:'W4: hold 25lbs (you did 25×4×12-15 in W3), chase 4×15-18. High volume.', tip:'Lead with pinky, squeeze shoulder blades together.' },
-        { id:'C4', name:'Cable Face Pull', sets:3, reps:'15–20', weight:95, rpe:7,
-          note:'W4: 95lbs (you did 90×3×18 in W3, one set 98). Chase 3×15 @ 95. Rear delts + upper back.', tip:'Pull rope APART at end range. Like flexing your back in the mirror.' },
+      { label:'C · Superset 1 · Biceps + rear delt ("B" pairing — no overlap, each keeps load)', ex:[
+        { id:'C1', name:'Dumbbell Curl', sets:3, reps:'12–15', weight:25, rpe:8, ss:'SS1',
+          note:'‖ Superset with Face Pull (non-competing). 25lbs STRICT — 35 broke your form. Double progression: 3×15 strict → add a 4-sec eccentric → 4th set → THEN 30.', tip:'MUSCLES YOU SHOULD FEEL: Biceps, peak at the top. FORM: elbows pinned, NO swing, full supination (pinky up) at the top, 2s squeeze, 3s lower. Shoulders/back helping = too heavy.' },
+        { id:'C2', name:'Cable Face Pull', sets:3, reps:'15–20', weight:100, rpe:7, ss:'SS1',
+          note:'‖ Superset with DB Curl. WORKING: 100lbs, chase 3×15. Rear delts + upper back — posture and width.', tip:'Pull the rope APART at your face. Like flexing your back in the mirror.' },
       ]},
-      { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Lying Leg Raise + Hip Thrust', sets:3, reps:'12–15', weight:0, rpe:8,
-          note:'BODYWEIGHT OVERLOAD VARIANT — adds hip thrust at top of each rep. Lie flat, hands under hips. Raise legs to vertical, THEN push hips toward ceiling (small pelvic tilt up). Slow lower (3 sec). Don\'t let feet touch between reps.', tip:'MUSCLES YOU SHOULD FEEL: Lower rectus abdominis (the "bottom 2" of the 6-pack) + hip flexors slightly. FORM: legs straight (not bent), small posterior pelvic tilt at top, slow eccentric is where most of the growth happens. If you feel it ONLY in hip flexors, your legs are bending — keep them straight and lift via lower abs. Press lower back into floor throughout.' },
+      { label:'D · Superset 2 · Brachialis + rear delt ("B" pairing — no overlap)', ex:[
+        { id:'D1', name:'Hammer Curl', sets:3, reps:'12–15', weight:25, rpe:8, ss:'SS2',
+          note:'‖ Superset with Rear Delt Fly (non-competing). 25lbs strict to match the curl form-fix. Builds the brachialis (arm width).', tip:'MUSCLES YOU SHOULD FEEL: Brachialis (outer arm, pushes the bicep up) + forearm. FORM: neutral grip throughout, elbows pinned, no swing, 1s hold at the top, slow lower.' },
+        { id:'D2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'15–20', weight:25, rpe:7, ss:'SS2',
+          note:'‖ Superset with Hammer Curl. WORKING: 25lbs, chase 3×18. 2nd rear-delt hit — they respond to volume.', tip:'Lead with the pinky, squeeze shoulder blades. Slow eccentric.' },
+      ]},
+      { label:'E · Superset 3 · Core finisher', ex:[
+        { id:'E1', name:'Lying Leg Raise + Hip Thrust', sets:3, reps:'12–15', weight:0, rpe:8, ss:'SS3',
+          note:'‖ Superset with Pallof. Add a hip thrust at the top of each rep. No grip demand — the right call after rows.', tip:'MUSCLES YOU SHOULD FEEL: Lower rectus abdominis (bottom of the 6-pack). FORM: hands under hips, legs straight, raise to vertical, push hips up at the top, slow lower (3s). Feet do not touch between reps. Only hip flexors = legs are bending.' },
+        { id:'E2', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7, ss:'SS3',
+          note:'‖ Superset with leg raise. 70lbs across all days.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press straight out, hold 2s, fight the rotation, return slow.' },
       ]},
     ],
-    cardio:'15–20 min Zone 2 — incline walk preferred. Lower body is fresh, easy day to push heart rate.'
+    cardio:'15–20 min Zone 2 — incline walk. Lower body is fresh, a good day to push heart rate.'
   },
 
   // =============== THURSDAY · UPPER (Pull/Arm focus) ===============
@@ -565,37 +579,41 @@ const P = [
     id:'upper_pull', day:'Thursday', name:'Upper (Pull/Arm focus)', emoji:'⚡',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Back','Shoulders','Arms','Core'],
-    coach:'Block 2 — 2nd hit on chest + back. Close Grip Smith promoted to primary compound. Heavier compounds, lower reps. 90-min cap.',
+    coach:'CUT PHASE · Wk 1 calibration deload. 🆕 Pull-ups again as a 2nd exposure — LIGHT. Arms get antagonist supersets (biceps ‖ triceps) for density, since arms are a visual target. 90-min cap.',
     groups:[
-      { label:'A · Primary Compounds', ex:[
+      { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Incline Smith Machine Press', sets:4, reps:'6–8', weight:47.5, rpe:8, compound:true,
-          note:'BLOCK 3 W1: 47.5lbs. You hit 45×4×6 in B2W4. Chase 4×6-8.', tip:'⚡ Bench at 30°. Pause 1 sec at chest. Drive feet.' },
-        { id:'A2', name:'Single Arm DB Row', sets:5, reps:'8–10', weight:50, rpe:8, compound:true,
-          note:'W3: 50lb cap — chase 5×8 then 5×10 (rep progression). You did 5×6 last week off the app. Push reps now.', tip:'Brace on bench. Drive elbow to hip pocket. Hard squeeze.' },
-        { id:'A3', name:'Close Grip Smith Bench', sets:4, reps:'6–8', weight:42.5, rpe:8, compound:true,
-          note:'W2: hold 42.5 (you did 4×7 clean in W1), chase 4×8, then 45. Tricep mass builder.', tip:'Hands shoulder-width. Elbows tight. Drive into mid-chest.' },
+          note:'WORKING: 47.5lbs, chase 4×6-8 then 50. 2nd chest hit — upper focus.', tip:'⚡ Bench at 30°. Pause 1 sec at chest. Drive feet.' },
+        { id:'A2', name:'Pull-ups', sets:3, reps:'3–4', weight:0, rpe:8, compound:true,
+          note:'🆕 2nd weekly exposure. THIS WEEK: light — 2 easy sets, groove it. WORKING (Jul 20): 3 sets, ~1 in the tank. Frequency builds the skill and the reps.', tip:'MUSCLES YOU SHOULD FEEL: Lats + mid-back + biceps. FORM: dead hang, elbows down to the ribs, chest to bar, slow lower. No kipping. Leave 1 rep in the tank.' },
+        { id:'A3', name:'Single Arm DB Row', sets:5, reps:'8–10', weight:50, rpe:8, compound:true,
+          note:'WORKING: 50lb cap — chase 5×8 then 5×10 (rep progression). Heavy unilateral back.', tip:'Brace on the bench. Drive the elbow to the hip pocket. Hard squeeze at the top.' },
       ]},
-      { label:'B · Shoulders + Chest Hypertrophy', ex:[
-        { id:'B1', name:'Arnold Press', sets:3, reps:'10–12', weight:30, rpe:8, compound:true,
-          note:'W4: hold 30lbs (you did 30×3×10 in W3), chase 3×12. Then 35 next block.', tip:'Rotate as you press. Shoulders + delts in one move.' },
-        { id:'B2', name:'DB Lateral Raise + Lengthened Partials', sets:3, reps:'12+partials', weight:20, rpe:9,
-          note:'BLOCK 3 TWEAK: replaced single-arm cable (you were capped at 25lbs/12 reps for weeks). DB at 20lbs + bottom-third partials after 12 full reps. Different strength curve breaks the plateau.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap). FORM: 12 full reps then 4-6 partials from the stretched bottom to failure.' },
-        { id:'B3', name:'Dumbbell Fly', sets:3, reps:'12–15', weight:30, rpe:7,
-          note:'Hold 30lbs (no 32.5 — 5lb jumps). Chase 3×15 with deep stretch, then jump to 35. Chest stretch.', tip:'Slight elbow bend. Focus on stretch at bottom.' },
-        { id:'B4', name:'Bent-Over DB Rear Delt Fly', sets:3, reps:'12–15', weight:20, rpe:7,
-          note:'B1: 3×12 @ 15 clean. Bump to 20lbs Block 2.', tip:'Lead with elbows. Squeeze shoulder blades. Slow eccentric.' },
+      { label:'B · Superset 1 · Triceps + biceps (antagonist)', ex:[
+        { id:'B1', name:'Close Grip Smith Bench', sets:4, reps:'6–8', weight:42.5, rpe:8, ss:'SS1', compound:true,
+          note:'‖ Superset with Incline DB Curl (antagonist — the cleanest pairing there is). WORKING: 42.5lbs, chase 4×8 then 45. Tricep mass.', tip:'Hands shoulder-width. Elbows tight. Drive into the mid-chest.' },
+        { id:'B2', name:'Incline Dumbbell Curl', sets:4, reps:'8–10', weight:25, rpe:8, ss:'SS1',
+          note:'‖ Superset with Close-Grip. WORKING: 25lbs. Let the arms hang fully back — the stretch is the magic.', tip:'Do not cheat — full stretch at the bottom, let the arms hang back behind the torso.' },
       ]},
-      { label:'C · Arms (Volume Block)', ex:[
-        { id:'C1', name:'Incline Dumbbell Curl', sets:3, reps:'8–10', weight:25, rpe:8,
-          note:'B1: 3×12 @ 20. Block 2: 25lbs, lower reps. Stretch at bottom = magic.', tip:'Don\'t cheat — let arms hang fully back at bottom.' },
-        { id:'C2', name:'Cable Curl', sets:3, reps:'10–12', weight:90, rpe:7,
-          note:'W4: hold 90lbs (you hit 90×3×8 in W3), chase 3×10. Continuous tension.', tip:'No swinging. Slow 2 sec eccentric.' },
-        { id:'C3', name:'Cable Tricep Pushdown', sets:3, reps:'12–15', weight:60, rpe:7,
-          note:'Pump finisher. Lighter than Mon (Mon Block 2: 75 @ 8-10). B1: 3×15 @ 55. Block 2: 60lbs.', tip:'Single arm if you want extra ROM. Full lockout.' },
+      { label:'C · Superset 2 · Shoulders (non-competing)', ex:[
+        { id:'C1', name:'Arnold Press', sets:3, reps:'10–12', weight:30, rpe:8, ss:'SS2', compound:false,
+          note:'‖ Superset with Bent-Over Rear Delt (front/side vs rear — different heads). WORKING: 30lbs, chase 3×12 then 35.', tip:'Rotate as you press. Full delt sweep in one move.' },
+        { id:'C2', name:'Bent-Over DB Rear Delt Fly', sets:3, reps:'12–15', weight:20, rpe:7, ss:'SS2',
+          note:'‖ Superset with Arnold Press. WORKING: 20lbs, chase 3×15.', tip:'Lead with the elbows. Squeeze shoulder blades. Slow eccentric.' },
       ]},
-      { label:'D · Core Finisher', ex:[
-        { id:'D1', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7,
-          note:'BLOCK 3: 70lbs (you progressed here, still RPE 7). Lock at 60 across all 3 days unless it stops challenging your brace.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + deep transverse abdominis. FORM: stand sideways to cable, handle at chest height. Press straight out from sternum with both hands, hold 2 sec resisting rotation, return slow. The cable pulls you toward stack — fight to stay square. Core does the work, NOT arms.' },
+      { label:'D · Superset 3 · Arms (antagonist)', ex:[
+        { id:'D1', name:'Cable Curl', sets:3, reps:'10–12', weight:90, rpe:7, ss:'SS3',
+          note:'‖ Superset with Pushdown (biceps/triceps antagonist). WORKING: 90lbs, chase 3×12. Continuous tension.', tip:'No swinging. Slow 2s eccentric.' },
+        { id:'D2', name:'Cable Tricep Pushdown', sets:3, reps:'12–15', weight:60, rpe:7, ss:'SS3',
+          note:'‖ Superset with Cable Curl. WORKING: 60lbs (lighter pump than Mon\'s 90). Full lockout.', tip:'Single arm if you want extra ROM. Full lockout, elbows pinned.' },
+      ]},
+      { label:'E · Shoulders', ex:[
+        { id:'E1', name:'DB Lateral Raise + Lengthened Partials', sets:3, reps:'12+partials', weight:20, rpe:9,
+          note:'2nd lateral hit. 20lbs: 12 full reps then 4-6 bottom-third partials to failure. The plateau-breaker.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (width). FORM: 12 full reps (lead with elbows, slow lower) then partials from the stretched bottom to failure.' },
+      ]},
+      { label:'F · Core', ex:[
+        { id:'F1', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7,
+          note:'70lbs across all days. Anti-rotation brace.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press straight out, hold 2s, fight the rotation, return slow.' },
       ]},
     ],
     cardio:'15–20 min Zone 2 — easy bike. Save energy for tomorrow\'s deadlifts.'
@@ -606,34 +624,36 @@ const P = [
     id:'lower_post', day:'Friday', name:'Lower (Posterior chain)', emoji:'🏋️',
     color:'var(--lower)', bg:'var(--lowerA)',
     targets:['Hamstrings','Glutes','Lower Back','Core'],
-    coach:'Block 2 deadlift day. Recovery is real now after deload. Start AT working weight — no ramping in working sets.',
+    coach:'CUT PHASE · Wk 1 calibration deload (auto-reduced, RPE ≤7). Start AT working weight, no ramping. Friday is the heavier oblique day — wood chops target the love-handle area directly (though the fat itself comes off via the deficit, not the crunches). Send Friday logs + Saturday weigh-in + measurements → I wire Week 2 before Monday.',
     groups:[
-      { label:'A · Primary Compound', ex:[
+      { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Conventional Deadlift', sets:4, reps:'4–5', weight:90, rpe:8, compound:true,
-          note:'W2: 90lbs (you hit 87.5×4×5 clean in W1). Warm up separately, then 4×4-5. No ramping.', tip:'⚡ Brace, push floor away, hips and shoulders rise together. Lockout glutes.' },
+          note:'WORKING: 90lbs, warm up separately then 4×4-5. No ramping in the working sets.', tip:'⚡ Brace, push the floor away, hips and shoulders rise together. Lock out with the glutes.' },
         { id:'A2', name:'Romanian Deadlift', sets:4, reps:'6–8', weight:75, rpe:8, compound:true,
-          note:'W2: hold 75lbs (you hit 4×8 in W1), chase clean 4×8 again then 77.5. Hamstring stretch.', tip:'Push hips back, knees soft, bar hugs legs. Deep stretch at bottom.' },
+          note:'WORKING: 75lbs, chase clean 4×8 then 77.5. Hamstring stretch — hips back.', tip:'Push the hips back, knees soft, bar hugs the legs. Deep stretch at the bottom.' },
       ]},
-      { label:'B · Posterior + Quads + Calves', ex:[
-        { id:'B1', name:'Stiff Leg Deadlift', sets:3, reps:'8–10', weight:65, rpe:8, compound:true,
-          note:'W2: 65lbs (you hit 62.5×3×10 in W1). Locked legs, max stretch.', tip:'Legs straight (not locked). Feel hamstrings load.' },
-        { id:'B2', name:'Goblet Squat (high rep)', sets:3, reps:'10–12', weight:50, rpe:7,
-          note:'W4: 50lbs (DB CAP — you hit 45×3×15 in W3). Chase 3×10-12, then add sets. Quad pump after deadlifts.', tip:'Hold DB at chest. Full depth. Drive through midfoot.' },
-        { id:'B3', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7,
-          note:'W2: 120 total (you hit 110×4×15 in W1). LOG TOTAL. 2nd calf hit of the week.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (big calf muscle). FORM: bar across upper traps, balls of feet on block, heels hang. 1-sec squeeze top, 2-sec stretch bottom. Legs straight.' },
+      { label:'B · Superset 1 · Hamstring + calf', ex:[
+        { id:'B1', name:'Stiff Leg Deadlift', sets:3, reps:'8–10', weight:62.5, rpe:8, ss:'SS1', compound:true,
+          note:'‖ Superset with standing calf (non-competing). WORKING: 62.5lbs. Legs straighter than RDL, max stretch.', tip:'Legs straight (not locked). Feel the hamstrings load through the full stretch.' },
+        { id:'B2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7, ss:'SS1',
+          note:'‖ Superset with SLDL. 120 TOTAL on the bar. 2nd calf hit of the week.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius. FORM: balls of feet on a block, 1s squeeze top, 2s stretch bottom, legs straight.' },
       ]},
-      { label:'C · Core + Obliques (Hard Finisher)', ex:[
-        { id:'C1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:8,
-          note:'BODYWEIGHT OVERLOAD VARIANT. Hands behind head, elbows back. Tempo: 3 sec up, 1 sec hold, 3 sec down (~7 sec per rep). Friday is heavier core day — make these brutal.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis (top of 6-pack). FORM: lie flat, knees bent, feet flat. Crunch ribs DOWN toward hips (not pulling head). Lower back stays on floor. Squeeze hard at top. Elbows BEHIND ears — if you feel neck, elbows are too far forward.' },
-        { id:'C2', name:'Lying Leg Raise + Hip Thrust', sets:3, reps:'12–15', weight:0, rpe:8,
-          note:'BODYWEIGHT OVERLOAD VARIANT. Add hip thrust at top of each rep. After heavy deadlift day, no grip demand is the right call.', tip:'MUSCLES YOU SHOULD FEEL: Lower rectus abdominis (bottom of 6-pack). FORM: hands under hips, legs straight (not bent), raise to vertical, push hips up at top, slow lower (3 sec). Feet don\'t touch between reps. If only feeling hip flexors = legs are bending, keep them straight.' },
-        { id:'C3', name:'Cable Wood Chop', sets:3, reps:'12/side', weight:60, rpe:7,
-          note:'W4: 60lbs (you ramped 50→55 in W3). Direct oblique work for love handle area. High-to-low diagonal chop, switch sides between sets.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (the side of your waist) — especially the side opposite the cable. FORM: stand sideways to cable stack, cable set HIGH. Grip handle with both hands at upper shoulder height. Rotate AND chop down across body toward opposite hip. Pivot back foot. Core rotates, not just arms. Slow controlled return. NOT a "swing" — controlled rotation throughout.' },
-        { id:'C4', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7,
-          note:'BLOCK 3: 70lbs across all 3 days. Push higher when brace becomes easy.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + deep transverse abdominis. FORM: stand sideways to cable (chest height), press handle straight out, hold 2 sec, return slow. Fight rotation. Core does the work, not arms.' },
+      { label:'C · Quads', ex:[
+        { id:'C1', name:'Goblet Squat (high rep)', sets:3, reps:'10–12', weight:50, rpe:7,
+          note:'WORKING: 50lbs (DB cap), chase 3×10-12 then add sets. Quad pump after deadlifts.', tip:'Hold the DB at the chest. Full depth. Drive through midfoot.' },
+      ]},
+      { label:'D · Superset 2 · Obliques + abs (love-handle focus)', ex:[
+        { id:'D1', name:'Cable Wood Chop', sets:3, reps:'12/side', weight:70, rpe:7, ss:'SS2',
+          note:'‖ Superset with crunch. WORKING: 70lbs. Direct oblique work — high-to-low diagonal, switch sides between sets.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (side of the waist), especially the side opposite the cable. FORM: cable HIGH, both hands at the upper shoulder, rotate AND chop down across to the opposite hip, pivot the back foot. The core rotates, not just the arms — controlled, no swinging.' },
+        { id:'D2', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:7, ss:'SS2',
+          note:'‖ Superset with wood chop. Tempo: 3s up, 1s hold, 3s down.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis. FORM: crunch ribs down toward hips, lower back stays down, elbows behind the ears.' },
+      ]},
+      { label:'E · Core', ex:[
+        { id:'E1', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7,
+          note:'70lbs across all days. Anti-rotation finisher.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press out, hold 2s, fight the rotation, slow return.' },
       ]},
     ],
-    cardio:'10–15 min easy walk. End of week, prioritize recovery.'
+    cardio:'10–15 min easy walk. End of the week — prioritize recovery.'
   }
 ];
 
@@ -685,29 +705,22 @@ tick(); setInterval(tick, 15000);
 // ═══════════════════════════════════════════════
 // PROGRAMME TIMELINE
 // ═══════════════════════════════════════════════
-// Anchor: Mon Apr 27, 2026 = Block 1 Week 1 Monday (new Upper/Lower programme start)
-// Each block = 4 weeks (Wk 4 of each block is normally a deload).
-// Notes:
-//  - Original PPL+UL programme ran Apr 13-26. New Upper/Lower programme started Apr 27.
-//  - May 18 = Block 1 Week 4 DELOAD (executed correctly).
-//  - User missed Jun 1-7 (wisdom tooth extraction) — that week is in SKIPPED_WEEKS so
-//    progression pauses and Jun 8 correctly reads as B2 W2.
-//  - The 9-day forced rest functioned as a recovery break, so the scheduled B2 W4 deload
-//    (week of Jun 22) is being converted to a hard hypertrophy week via NO_DELOAD_WEEKS.
-const PROG_ANCHOR = new Date(2026, 3, 27); // April 27, 2026
+// ── CUT PHASE (Mesocycle 02) ──
+// Re-anchored Mon Jul 13, 2026 = Cut Phase Week 1 (calibration deload).
+// The previous 12-week hypertrophy mesocycle (anchored Apr 27) is complete.
+// We now run WEEK BY WEEK: loads are wired each Friday from the logs, so deloads
+// are set EXPLICITLY via FORCE_DELOAD_WEEKS rather than auto-fired on Wk 4.
+const PROG_ANCHOR = new Date(2026, 6, 13); // July 13, 2026 — Cut Wk 1
 const WEEKS_PER_BLOCK = 4;
-// Skipped weeks: progression pauses (user fully off training)
-const SKIPPED_WEEKS = [
-  new Date(2026, 5, 1).getTime()   // Mon Jun 1, 2026 — wisdom tooth recovery
-];
-// Weeks where the normal Wk-4 deload is overridden into a hard training week
-const NO_DELOAD_WEEKS = [
-  new Date(2026, 5, 22).getTime()  // Mon Jun 22, 2026 — B2 W4 converted to hard week
+const SKIPPED_WEEKS = []; // none in this phase
+// Weeks explicitly run as a deload. Update this each week as we reach one.
+const FORCE_DELOAD_WEEKS = [
+  new Date(2026, 6, 13).getTime()  // Mon Jul 13, 2026 — calibration deload (opens the cut)
 ];
 
 function getProgramPosition(now){
-  // Returns {block, week, isDeload, daysIntoWeek, daysToNextBlock}
-  // Accounts for SKIPPED_WEEKS (training paused) and NO_DELOAD_WEEKS (deload overridden).
+  // Returns {block, week, isDeload, daysIntoWeek, daysToNextBlock, weekIdx}
+  // isDeload is driven by FORCE_DELOAD_WEEKS (deloads set explicitly, week by week).
   const n = new Date(now); n.setHours(0,0,0,0);
   const a = new Date(PROG_ANCHOR);
   const days = Math.floor((n - a) / 86400000);
@@ -721,8 +734,8 @@ function getProgramPosition(now){
   const week = (weekIdx % WEEKS_PER_BLOCK) + 1;
   // Determine the Monday of the *actual calendar* current week to check no-deload override
   const calWeekStart = a.getTime() + Math.floor(days/7)*7*86400000;
-  const isNoDeload = NO_DELOAD_WEEKS.some(t => t === calWeekStart);
-  const isDeload = (week === WEEKS_PER_BLOCK) && !isNoDeload;
+  const isForceDeload = FORCE_DELOAD_WEEKS.some(t => t === calWeekStart);
+  const isDeload = isForceDeload; // deloads set explicitly per week (FORCE_DELOAD_WEEKS)
   const daysIntoWeek = days % 7;                  // 0=Mon, 6=Sun
   const daysToNextBlock = (WEEKS_PER_BLOCK - week) * 7 + (7 - daysIntoWeek - 1);
   return {block, week, isDeload, daysIntoWeek, daysToNextBlock, weekIdx};
@@ -736,35 +749,31 @@ function buildBanner(){
   const secEl = document.getElementById('sec-title');
   if(!titleEl) return;
 
-  // Only blocks 1-3 are planned (12-week mesocycle). After that, prompt redesign.
-  if(pos.block > 3){
-    titleEl.textContent = `🚨 Programme expired · Time to design next mesocycle`;
-    subEl.textContent = `You completed the 12-week plan. Ask Claude for Block 4+.`;
+  const phaseWeek = (pos.weekIdx||0) + 1;
+
+  // Cut phase runs ~13 wks (calibration + 3 blocks). After that, reassess.
+  if(phaseWeek > 13){
+    titleEl.textContent = `Fat Loss Cut · phase complete`;
+    subEl.textContent = `Send final logs + measurements — time to reassess and design what's next.`;
     wkEl.textContent = `DONE`;
-    secEl.textContent = `Past programme · run maintenance until updated`;
+    secEl.textContent = `Cut complete · run maintenance until updated`;
     return;
   }
 
-  titleEl.textContent = `Hypertrophy + Fat Loss · Block ${pos.block}`;
-  wkEl.textContent = `WK ${pos.week}`;
+  titleEl.textContent = `Fat Loss Cut`;
+  wkEl.textContent = `WK ${phaseWeek}`;
 
   if(pos.isDeload){
-    if(pos.block === 3){
-      subEl.textContent = `🔵 Final deload · Programme ends in ${pos.daysToNextBlock+1} day${pos.daysToNextBlock===0?'':'s'} · Plan Block 4`;
+    if(phaseWeek === 1){
+      subEl.textContent = `🔵 Calibration deload · groove new moves light · load from Jul 20`;
     } else {
-      subEl.textContent = `🔵 Deload week · Block ${pos.block+1} starts in ${pos.daysToNextBlock+1} day${pos.daysToNextBlock===0?'':'s'}`;
-    }
-  } else if(pos.daysToNextBlock <= 7){
-    if(pos.block === 3){
-      subEl.textContent = `Last week of Block 3 · Plan Block 4 with Claude`;
-    } else {
-      subEl.textContent = `Block ${pos.block+1} starts in ${pos.daysToNextBlock+1} days`;
+      subEl.textContent = `🔵 Deload + refeed week · hold weight, cut sets, then push`;
     }
   } else {
-    subEl.textContent = `Compounds first · Zone 2 cardio after`;
+    subEl.textContent = `Deficit · compounds heavy & straight · everything else supersets`;
   }
 
-  secEl.textContent = `Block ${pos.block} · Week ${pos.week} split`;
+  secEl.textContent = `Cut · Week ${phaseWeek} split`;
 }
 
 // ═══════════════════════════════════════════════
@@ -866,10 +875,14 @@ function openSession(idx) {
 
   let h='';
   if(isDeload){
+    const pw = (pos.weekIdx||0)+1;
+    const dlLabel = pw===1 ? 'CALIBRATION DELOAD — Cut · Wk 1' : `DELOAD + REFEED — Cut · Wk ${pw}`;
+    const dlBody = pw===1
+      ? 'Reduced sets, RPE ≤7 — walk out fresh. Job this week: find the weights on the new moves (Decline DB Press, High-Low Crossover) and groove Pull-ups LIGHT. We lock loads Friday.'
+      : 'Sets reduced ~40–50%. Weights held. RPE ≤7 — leave 3+ in the tank. DO NOT PR. Calories to maintenance this week.';
     h+=`<div class="coach-note" style="background:rgba(77,166,255,0.15);border-color:var(--accent2);">
       <div class="coach-icon">🔵</div>
-      <div><b style="color:var(--accent2);">DELOAD WEEK — Block ${pos.block} Wk ${pos.week}</b><br>
-      Sets reduced. Weights held. <b>RPE target: 6–7 (leave 3+ reps in tank).</b> DO NOT PR. This week locks in gains.</div>
+      <div><b style="color:var(--accent2);">${dlLabel}</b><br>${dlBody}</div>
     </div>`;
   }
   if(s.coach){
@@ -900,10 +913,11 @@ function openSession(idx) {
       let rows='';
       for(let i=1;i<=effSets;i++) rows+=makeSetRow(ex.id,i,dw,dw,ex.reps,effRpe);
       const deloadTag = isDeload ? ' · 🔵 deload' : (ex.compound?' · COMPOUND':'');
+      const ssTag = ex.ss ? ` · ‖ ${ex.ss}` : '';
       h+=`<div class="excard">
         <div class="excard-hdr">
           <div class="ex-nbadge ${ex.compound?'compound':''}">${ex.compound?'⚡':ex.id}</div>
-          <div class="ex-info"><div class="ex-nm">${ex.name}</div><div class="ex-sub">${effSets} sets × ${ex.reps}${deloadTag}</div></div>
+          <div class="ex-info"><div class="ex-nm">${ex.name}</div><div class="ex-sub">${effSets} sets × ${ex.reps}${deloadTag}${ssTag}</div></div>
           <div class="rpe-pill ${rc}">RPE ${effRpe}</div>
         </div>
         ${lastHTML}
@@ -1495,7 +1509,7 @@ function showToast(msg){
 // SERVICE WORKER
 // ═══════════════════════════════════════════════
 if('serviceWorker' in navigator){
-  const sw=`const CACHE='ravi-lifts-v3';
+  const sw=`const CACHE='ravi-lifts-v4';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
 self.addEventListener('fetch',e=>{
