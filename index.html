@@ -478,15 +478,15 @@ const P = [
         { id:'C2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'15–20', weight:25, rpe:7, ss:'SS1',
           note:'‖ Superset with the crossover (antagonist — chest pulls in, rear delt pulls apart). WORKING: 25lbs, chase 3×18.', tip:'Lead with the pinky, squeeze shoulder blades together. Slow eccentric.' },
       ]},
-      { label:'D · Superset 2 · Delts + triceps', ex:[
-        { id:'D1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12+partials', weight:20, rpe:9, ss:'SS2',
-          note:'‖ Superset with pushdown (non-competing). 20lbs: 12 full reps THEN 4-6 bottom-third partials to failure. The partials are the growth driver — they beat your 25lb cap via the stretched position + metabolic stress.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure.' },
-        { id:'D2', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:90, rpe:8, ss:'SS2',
-          note:'‖ Superset with laterals. WORKING: 90lbs, chase 3×10. Heavy tricep day.', tip:'Elbows pinned. Full lockout. No body english.' },
+      { label:'D · Shoulders (straight sets — full rest, protect the delt)', ex:[
+        { id:'D1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12+partials', weight:20, rpe:9,
+          note:'NOW STRAIGHT SETS — 75–90s rest between (was supersetted, which torched the delt). 20lbs: 12 full reps THEN 4-6 bottom-third partials to failure. Recovered reps = better width stimulus + far less joint grind. The partials still beat your 25lb cap via the stretched position.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure. If you feel a PINCH at the top (not muscle burn), cap the raise at shoulder height and drop to 15.' },
       ]},
-      { label:'E · Triceps', ex:[
-        { id:'E1', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:45, rpe:7,
-          note:'WORKING: 45lbs, chase 3×12. Long-head focus — the mass of the arm.', tip:'Stretch deep at the bottom, elbows tight. The long head loves the overhead stretch.' },
+      { label:'E · Superset 2 · Triceps density (both triceps — zero shoulder involvement)', ex:[
+        { id:'E1', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:90, rpe:8, ss:'SS2',
+          note:'‖ Superset with OH Extension (agonist — both triceps, pure density). WORKING: 90lbs, chase 3×10. Heavy tricep.', tip:'Elbows pinned. Full lockout. No body english.' },
+        { id:'E2', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:45, rpe:7, ss:'SS2',
+          note:'‖ Superset with Pushdown. WORKING: 45lbs, chase 3×12. Long-head focus — the overhead stretch is the point. Pre-fatigued from the pushdown, so it runs as the finisher.', tip:'Stretch deep at the bottom, elbows tight. The long head loves the overhead stretch.' },
       ]},
       { label:'F · Superset 3 · Core finisher', ex:[
         { id:'F1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:8, ss:'SS3',
@@ -551,6 +551,8 @@ const P = [
           note:'WORKING: 130lbs, chase 3×10. Squeeze the mid-back.', tip:'Shoulder blades together. Pull to the lower ribs. Do not over-lean.' },
         { id:'B3', name:'DB Pullover', sets:3, reps:'12–15', weight:45, rpe:7,
           note:'WORKING: 45lbs, chase 3×12-15. Pure lat stretch — flat on the bench.', tip:'Keep ribs down (do not arch). Slight elbow bend. Feel the lat stretch at the bottom.' },
+        { id:'B4', name:'Dumbbell Shrugs', sets:3, reps:'15–20', weight:50, rpe:8, compound:false,
+          note:'🆕 NEW — upper traps (the yoke). Straight sets, NOT supersetted: it is loaded + grip-heavy, so it earns full rest (same logic that fixed your laterals). 50lb DBs (at your cap) — chase reps + a hard 1-2s hold at the top; the peak squeeze grows traps, not bouncing. When 50×20 gets easy we move to cable/Smith for heavier load.', tip:'MUSCLES YOU SHOULD FEEL: Upper traps (top of the shoulders/neck). FORM: DBs at your sides, arms straight (do NOT curl), shrug straight UP toward the ears, 1-2s squeeze, slow lower. No shoulder rolling. Straps optional if grip fades after the rows.' },
       ]},
       { label:'C · Superset 1 · Biceps + rear delt ("B" pairing — no overlap, each keeps load)', ex:[
         { id:'C1', name:'Dumbbell Curl', sets:3, reps:'12–15', weight:25, rpe:8, ss:'SS1',
@@ -1509,7 +1511,7 @@ function showToast(msg){
 // SERVICE WORKER
 // ═══════════════════════════════════════════════
 if('serviceWorker' in navigator){
-  const sw=`const CACHE='ravi-lifts-v4';
+  const sw=`const CACHE='ravi-lifts-v5';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
 self.addEventListener('fetch',e=>{
