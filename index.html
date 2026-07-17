@@ -458,7 +458,7 @@ const P = [
     id:'upper_push', day:'Monday', name:'Upper (Push focus)', emoji:'🔥',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Shoulders','Triceps','Core'],
-    coach:'CUT PHASE opens · Wk 1 = calibration deload. Groove the new moves LIGHT and find their weights: Decline DB Press (~40 start) and High-Low Crossover (~30 start) — we lock them Friday. Heavy primaries stay STRAIGHT sets (that load protects muscle in the deficit). Everything else supersets (‖) for density. Retain, don\'t chase PRs.',
+    coach:'CUT · Wk 2 — first real working week. Deload is off, full volume back, push to RPE 8 (leave ~2 in the tank). Weights HOLD from calibration — the job now is clean reps at the top of each range, not load jumps. New moves dialed: Decline DB Press 40, Crossover 30. Laterals are now STRAIGHT sets (the fix) — 75-90s rest, let the delt recover. Retain muscle, don\'t chase PRs on a cut.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'5–6', weight:47.5, rpe:8, compound:true,
@@ -470,11 +470,11 @@ const P = [
         { id:'B1', name:'Incline Dumbbell Press', sets:4, reps:'6–8', weight:45, rpe:8, compound:true,
           note:'WORKING: 45lbs (near 50 DB cap). Chase 4×6-8, then 50 → add sets after the cap. Upper chest.', tip:'30–45° bench. Pause 1 sec at chest. Stop short of lockout.' },
         { id:'B2', name:'Decline Dumbbell Press', sets:3, reps:'10–12', weight:40, rpe:8, compound:false,
-          note:'🆕 NEW — 10–15° decline (go steeper if the bench safely allows, more lower-pec that way). CALIBRATE this week: start ~40lbs, adjust to land 10-12 clean reps, we lock it Friday. Hits the lower/sternal chest that flat pressing under-works.', tip:'MUSCLES YOU SHOULD FEEL: Lower/sternal pec (bottom of the chest). FORM: slight decline, DBs start at lower-chest level, press up and slightly together, control the stretch at the bottom. Shoulder blades pinned. No bouncing off the chest.' },
+          note:'Dialed at 40 (calibration felt clean at RPE7). Working now: chase 3×10-12 at RPE8, then 45. Lower/sternal chest — the part flat pressing under-works.', tip:'MUSCLES YOU SHOULD FEEL: Lower/sternal pec (bottom of the chest). FORM: 10–15° decline, DBs start at lower-chest level, press up and slightly together, control the stretch at the bottom. Shoulder blades pinned. No bouncing off the chest.' },
       ]},
       { label:'C · Superset 1 · Lower chest + rear delt (alternate, rest after the pair)', ex:[
         { id:'C1', name:'High-to-Low Cable Crossover', sets:3, reps:'12–15', weight:30, rpe:8, ss:'SS1',
-          note:'🆕 NEW (replaces the low-to-high fly) — your PRIMARY lower-pec fly. High anchors, hands sweep DOWN to meet at the hips. CALIBRATE ~30lbs this week. The high-to-low path matches the lower chest line of pull.', tip:'MUSCLES YOU SHOULD FEEL: Lower/inner pec. FORM: cables set HIGH, slight forward lean, arms sweep down and together to hip level, 1 sec squeeze, slow return. Soft elbow bend held constant — it is a fly, not a press.' },
+          note:'Dialed at 30 — your PRIMARY lower-pec fly. Working now: chase 3×12-15 at RPE8, then 32.5. High anchors, hands sweep DOWN to meet at the hips — that path matches the lower-chest line of pull.', tip:'MUSCLES YOU SHOULD FEEL: Lower/inner pec. FORM: cables set HIGH, slight forward lean, arms sweep down and together to hip level, 1 sec squeeze, slow return. Soft elbow bend held constant — it is a fly, not a press.' },
         { id:'C2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'15–20', weight:25, rpe:7, ss:'SS1',
           note:'‖ Superset with the crossover (antagonist — chest pulls in, rear delt pulls apart). WORKING: 25lbs, chase 3×18.', tip:'Lead with the pinky, squeeze shoulder blades together. Slow eccentric.' },
       ]},
@@ -503,7 +503,7 @@ const P = [
     id:'lower_quad', day:'Tuesday', name:'Lower (Quad focus)', emoji:'🦵',
     color:'var(--lower)', bg:'var(--lowerA)',
     targets:['Quads','Glutes','Calves'],
-    coach:'CUT PHASE · Wk 1 calibration deload (auto-reduced, RPE ≤7). Legs hold load through the cut; calves and the quad pump superset with the big lifts for density. Full depth on squats, form-capped on unilateral work.',
+    coach:'CUT · Wk 2 working — full volume, RPE 8. Legs hold load through the cut; chase the top of each rep range clean. Full depth on squats, form-capped on unilateral work. Calves + quad pump superset with the big lifts for density.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Machine Back Squat', sets:4, reps:'6–8', weight:32.5, rpe:8, compound:true,
@@ -520,8 +520,8 @@ const P = [
       { label:'C · Superset 2 · Lunge + calf', ex:[
         { id:'C1', name:'DB Walking Lunges', sets:3, reps:'12/leg', weight:25, rpe:8, ss:'SS2',
           note:'‖ Superset with seated calf. HELD at 25lbs — 40 broke your form. Clean reps + balance, not max load. Add a 4th set before 30.', tip:'MUSCLES YOU SHOULD FEEL: Quad + glute of the working leg. FORM: long stride, front knee over toes (not caving), upright torso, push through the front heel.' },
-        { id:'C2', name:'Seated Calf Raise (Smith)', sets:3, reps:'15–20', weight:110, rpe:7, ss:'SS2',
-          note:'‖ Superset with lunges. 110 TOTAL on the bar. Soleus focus — slow tempo, full stretch.', tip:'MUSCLES YOU SHOULD FEEL: Soleus (under the gastroc — the bent knee targets it). FORM: high reps, slow tempo, full stretch each rep.' },
+        { id:'C2', name:'Seated Calf Raise (Smith)', sets:3, reps:'15–20', weight:120, rpe:8, ss:'SS2',
+          note:'‖ Superset with lunges. Bumped to 120 TOTAL (you did 120 easy in calibration). Soleus focus — slow tempo, full stretch, chase 3×20.', tip:'MUSCLES YOU SHOULD FEEL: Soleus (under the gastroc — the bent knee targets it). FORM: high reps, slow tempo, full stretch each rep.' },
       ]},
       { label:'D · Glutes', ex:[
         { id:'D1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:90, rpe:7,
@@ -536,23 +536,23 @@ const P = [
     id:'pull', day:'Wednesday', name:'Pull', emoji:'💪',
     color:'var(--pull)', bg:'var(--pullA)',
     targets:['Back','Biceps','Rear Delts','Core'],
-    coach:'CUT PHASE · Wk 1 calibration deload. 🆕 PULL-UPS are in as your primary vertical pull — keep them LIGHT this week (a couple of easy sets, groove the pattern, nowhere near your 4-rep max). As you lean out they get easier every week. Arm/rear-delt work supersets non-competing (the "B" pairings) so each keeps its load.',
+    coach:'CUT · Wk 2 working — full volume, RPE 8. Pull-ups now for real: 4 sets, chase 4+ clean reps, ~1 in the tank (not to failure — protect the joints on a cut). Lat PD corrected to 135. Shrugs dialed at 50. Arm/rear-delt work supersets non-competing (the "B" pairings) so each keeps its load.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Pull-ups', sets:4, reps:'3–4', weight:0, rpe:8, compound:true,
-          note:'🆕 NEW primary vertical pull. THIS WEEK: light — 2 easy sets of 2-3, 2+ reps in the tank, just groove it. WORKING (from Jul 20): 4 sets, chase the rep total up (3→4 clean, ~1 in tank). Relative strength climbs as bodyweight drops — the reps will come.', tip:'MUSCLES YOU SHOULD FEEL: Lats (width) + mid-back + biceps. FORM: dead-hang start, drive elbows down to the ribs, chest to bar, control the lower (2-3s). No kipping. Stop 1 rep short of failure — protect the joints on a cut.' },
+          note:'Working now: 4 sets, chase 4+ clean reps per set, ~1 in the tank (you did 3×3 easy in calibration — push for 4s). Relative strength climbs as bodyweight drops, so reps come free over the cut. Not to failure — protect the joints.', tip:'MUSCLES YOU SHOULD FEEL: Lats (width) + mid-back + biceps. FORM: dead-hang start, drive elbows down to the ribs, chest to bar, control the lower (2-3s). No kipping. Stop 1 rep short of failure — protect the joints on a cut.' },
         { id:'A2', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:62.5, rpe:8, compound:true,
           note:'WORKING: 62.5lbs, chase 4×6-7 then 65. Dead stop each rep on the floor.', tip:'⚡ Pull the bar to the lower ribs. Full reset on the floor between reps. Explosive pull.' },
       ]},
       { label:'B · Back Hypertrophy', ex:[
-        { id:'B1', name:'Lat Pulldown (wide grip)', sets:3, reps:'8–10', weight:140, rpe:8, compound:true,
-          note:'WORKING: 140lbs, chase 3×10 then 145. Pull-ups now cover heavy vertical, so this is back-off volume. Drive elbows DOWN.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows down, not back.' },
+        { id:'B1', name:'Lat Pulldown (wide grip)', sets:3, reps:'8–10', weight:135, rpe:8, compound:true,
+          note:'CORRECTED to 135 (your log showed 135×8 then 130×10 — 140 was optimistic). Chase 3×8-10 at RPE8, then 140. Pull to 130 if form breaks — that is the right call. Pull-ups now cover heavy vertical, so this is back-off volume. Drive elbows DOWN.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows down, not back.' },
         { id:'B2', name:'Seated Cable Row (close grip)', sets:3, reps:'8–10', weight:130, rpe:8,
           note:'WORKING: 130lbs, chase 3×10. Squeeze the mid-back.', tip:'Shoulder blades together. Pull to the lower ribs. Do not over-lean.' },
         { id:'B3', name:'DB Pullover', sets:3, reps:'12–15', weight:45, rpe:7,
           note:'WORKING: 45lbs, chase 3×12-15. Pure lat stretch — flat on the bench.', tip:'Keep ribs down (do not arch). Slight elbow bend. Feel the lat stretch at the bottom.' },
         { id:'B4', name:'Dumbbell Shrugs', sets:3, reps:'15–20', weight:50, rpe:8, compound:false,
-          note:'🆕 NEW — upper traps (the yoke). Straight sets, NOT supersetted: it is loaded + grip-heavy, so it earns full rest (same logic that fixed your laterals). 50lb DBs (at your cap) — chase reps + a hard 1-2s hold at the top; the peak squeeze grows traps, not bouncing. When 50×20 gets easy we move to cable/Smith for heavier load.', tip:'MUSCLES YOU SHOULD FEEL: Upper traps (top of the shoulders/neck). FORM: DBs at your sides, arms straight (do NOT curl), shrug straight UP toward the ears, 1-2s squeeze, slow lower. No shoulder rolling. Straps optional if grip fades after the rows.' },
+          note:'Dialed at 50 (calibration felt easy at RPE7). Working now: chase 3×20 with a hard 1-2s hold at the top; the peak squeeze grows traps, not bouncing. When 50×20 is easy at RPE8, we move to cable/Smith for heavier load. Straight sets, full rest (same logic that fixed your laterals).', tip:'MUSCLES YOU SHOULD FEEL: Upper traps (top of the shoulders/neck). FORM: DBs at your sides, arms straight (do NOT curl), shrug straight UP toward the ears, 1-2s squeeze, slow lower. No shoulder rolling. Straps optional if grip fades after the rows.' },
       ]},
       { label:'C · Superset 1 · Biceps + rear delt ("B" pairing — no overlap, each keeps load)', ex:[
         { id:'C1', name:'Dumbbell Curl', sets:3, reps:'12–15', weight:25, rpe:8, ss:'SS1',
@@ -581,13 +581,13 @@ const P = [
     id:'upper_pull', day:'Thursday', name:'Upper (Pull/Arm focus)', emoji:'⚡',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Back','Shoulders','Arms','Core'],
-    coach:'CUT PHASE · Wk 1 calibration deload. 🆕 Pull-ups again as a 2nd exposure — LIGHT. Arms get antagonist supersets (biceps ‖ triceps) for density, since arms are a visual target. 90-min cap.',
+    coach:'CUT · Wk 2 working — full volume, RPE 8. Pull-ups 2nd exposure for real now: 3 sets, ~1 in the tank. Arms get antagonist supersets (biceps ‖ triceps) for density, since arms are a visual target. 90-min cap.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Incline Smith Machine Press', sets:4, reps:'6–8', weight:47.5, rpe:8, compound:true,
           note:'WORKING: 47.5lbs, chase 4×6-8 then 50. 2nd chest hit — upper focus.', tip:'⚡ Bench at 30°. Pause 1 sec at chest. Drive feet.' },
         { id:'A2', name:'Pull-ups', sets:3, reps:'3–4', weight:0, rpe:8, compound:true,
-          note:'🆕 2nd weekly exposure. THIS WEEK: light — 2 easy sets, groove it. WORKING (Jul 20): 3 sets, ~1 in the tank. Frequency builds the skill and the reps.', tip:'MUSCLES YOU SHOULD FEEL: Lats + mid-back + biceps. FORM: dead hang, elbows down to the ribs, chest to bar, slow lower. No kipping. Leave 1 rep in the tank.' },
+          note:'2nd weekly exposure, working now: 3 sets, chase 4+ per set, ~1 in the tank. Frequency builds the skill and the reps — expect these to climb week over week as you lean out.', tip:'MUSCLES YOU SHOULD FEEL: Lats + mid-back + biceps. FORM: dead hang, elbows down to the ribs, chest to bar, slow lower. No kipping. Leave 1 rep in the tank.' },
         { id:'A3', name:'Single Arm DB Row', sets:5, reps:'8–10', weight:50, rpe:8, compound:true,
           note:'WORKING: 50lb cap — chase 5×8 then 5×10 (rep progression). Heavy unilateral back.', tip:'Brace on the bench. Drive the elbow to the hip pocket. Hard squeeze at the top.' },
       ]},
@@ -626,7 +626,7 @@ const P = [
     id:'lower_post', day:'Friday', name:'Lower (Posterior chain)', emoji:'🏋️',
     color:'var(--lower)', bg:'var(--lowerA)',
     targets:['Hamstrings','Glutes','Lower Back','Core'],
-    coach:'CUT PHASE · Wk 1 calibration deload (auto-reduced, RPE ≤7). Start AT working weight, no ramping. Friday is the heavier oblique day — wood chops target the love-handle area directly (though the fat itself comes off via the deficit, not the crunches). Send Friday logs + Saturday weigh-in + measurements → I wire Week 2 before Monday.',
+    coach:'CUT · Wk 2 working — full volume, RPE 8. Start AT working weight, no ramping on deadlifts. Friday is the heavier oblique day — wood chops hit the love-handle area directly (though the fat comes off via the deficit, not the crunches). Send Friday logs + weigh-in trend + measurements → I wire Wk 3 before Monday.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Conventional Deadlift', sets:4, reps:'4–5', weight:90, rpe:8, compound:true,
@@ -634,25 +634,25 @@ const P = [
         { id:'A2', name:'Romanian Deadlift', sets:4, reps:'6–8', weight:75, rpe:8, compound:true,
           note:'WORKING: 75lbs, chase clean 4×8 then 77.5. Hamstring stretch — hips back.', tip:'Push the hips back, knees soft, bar hugs the legs. Deep stretch at the bottom.' },
       ]},
-      { label:'B · Superset 1 · Hamstring + calf', ex:[
-        { id:'B1', name:'Stiff Leg Deadlift', sets:3, reps:'8–10', weight:62.5, rpe:8, ss:'SS1', compound:true,
-          note:'‖ Superset with standing calf (non-competing). WORKING: 62.5lbs. Legs straighter than RDL, max stretch.', tip:'Legs straight (not locked). Feel the hamstrings load through the full stretch.' },
-        { id:'B2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:7, ss:'SS1',
-          note:'‖ Superset with SLDL. 120 TOTAL on the bar. 2nd calf hit of the week.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius. FORM: balls of feet on a block, 1s squeeze top, 2s stretch bottom, legs straight.' },
+      { label:'B · Hamstring (straight set — loaded hinge, full rest)', ex:[
+        { id:'B1', name:'Stiff Leg Deadlift', sets:3, reps:'8–10', weight:62.5, rpe:8, compound:true,
+          note:'NOW STRAIGHT SETS (was paired with the Smith calf — no more re-pinning the bar mid-superset). WORKING: 62.5lbs, chase 3×10 then 65. Legs straighter than RDL, max hamstring stretch.', tip:'Legs straight (not locked). Feel the hamstrings load through the full stretch.' },
       ]},
       { label:'C · Quads', ex:[
         { id:'C1', name:'Goblet Squat (high rep)', sets:3, reps:'10–12', weight:50, rpe:7,
           note:'WORKING: 50lbs (DB cap), chase 3×10-12 then add sets. Quad pump after deadlifts.', tip:'Hold the DB at the chest. Full depth. Drive through midfoot.' },
       ]},
-      { label:'D · Superset 2 · Obliques + abs (love-handle focus)', ex:[
-        { id:'D1', name:'Cable Wood Chop', sets:3, reps:'12/side', weight:70, rpe:7, ss:'SS2',
-          note:'‖ Superset with crunch. WORKING: 70lbs. Direct oblique work — high-to-low diagonal, switch sides between sets.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (side of the waist), especially the side opposite the cable. FORM: cable HIGH, both hands at the upper shoulder, rotate AND chop down across to the opposite hip, pivot the back foot. The core rotates, not just the arms — controlled, no swinging.' },
-        { id:'D2', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:7, ss:'SS2',
-          note:'‖ Superset with wood chop. Tempo: 3s up, 1s hold, 3s down.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis. FORM: crunch ribs down toward hips, lower back stays down, elbows behind the ears.' },
+      { label:'D · Superset 1 · Calf + oblique (Smith calf + cable chop — no bar swap)', ex:[
+        { id:'D1', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:120, rpe:8, ss:'SS1',
+          note:'‖ Superset with Wood Chop (calf on the Smith, chop on the cable — set the bar once, no re-pinning). 120 TOTAL on the bar. 2nd calf hit of the week.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius. FORM: balls of feet on a block, 1s squeeze top, 2s stretch bottom, legs straight.' },
+        { id:'D2', name:'Cable Wood Chop', sets:3, reps:'12/side', weight:70, rpe:7, ss:'SS1',
+          note:'‖ Superset with Standing Calf. WORKING: 70lbs. Direct oblique work — high-to-low diagonal, switch sides between sets.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (side of the waist), especially the side opposite the cable. FORM: cable HIGH, both hands at the upper shoulder, rotate AND chop down across to the opposite hip, pivot the back foot. The core rotates, not just the arms — controlled, no swinging.' },
       ]},
-      { label:'E · Core', ex:[
-        { id:'E1', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7,
-          note:'70lbs across all days. Anti-rotation finisher.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press out, hold 2s, fight the rotation, slow return.' },
+      { label:'E · Superset 2 · Core finisher', ex:[
+        { id:'E1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:0, rpe:7, ss:'SS2',
+          note:'‖ Superset with Pallof. Tempo: 3s up, 1s hold, 3s down.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis. FORM: crunch ribs down toward hips, lower back stays down, elbows behind the ears.' },
+        { id:'E2', name:'Pallof Press', sets:3, reps:'12/side', weight:70, rpe:7, ss:'SS2',
+          note:'‖ Superset with crunch. 70lbs across all days. Anti-rotation finisher.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press out, hold 2s, fight the rotation, slow return.' },
       ]},
     ],
     cardio:'10–15 min easy walk. End of the week — prioritize recovery.'
@@ -1251,6 +1251,14 @@ function generateExportText(entries){
     });
     txt+=`\nSession notes: ${e.duration||'?'} min · ${e.day} ${e.sessName}\n\n----------------------------------------------------------\n\n`;
   });
+  // Bodyweight log (daily fasted AM readings) — always included so the trend travels with the log
+  if(bwLog.length){
+    const bwSorted=[...bwLog].sort((a,b)=>parseEntryDate(a.date)-parseEntryDate(b.date));
+    txt+='-------------------------------------\nBODYWEIGHT LOG (daily, fasted AM)\n-------------------------------------\n\n';
+    bwSorted.forEach(b=>{ txt+=`${b.date}  ${b.weight} lbs\n`; });
+    const avg=(bwSorted.reduce((a,b)=>a+b.weight,0)/bwSorted.length).toFixed(1);
+    txt+=`\nEntries: ${bwSorted.length} · Average: ${avg} lbs · Latest: ${bwSorted[bwSorted.length-1].weight} lbs\n\n`;
+  }
   txt+='=====================================\nEND OF LOG\n=====================================\n';
   const prev=document.getElementById('eprev');
   prev.textContent=txt; prev.classList.add('show');
@@ -1511,7 +1519,7 @@ function showToast(msg){
 // SERVICE WORKER
 // ═══════════════════════════════════════════════
 if('serviceWorker' in navigator){
-  const sw=`const CACHE='ravi-lifts-v5';
+  const sw=`const CACHE='ravi-lifts-v7';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
 self.addEventListener('fetch',e=>{
