@@ -452,189 +452,50 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 //   - Deloads set explicitly (FORCE_DELOAD_WEEKS); calories to maintenance those weeks
 //   - DBs cap 50lb, 5lb jumps only; bench decline ~10-15deg; calves on Smith (total load)
 // ═══════════════════════════════════════════════
+// RACE PREP Wk 4 (Nov 2–6, 2026): full programme restored after the neck week.
+// Upper body progresses normally. Legs 3 sets, loads held. Calf raises OUT until after
+// the race (running now loads the calves; lower-calf stiffness reported) → BW eccentric
+// calf prehab instead. Shrugs stay parked until after Nov 14. Run/walk Mon + Thu.
 const P = [
   // =============== MONDAY · UPPER (Push focus) ===============
   {
     id:'upper_push', day:'Monday', name:'Upper (Push focus)', emoji:'🔥',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Shoulders','Triceps','Core'],
-    coach:'NECK-SAFE WEEK (Race Prep Wk 3). Everything holds. OHP and the crunch are PARKED this week: pressing overhead and neck flexion are the two things most likely to re-aggravate a neck sprain. Laterals drop to 20, no partials to failure. Rule for every exercise: if it brings on neck pain, stop and skip it. Progressing while compensating for a sore neck is how a 1-week sprain turns into race-week pain.',
+    coach:'RACE PREP · Wk 4 (Nov 2–6) — full program back now the neck is pain-free. Upper body progresses as normal: Rear Delt 35, Pushdown 115, OH Extension 95. Bench and OHP hold. Run/walk after the session: 30 min, HR under 155. Last full week before race-week taper. Target 55-65 min.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'5–6', weight:62.5, rpe:8, compound:true,
-          note:'HOLD 62.5 — your clean 4x6 earned 65, but it waits a week. Head stays flat on the bench, do not lift it as you press. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'⚡ Heaviest lift of the day. Pause 1 sec at chest. Drive feet hard.' },
+          note:'HOLD 62.5 — 6/6/6/5 last Monday, one rep short of a clean 4x6. Get all four sets to 6, then 65.', tip:'⚡ Heaviest lift of the day. Pause 1 sec at chest. Drive feet hard.' },
+        { id:'A2', name:'Smith Machine OHP', sets:4, reps:'5–6', weight:45, rpe:8, compound:true,
+          note:'BACK at 45 after the neck week. Last time 47.5 held for two sets of 5, then you dropped to 45. Own a clean 4x6 at 45 first. Neutral neck — stop if anything twinges.', tip:'⚡ No leg drive. Smooth bar path. Full lockout.' },
       ]},
       { label:'B · Chest Hypertrophy', ex:[
         { id:'B1', name:'Decline Dumbbell Press', sets:3, reps:'10–12', weight:50, rpe:8, compound:false,
-          note:'HOLD 50 — 3x9, below the 10-12 range after the jump. Rebuild to 3x10-12 before anything moves.', tip:'MUSCLES YOU SHOULD FEEL: Lower/sternal pec (bottom of the chest). FORM: 10–15° decline, DBs start at lower-chest level, press up and slightly together, control the stretch at the bottom. Shoulder blades pinned. No bouncing off the chest.' },
+          note:'HOLD 50 (DB cap) — 3x10, up from 3x9. Chase 3x12. At the cap, reps are the progression.', tip:'MUSCLES YOU SHOULD FEEL: Lower/sternal pec (bottom of the chest). FORM: 10–15° decline, DBs start at lower-chest level, press up and slightly together, control the stretch at the bottom. Shoulder blades pinned. No bouncing off the chest.' },
       ]},
       { label:'C · Superset 1 · Lower chest + rear delt', ex:[
-        { id:'C1', name:'High-to-Low Cable Crossover', sets:3, reps:'12–15', weight:72.5, rpe:8, ss:'SS1',
-          note:'UP to 72.5 — clean 3x15 at 70. Chase 3x12-15.', tip:'MUSCLES YOU SHOULD FEEL: Lower/inner pec. FORM: cables set HIGH, slight forward lean, arms sweep down and together to hip level, 1 sec squeeze, slow return. Soft elbow bend held constant — it is a fly, not a press.' },
-        { id:'C2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'12–15', weight:30, rpe:7, ss:'SS1',
-          note:'HOLD 30 — your clean 3x15 earned 35, but not this week. Do not shrug at the end of the rep. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'Lead with the pinky, squeeze shoulder blades together. Slow eccentric.' },
-      ]},
-      { label:'D · Shoulders (straight sets — full rest, protect the delt)', ex:[
-        { id:'D1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12–15', weight:20, rpe:7,
-          note:'NECK WEEK: dropped to 20 and NO partials to failure. Near failure the upper traps take over, and they attach to the neck. Stop 2 reps short. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure. If you feel a PINCH at the top (not muscle burn), cap the raise at shoulder height and drop to 15.' },
-      ]},
-      { label:'E · Superset 2 · Triceps density (both triceps — zero shoulder involvement)', ex:[
-        { id:'E1', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:115, rpe:8, ss:'SS2',
-          note:'DOWN to 115 — at 120 you got 8 reps then had to drop to 100 for the last two sets. 115 should hold all 3 sets in range. Chase 3x10, then 120 again.', tip:'Elbows pinned. Full lockout. No body english.' },
-        { id:'E2', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:90, rpe:7, ss:'SS2',
-          note:'HOLD 90 — your 3x12 earned 95, but arms overhead pulls on the neck, so it waits. Keep the head still, no forward jut. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'Stretch deep at the bottom, elbows tight. The long head loves the overhead stretch.' },
-      ]},
-    ],
-    cardio:'15–20 min Zone 2 — incline walk (12% grade, 3.0–3.5 mph). Hard 90-min cap on the whole session.'
-  },
-
-  // =============== TUESDAY · LOWER (Quad focus) ===============
-  {
-    id:'lower_quad', day:'Tuesday', name:'Lower (Quad focus)', emoji:'🦵',
-    color:'var(--lower)', bg:'var(--lowerA)',
-    targets:['Quads','Glutes','Calves'],
-    coach:'NECK-SAFE WEEK — legs are already on hold for the race. Squat: the Smith bar sits on the upper traps, which can press on a sore neck. If you feel it, use a pad or swap to holding DBs at your sides for split squats only. Pain-free only.',
-    groups:[
-      { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Smith Machine Back Squat', sets:4, reps:'6–8', weight:45, rpe:8, compound:true,
-          note:'HOLD 45 — clean 4x8. RACE PREP: legs hold load until after Nov 14. This one goes up first after the race.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
-        { id:'A2', name:'Bulgarian Split Squat', sets:4, reps:'10–12', weight:30, rpe:8, compound:true,
-          note:'HOLD 30 — clean 4x12 at the top of the range. RACE PREP: legs hold load until after Nov 14. Earned 35 for after Nov 14.', tip:'Front foot far out. Knee tracks over midfoot. Slow descent, drive through the front heel.' },
-      ]},
-      { label:'B · Calves', ex:[
-        { id:'B2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:150, rpe:8,
-          note:'LOCKED at 150 TOTAL — you ran it for 4x12. Chase 4x15. Calves are fine to push: they help on the long walks.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (diamond calf). FORM: balls of feet on a block, heels hang, 1s squeeze top, 2s stretch bottom. Legs straight for the gastroc.' },
-      ]},
-      { label:'D · Glutes', ex:[
-        { id:'D1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:130, rpe:7,
-          note:'HOLD 130 — clean 3x15. RACE PREP: legs hold load until after Nov 14.', tip:'Drive HIPS forward, not just standing up. Hard glute squeeze at lockout.' },
-      ]},
-    ],
-    cardio:'10–15 min Zone 2 walk only. Do not bike hard — quads need to recover.'
-  },
-
-  // =============== WEDNESDAY · PULL ===============
-  {
-    id:'pull', day:'Wednesday', name:'Pull', emoji:'💪',
-    color:'var(--pull)', bg:'var(--pullA)',
-    targets:['Back','Biceps','Rear Delts','Core'],
-    coach:'NECK-SAFE WEEK — Pull-ups and Shrugs are PARKED (hanging pull-ups and loaded shrugs both load the neck directly). Pendlay at RPE 7 with a neutral neck. Lat PD back to 155. Pain-free only.',
-    groups:[
-      { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A2', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:72.5, rpe:7, compound:true,
-          note:'HOLD 72.5 at RPE 7 — your 4x8 earned 75, it waits a week. Keep the neck neutral: chin slightly tucked, eyes on the floor a few feet ahead, never look up in the mirror. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'⚡ Pull the bar to the lower ribs. Full reset on the floor between reps. Explosive pull.' },
-      ]},
-      { label:'B · Back Hypertrophy', ex:[
-        { id:'B1', name:'Lat Pulldown (wide grip)', sets:3, reps:'8–10', weight:155, rpe:8, compound:true,
-          note:'155 — you tried 160 and got 3x7, below the range, so it goes back to 155 for 3x8-10. Pull to the upper chest without craning the head forward. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows down, not back.' },
-      ]},
-      { label:'C · Superset 1 · Biceps + rear delt ("B" pairing — no overlap, each keeps load)', ex:[
-        { id:'C1', name:'Dumbbell Curl', sets:3, reps:'12–15', weight:25, rpe:8, ss:'SS1',
-          note:'Superset with Face Pull. HOLD 25 strict with the 4s eccentric — 3x12, chase 3x15.', tip:'MUSCLES YOU SHOULD FEEL: Biceps, peak at the top. FORM: elbows pinned, NO swing, full supination (pinky up) at the top, 2s squeeze, 3s lower. Shoulders/back helping = too heavy.' },
-        { id:'C2', name:'Cable Face Pull', sets:3, reps:'15–20', weight:130, rpe:7, ss:'SS1',
-          note:'HOLD 130. Keep it smooth, no shrug at the end. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'Pull the rope APART at your face. Like flexing your back in the mirror.' },
-      ]},
-      { label:'E · Core', ex:[
-        { id:'E2', name:'Pallof Press', sets:3, reps:'12/side', weight:80, rpe:7,
-          note:'Superset with leg raise. 80 — your feel, 12/side clean.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press straight out, hold 2s, fight the rotation, return slow.' },
-      ]},
-    ],
-    cardio:'15–20 min Zone 2 — incline walk. Lower body is fresh, a good day to push heart rate.'
-  },
-
-  // =============== THURSDAY · UPPER (Pull/Arm focus) ===============
-  {
-    id:'upper_pull', day:'Thursday', name:'Upper (Pull/Arm focus)', emoji:'⚡',
-    color:'var(--upper)', bg:'var(--upperA)',
-    targets:['Chest','Back','Shoulders','Arms','Core'],
-    coach:'NECK-SAFE WEEK — Pull-ups and Arnold Press are PARKED. Laterals at 20, no partials. IMPORTANT: last Thursday logged every lift at exactly the bottom of its range in 20 minutes. Those were blank sets being saved, not real ones, and I fixed the app so blank sets are no longer saved. Run this session properly and log what you actually do.',
-    groups:[
-      { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Incline Smith Machine Press', sets:4, reps:'6–8', weight:55, rpe:8, compound:true,
-          note:'UP to 55 — clean 3x8 at RPE 7 on 52.5. Chase 4x6-8. Upper chest.', tip:'⚡ Bench at 30°. Pause 1 sec at chest. Drive feet.' },
-        { id:'A3', name:'Single Arm DB Row', sets:5, reps:'12–15', weight:50, rpe:8, compound:true,
-          note:'HOLD 50 at the cap. Brace on the bench with your head in line with your spine. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'Brace on the bench. Drive the elbow to the hip pocket. Hard squeeze at the top.' },
-      ]},
-      { label:'B · Superset 1 · Triceps + biceps (antagonist)', ex:[
-        { id:'B1', name:'Close Grip Smith Bench', sets:4, reps:'6–8', weight:52.5, rpe:8, ss:'SS1', compound:true,
-          note:'Superset with Incline DB Curl. UP to 52.5 — clean 3x8 at RPE 7 on 50. Chase 4x6-8.', tip:'Hands shoulder-width. Elbows tight. Drive into the mid-chest.' },
-        { id:'B2', name:'Incline Dumbbell Curl', sets:4, reps:'6–8', weight:30, rpe:8, ss:'SS1',
-          note:'30 with a 4-SECOND ECCENTRIC now. Four weeks pinned at 4x6 means 30 is your strict limit here — the slow lower is the progression, not more weight.', tip:'Do not cheat — full stretch at the bottom, let the arms hang back behind the torso.' },
-      ]},
-      { label:'E · Shoulders', ex:[
-        { id:'E1', name:'DB Lateral Raise + Lengthened Partials', sets:3, reps:'12–15', weight:20, rpe:7,
-          note:'NECK WEEK: dropped to 20 and NO partials to failure. Near failure the upper traps take over, and they attach to the neck. Stop 2 reps short. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (width). FORM: 12 full reps (lead with elbows, slow lower) then partials from the stretched bottom to failure.' },
-      ]},
-    ],
-    cardio:'15–20 min Zone 2 — easy bike. Save energy for tomorrow\'s deadlifts.'
-  },
-
-  // =============== FRIDAY · LOWER (Posterior) ===============
-  {
-    id:'lower_post', day:'Friday', name:'Lower (Posterior chain)', emoji:'🏋️',
-    color:'var(--lower)', bg:'var(--lowerA)',
-    targets:['Hamstrings','Glutes','Lower Back','Core'],
-    coach:'NECK-SAFE WEEK — Deadlift and RDL at RPE 7 with a neutral neck. Skip if the neck reacts. Saturday is your longest walk before the taper. Send the export, Saturday walk time, and how the neck feels by Friday.',
-    groups:[
-      { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Smith Conventional Deadlift', sets:4, reps:'4–5', weight:100, rpe:7, compound:true,
-          note:'HOLD 100 at RPE 7 this week. Keep the neck neutral: chin slightly tucked, eyes on the floor a few feet ahead, never look up in the mirror. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'⚡ Brace, push the floor away, hips and shoulders rise together. Lock out with the glutes.' },
-        { id:'A2', name:'Romanian Deadlift', sets:4, reps:'6–8', weight:90, rpe:7, compound:true,
-          note:'HOLD 90 at RPE 7 this week. Keep the neck neutral: chin slightly tucked, eyes on the floor a few feet ahead, never look up in the mirror. NECK WEEK: pain-free only. If this movement brings on any neck pain, stop the set and skip the exercise.', tip:'Push the hips back, knees soft, bar hugs the legs. Deep stretch at the bottom.' },
-      ]},
-      { label:'D · Superset 1 · Calf + oblique', ex:[
-        { id:'D1', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:150, rpe:8, ss:'SS1',
-          note:'Superset with Wood Chop. UP to 150 TOTAL to match Tuesday, where you ran it for 4x12. Chase 4x12-15.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius. FORM: balls of feet on a block, 1s squeeze top, 2s stretch bottom, legs straight.' },
-        { id:'D2', name:'Cable Wood Chop', sets:3, reps:'12–15/side', weight:80, rpe:7, ss:'SS1',
-          note:'Superset with Standing Calf. HOLD 80 — 3x12, chase 3x15/side. Core rotates, not just the arms.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (side of the waist), especially the side opposite the cable. FORM: cable HIGH, both hands at the upper shoulder, rotate AND chop down across to the opposite hip, pivot the back foot. The core rotates, not just the arms — controlled, no swinging.' },
-      ]},
-    ],
-    cardio:'10–15 min easy walk. End of the week — prioritize recovery.'
-  }
-];
-
-/* FULL_P_BACKUP — Race Prep W2 programme as of Oct 26, 2026, BEFORE the neck-safe week.
-   Restore this block as P for Wk 4 once the neck is pain-free. Not executed.
-const P = [
-  // =============== MONDAY · UPPER (Push focus) ===============
-  {
-    id:'upper_push', day:'Monday', name:'Upper (Push focus)', emoji:'🔥',
-    color:'var(--upper)', bg:'var(--upperA)',
-    targets:['Chest','Shoulders','Triceps','Core'],
-    coach:'RACE PREP · Wk 2 of 4 — mostly rep-building today: Bench, OHP and Decline all sat at the bottom of their ranges, so they hold. Crossover up to 72.5. Pushdown steps back to 115 so all three sets land in range. Laterals back to 30 (25 was only because the 30s were taken). Target 55-65 min — you hit 60 last week.',
-    groups:[
-      { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Smith Machine Bench Press', sets:4, reps:'5–6', weight:62.5, rpe:8, compound:true,
-          note:'HOLD 62.5 — 4x5, top is 6. Chase a clean 4x6 then 65.', tip:'⚡ Heaviest lift of the day. Pause 1 sec at chest. Drive feet hard.' },
-        { id:'A2', name:'Smith Machine OHP', sets:4, reps:'5–6', weight:47.5, rpe:8, compound:true,
-          note:'HOLD 47.5 — 4x5, top is 6. Chase 4x6 then 50.', tip:'⚡ No leg drive. Smooth bar path. Full lockout.' },
-      ]},
-      { label:'B · Chest Hypertrophy', ex:[
-        { id:'B1', name:'Decline Dumbbell Press', sets:3, reps:'10–12', weight:50, rpe:8, compound:false,
-          note:'HOLD 50 — 3x9, below the 10-12 range after the jump. Rebuild to 3x10-12 before anything moves.', tip:'MUSCLES YOU SHOULD FEEL: Lower/sternal pec (bottom of the chest). FORM: 10–15° decline, DBs start at lower-chest level, press up and slightly together, control the stretch at the bottom. Shoulder blades pinned. No bouncing off the chest.' },
-      ]},
-      { label:'C · Superset 1 · Lower chest + rear delt', ex:[
-        { id:'C1', name:'High-to-Low Cable Crossover', sets:3, reps:'12–15', weight:72.5, rpe:8, ss:'SS1',
-          note:'UP to 72.5 — clean 3x15 at 70. Chase 3x12-15.', tip:'MUSCLES YOU SHOULD FEEL: Lower/inner pec. FORM: cables set HIGH, slight forward lean, arms sweep down and together to hip level, 1 sec squeeze, slow return. Soft elbow bend held constant — it is a fly, not a press.' },
-        { id:'C2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'12–15', weight:30, rpe:7, ss:'SS1',
-          note:'HOLD 30 — 3x12 at RPE 7 is the bottom. Push to 3x15 before 35.', tip:'Lead with the pinky, squeeze shoulder blades together. Slow eccentric.' },
+        { id:'C1', name:'High-to-Low Cable Crossover', sets:3, reps:'12–15', weight:80, rpe:8, ss:'SS1',
+          note:'LOCKED at 80 — you ran 80 for 3x10 (prescribed 72.5). That is below the 12-15 range, so chase 3x12 at 80 before anything moves.', tip:'MUSCLES YOU SHOULD FEEL: Lower/inner pec. FORM: cables set HIGH, slight forward lean, arms sweep down and together to hip level, 1 sec squeeze, slow return. Soft elbow bend held constant — it is a fly, not a press.' },
+        { id:'C2', name:'Cable Rear Delt Fly (cross)', sets:3, reps:'12–15', weight:35, rpe:7, ss:'SS1',
+          note:'UP to 35 — clean 3x15 at 30. Chase 3x12-15. No shrug at the end of the rep.', tip:'Lead with the pinky, squeeze shoulder blades together. Slow eccentric.' },
       ]},
       { label:'D · Shoulders (straight sets — full rest, protect the delt)', ex:[
         { id:'D1', name:'DB Lateral Raise + Lengthened Partials', sets:4, reps:'12+partials', weight:30, rpe:9,
-          note:'BACK to 30 — last week you used 25 only because the 30s were taken. 12 full reps then 4-6 bottom-third partials to failure. If the 30s are busy again, 25 for 15+ full reps plus partials is a fine substitute, not a step back.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure. If you feel a PINCH at the top (not muscle burn), cap the raise at shoulder height and drop to 15.' },
+          note:'HOLD 30, partials back in — 4x12+partials at RPE 9. Chase 15 full reps before the partials. If the upper traps or neck take over, stop the partials and finish with full reps only.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (shoulder cap = width). FORM: full reps first (lead with elbows, slight lean, slow lower), then partials from the stretched bottom to failure. If you feel a PINCH at the top (not muscle burn), cap the raise at shoulder height and drop to 15.' },
       ]},
       { label:'E · Superset 2 · Triceps density (both triceps — zero shoulder involvement)', ex:[
         { id:'E1', name:'Cable Tricep Pushdown', sets:3, reps:'8–10', weight:115, rpe:8, ss:'SS2',
-          note:'DOWN to 115 — at 120 you got 8 reps then had to drop to 100 for the last two sets. 115 should hold all 3 sets in range. Chase 3x10, then 120 again.', tip:'Elbows pinned. Full lockout. No body english.' },
-        { id:'E2', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:90, rpe:7, ss:'SS2',
-          note:'LOCKED at 90 — you jumped there and got 3x10 at RPE 7. Bottom of the range: chase 3x12 before 95.', tip:'Stretch deep at the bottom, elbows tight. The long head loves the overhead stretch.' },
+          note:'UP to 115 — you ran 110 for a clean 3x10, the top of the range. Chase 3x8-10 at 115.', tip:'Elbows pinned. Full lockout. No body english.' },
+        { id:'E2', name:'Overhead Tricep Extension (cable)', sets:3, reps:'10–12', weight:95, rpe:7, ss:'SS2',
+          note:'UP to 95 — clean 3x12 at 90. Chase 3x10-12. Keep the head still, no forward jut.', tip:'Stretch deep at the bottom, elbows tight. The long head loves the overhead stretch.' },
       ]},
       { label:'F · Core', ex:[
-        { id:'F1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:20, rpe:8,
-          note:'HOLD 20lb — 3x12, chase 3x15 then 25lb.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis (top of the 6-pack). FORM: knees bent, feet flat, crunch ribs DOWN toward hips (do not pull the head). Lower back stays down. Elbows behind the ears — if you feel the neck, they are too far forward.' },
+        { id:'F1', name:'Lying Crunch (tempo + hands behind head)', sets:3, reps:'12–15', weight:25, rpe:8,
+          note:'LOCKED at 25 — you ran 25 for 3x12 (prescribed 20). Chase 3x15 at 25. Do not pull on the head.', tip:'MUSCLES YOU SHOULD FEEL: Upper rectus abdominis (top of the 6-pack). FORM: knees bent, feet flat, crunch ribs DOWN toward hips (do not pull the head). Lower back stays down. Elbows behind the ears — if you feel the neck, they are too far forward.' },
       ]},
     ],
-    cardio:'15–20 min Zone 2 — incline walk (12% grade, 3.0–3.5 mph). Hard 90-min cap on the whole session.'
+    cardio:'RUN/WALK — 30 min after lifting (or later in the day). Easy: 2 min run / 1 min walk, HR under 155, you can talk the whole time. If the lower calf is SORE (not just stiff), walk it instead.'
   },
 
   // =============== TUESDAY · LOWER (Quad focus) ===============
@@ -642,24 +503,24 @@ const P = [
     id:'lower_quad', day:'Tuesday', name:'Lower (Quad focus)', emoji:'🦵',
     color:'var(--lower)', bg:'var(--lowerA)',
     targets:['Quads','Glutes','Calves'],
-    coach:'RACE PREP · Wk 2 — squat, Bulgarian and pull-through all hit the top of their ranges and all hold until after Nov 14. That is the plan, not a stall: Saturday walks are the leg work now. Calf locked at 150. Log the session time this week (it came through blank).',
+    coach:'RACE PREP · Wk 4 — legs cut to 3 sets and loads hold. Calf raises are OUT until after the race: running is your calf work now, and the lower-calf stiffness says they have enough. Bodyweight eccentric calf raises replace them as prehab. Target 35-45 min.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Smith Machine Back Squat', sets:4, reps:'6–8', weight:45, rpe:8, compound:true,
-          note:'HOLD 45 — clean 4x8. RACE PREP: legs hold load until after Nov 14. This one goes up first after the race.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
-        { id:'A2', name:'Bulgarian Split Squat', sets:4, reps:'10–12', weight:30, rpe:8, compound:true,
-          note:'HOLD 30 — clean 4x12 at the top of the range. RACE PREP: legs hold load until after Nov 14. Earned 35 for after Nov 14.', tip:'Front foot far out. Knee tracks over midfoot. Slow descent, drive through the front heel.' },
+        { id:'A1', name:'Smith Machine Back Squat', sets:3, reps:'6–8', weight:45, rpe:8, compound:true,
+          note:'HOLD 45, 3 sets — clean 4x8 last week. RACE PREP: legs hold load until after Nov 14. This one goes up first after the race.', tip:'⚡ Hip crease below knee. Brace hard. Drive through midfoot.' },
+        { id:'A2', name:'Bulgarian Split Squat', sets:3, reps:'10–12', weight:30, rpe:8, compound:true,
+          note:'HOLD 30, 3 sets — clean 4x12 at the top of the range. Earned 35 for after Nov 14.', tip:'Front foot far out. Knee tracks over midfoot. Slow descent, drive through the front heel.' },
       ]},
-      { label:'B · Calves', ex:[
-        { id:'B2', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:150, rpe:8,
-          note:'LOCKED at 150 TOTAL — you ran it for 4x12. Chase 4x15. Calves are fine to push: they help on the long walks.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius (diamond calf). FORM: balls of feet on a block, heels hang, 1s squeeze top, 2s stretch bottom. Legs straight for the gastroc.' },
+      { label:'B · Glutes', ex:[
+        { id:'B1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:140, rpe:7,
+          note:'LOCKED at 140 — you ran 140 for 12/12 after a 15 at 130. Chase 3x15 at 140. Hips drive forward, not the lower back.', tip:'Drive HIPS forward, not just standing up. Hard glute squeeze at lockout.' },
       ]},
-      { label:'D · Glutes', ex:[
-        { id:'D1', name:'Cable Pull Through', sets:3, reps:'12–15', weight:130, rpe:7,
-          note:'HOLD 130 — clean 3x15. RACE PREP: legs hold load until after Nov 14.', tip:'Drive HIPS forward, not just standing up. Hard glute squeeze at lockout.' },
+      { label:'C · Calf Prehab (not training)', ex:[
+        { id:'C1', name:'Eccentric Calf Raise (bodyweight)', sets:2, reps:'12', weight:0, rpe:6,
+          note:'Replaces the Smith calf raise until after the race. Then a bent-knee calf stretch, 2x30s per side. If the lower calf / Achilles is PAINFUL rather than stiff, skip this and tell me.', tip:'Rise on both feet, lower on ONE foot over 3 seconds. Slow is the point. No bouncing at the bottom.' },
       ]},
     ],
-    cardio:'10–15 min Zone 2 walk only. Do not bike hard — quads need to recover.'
+    cardio:'10–15 min easy walk only. No run today — legs just trained.'
   },
 
   // =============== WEDNESDAY · PULL ===============
@@ -667,32 +528,30 @@ const P = [
     id:'pull', day:'Wednesday', name:'Pull', emoji:'💪',
     color:'var(--pull)', bg:'var(--pullA)',
     targets:['Back','Biceps','Rear Delts','Core'],
-    coach:'RACE PREP · Wk 2 — Shrugs up to 150. Lat PD back to 155 after a clean 3x10 at 150. Pull-ups chasing 4x7. Pendlay and Face Pull build reps. You hit 62 min last week — that is the target.',
+    coach:'RACE PREP · Wk 4 — Pull-ups back, conservative at 4x4 for the first week after the neck. Shrugs stay parked until after the race: loaded traps pull on the neck, and they do nothing for Nov 14. Pendlay locked at 75. Target 50-60 min.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Pull-ups', sets:4, reps:'6–7', weight:0, rpe:8, compound:true,
-          note:'4x6 at the bottom of the 6-7 range — chase 4x7. ~1 in the tank.', tip:'MUSCLES YOU SHOULD FEEL: Lats (width) + mid-back + biceps. FORM: dead-hang start, drive elbows down to the ribs, chest to bar, control the lower (2-3s). No kipping. Stop 1 rep short of failure — protect the joints on a cut.' },
-        { id:'A2', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:72.5, rpe:8, compound:true,
-          note:'HOLD 72.5 — 4x6, chase 4x8 then 75.', tip:'⚡ Pull the bar to the lower ribs. Full reset on the floor between reps. Explosive pull.' },
+        { id:'A1', name:'Pull-ups', sets:4, reps:'4–5', weight:0, rpe:7, compound:true,
+          note:'BACK after the neck week, conservative. You were at 4x6 before. 4 clean reps per set, 5 if it feels easy. Stop if the neck reacts. Back to 6-7 after the race.', tip:'MUSCLES YOU SHOULD FEEL: Lats (width) + mid-back + biceps. FORM: dead-hang start, drive elbows down to the ribs, chest to bar, control the lower (2-3s). No kipping. Stop 1 rep short of failure — protect the joints on a cut.' },
+        { id:'A2', name:'Pendlay Row (Smith)', sets:4, reps:'6–8', weight:75, rpe:8, compound:true,
+          note:'LOCKED at 75 — you ran 75 for 4x6 at RPE 7 (prescribed 72.5). Chase 4x8 at 75. Neutral neck, eyes on the floor a few feet ahead.', tip:'⚡ Pull the bar to the lower ribs. Full reset on the floor between reps. Explosive pull.' },
       ]},
       { label:'B · Back Hypertrophy', ex:[
         { id:'B1', name:'Lat Pulldown (wide grip)', sets:3, reps:'8–10', weight:155, rpe:8, compound:true,
-          note:'155 — you dropped to 150 and got a clean 3x10, which is the top. That earns 155 again. Chase 3x8-10.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows down, not back.' },
-        { id:'B4', name:'Smith Machine Shrugs', sets:4, reps:'12–15', weight:150, rpe:8, compound:false,
-          note:'UP to 150 TOTAL — clean 4x15 at 140. Chase 4x12-15. Hard 2s hold at the top.', tip:'MUSCLES YOU SHOULD FEEL: Upper traps. FORM: bar in front of the thighs, arms straight (do NOT curl), shrug straight UP toward the ears, 2s squeeze, slow lower. No shoulder rolling. Straps fine if grip fades after rows.' },
+          note:'155 — 150 for a clean 3x10 again, the top of the range. Run 155 for 3x8-10 and stay there unless you miss 8.', tip:'⚡ Bar to upper chest. Lean back ~15°. Drive elbows down, not back.' },
       ]},
       { label:'C · Superset 1 · Biceps + rear delt ("B" pairing — no overlap, each keeps load)', ex:[
         { id:'C1', name:'Dumbbell Curl', sets:3, reps:'12–15', weight:25, rpe:8, ss:'SS1',
           note:'Superset with Face Pull. HOLD 25 strict with the 4s eccentric — 3x12, chase 3x15.', tip:'MUSCLES YOU SHOULD FEEL: Biceps, peak at the top. FORM: elbows pinned, NO swing, full supination (pinky up) at the top, 2s squeeze, 3s lower. Shoulders/back helping = too heavy.' },
         { id:'C2', name:'Cable Face Pull', sets:3, reps:'15–20', weight:130, rpe:7, ss:'SS1',
-          note:'Superset with DB Curl. HOLD 130 — 3x15 is the bottom, chase 3x20.', tip:'Pull the rope APART at your face. Like flexing your back in the mirror.' },
+          note:'Superset with DB Curl. HOLD 130 — 3x15, chase 3x20. No shrug at the end.', tip:'Pull the rope APART at your face. Like flexing your back in the mirror.' },
       ]},
       { label:'E · Core', ex:[
         { id:'E2', name:'Pallof Press', sets:3, reps:'12/side', weight:80, rpe:7,
-          note:'Superset with leg raise. 80 — your feel, 12/side clean.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press straight out, hold 2s, fight the rotation, return slow.' },
+          note:'HOLD 80 — 3x12/side clean.', tip:'MUSCLES YOU SHOULD FEEL: Obliques + transverse abdominis. FORM: press straight out, hold 2s, fight the rotation, return slow.' },
       ]},
     ],
-    cardio:'15–20 min Zone 2 — incline walk. Lower body is fresh, a good day to push heart rate.'
+    cardio:'10–15 min easy walk. No run today — Monday and Thursday are the run days.'
   },
 
   // =============== THURSDAY · UPPER (Pull/Arm focus) ===============
@@ -700,32 +559,32 @@ const P = [
     id:'upper_pull', day:'Thursday', name:'Upper (Pull/Arm focus)', emoji:'⚡',
     color:'var(--upper)', bg:'var(--upperA)',
     targets:['Chest','Back','Shoulders','Arms','Core'],
-    coach:'RACE PREP · Wk 2 — last week did not log, so every target here is UNCHANGED from Wk 1: Incline Smith 55, Close Grip 52.5, Pull-ups 6-7, Arnold 45, Laterals 30. Run it as written and log it so I can progress it next week. Target 50-55 min.',
+    coach:'RACE PREP · Wk 4 — Pull-ups, Arnold Press and lateral partials are back. Pull-ups stay conservative at 3x4. Run/walk after the session: 30 min, HR under 155. Tomorrow is the last leg day before the race. Target 50-60 min.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
         { id:'A1', name:'Incline Smith Machine Press', sets:4, reps:'6–8', weight:55, rpe:8, compound:true,
-          note:'UP to 55 — clean 3x8 at RPE 7 on 52.5. Chase 4x6-8. Upper chest.', tip:'⚡ Bench at 30°. Pause 1 sec at chest. Drive feet.' },
-        { id:'A2', name:'Pull-ups', sets:3, reps:'6–7', weight:0, rpe:8, compound:true,
-          note:'2nd exposure. 3x6 at RPE 7 earned the new 6-7 range. ~1 in the tank.', tip:'MUSCLES YOU SHOULD FEEL: Lats + mid-back + biceps. FORM: dead hang, elbows down to the ribs, chest to bar, slow lower. No kipping. Leave 1 rep in the tank.' },
+          note:'HOLD 55 — 4x6, the bottom of the range. Chase 4x8.', tip:'⚡ Bench at 30°. Pause 1 sec at chest. Drive feet.' },
+        { id:'A2', name:'Pull-ups', sets:3, reps:'4–5', weight:0, rpe:7, compound:true,
+          note:'2nd exposure, conservative after the neck week. 3x4 clean, 5 if easy. Stop if the neck reacts.', tip:'MUSCLES YOU SHOULD FEEL: Lats + mid-back + biceps. FORM: dead hang, elbows down to the ribs, chest to bar, slow lower. No kipping. Leave 1 rep in the tank.' },
         { id:'A3', name:'Single Arm DB Row', sets:5, reps:'12–15', weight:50, rpe:8, compound:true,
-          note:'HOLD at the 50 cap — 5x12 this week versus 5x15 last week, the 3s eccentric is biting. Rebuild to 5x15 WITH the slow lower.', tip:'Brace on the bench. Drive the elbow to the hip pocket. Hard squeeze at the top.' },
+          note:'HOLD at the 50 cap — 5x12. Chase 5x15 with the 3s lower.', tip:'Brace on the bench. Drive the elbow to the hip pocket. Hard squeeze at the top.' },
       ]},
       { label:'B · Superset 1 · Triceps + biceps (antagonist)', ex:[
         { id:'B1', name:'Close Grip Smith Bench', sets:4, reps:'6–8', weight:52.5, rpe:8, ss:'SS1', compound:true,
-          note:'Superset with Incline DB Curl. UP to 52.5 — clean 3x8 at RPE 7 on 50. Chase 4x6-8.', tip:'Hands shoulder-width. Elbows tight. Drive into the mid-chest.' },
+          note:'Superset with Incline DB Curl. HOLD 52.5 — 4x6, chase 4x8.', tip:'Hands shoulder-width. Elbows tight. Drive into the mid-chest.' },
         { id:'B2', name:'Incline Dumbbell Curl', sets:4, reps:'6–8', weight:30, rpe:8, ss:'SS1',
-          note:'30 with a 4-SECOND ECCENTRIC now. Four weeks pinned at 4x6 means 30 is your strict limit here — the slow lower is the progression, not more weight.', tip:'Do not cheat — full stretch at the bottom, let the arms hang back behind the torso.' },
+          note:'HOLD 30 with the 4-second eccentric — 4x6. The slow lower is the progression, not more weight.', tip:'Do not cheat — full stretch at the bottom, let the arms hang back behind the torso.' },
       ]},
       { label:'C · Shoulders', ex:[
         { id:'C1', name:'Arnold Press', sets:3, reps:'10–12', weight:45, rpe:8, compound:false,
-          note:'HOLD 45 — 2x10, chase 3x12 before 50 (a coarse DB jump).', tip:'Rotate as you press. Full delt sweep in one move.' },
+          note:'BACK at 45 after the neck week. Chase 3x10-12 before 50 (a coarse DB jump). Stop if the neck reacts.', tip:'Rotate as you press. Full delt sweep in one move.' },
       ]},
       { label:'E · Shoulders', ex:[
         { id:'E1', name:'DB Lateral Raise + Lengthened Partials', sets:3, reps:'12+partials', weight:30, rpe:9,
-          note:'UP to 30 to match Monday (you proved it there at RPE 9). This is the 2nd exposure of the week, so drop to 25 if the form goes.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (width). FORM: 12 full reps (lead with elbows, slow lower) then partials from the stretched bottom to failure.' },
+          note:'BACK to 30 with partials — Monday proves the load. Second exposure of the week, so drop to 25 if the form goes. Stop the partials if the upper traps take over.', tip:'MUSCLES YOU SHOULD FEEL: Side delt (width). FORM: 12 full reps (lead with elbows, slow lower) then partials from the stretched bottom to failure.' },
       ]},
     ],
-    cardio:'15–20 min Zone 2 — easy bike. Save energy for tomorrow\'s deadlifts.'
+    cardio:'RUN/WALK — 30 min after lifting. Easy: 2 min run / 1 min walk, HR under 155. Last run before the Saturday rehearsal.'
   },
 
   // =============== FRIDAY · LOWER (Posterior) ===============
@@ -733,25 +592,26 @@ const P = [
     id:'lower_post', day:'Friday', name:'Lower (Posterior chain)', emoji:'🏋️',
     color:'var(--lower)', bg:'var(--lowerA)',
     targets:['Hamstrings','Glutes','Lower Back','Core'],
-    coach:'RACE PREP · Wk 2 — last week did not log, so the targets are UNCHANGED: Deadlift 100, RDL 90 (both hold until the race). Calf matches Tuesday at 150. Lightest day by design, it sits before the long walk. Send the export with the Saturday walk time.',
+    coach:'RACE PREP · Wk 4 — lightest leg day: Deadlift and RDL cut to 3 sets at RPE 7, calf raises out. SATURDAY = RACE REHEARSAL: 5K easy (11:00-11:30/mi), 20 min break, then 4 miles at race strategy (1 mi run / 0.25 mi walk, HR 150-160). Use race breakfast, race shoes and the gels you will race with. Send the export, Saturday splits and how the calves feel.',
     groups:[
       { label:'A · Primary Compounds (straight sets)', ex:[
-        { id:'A1', name:'Smith Conventional Deadlift', sets:4, reps:'4–5', weight:100, rpe:8, compound:true,
-          note:'HOLD 100 — 3x5 at RPE 7. RACE PREP: legs HOLD load until after Nov 14 — your long walks are the leg stimulus now. Friday sits the day before your long walk: crisp reps, no grinding.', tip:'⚡ Brace, push the floor away, hips and shoulders rise together. Lock out with the glutes.' },
-        { id:'A2', name:'Romanian Deadlift', sets:4, reps:'6–8', weight:90, rpe:8, compound:true,
-          note:'LOCKED at 90 — you ran it for 3x8 at RPE 7, so it stays, but it does NOT go higher before the race. RACE PREP: legs HOLD load until after Nov 14 — your long walks are the leg stimulus now.', tip:'Push the hips back, knees soft, bar hugs the legs. Deep stretch at the bottom.' },
+        { id:'A1', name:'Smith Conventional Deadlift', sets:3, reps:'4–5', weight:100, rpe:7, compound:true,
+          note:'HOLD 100, 3 sets at RPE 7 — crisp reps, no grinding. Rehearsal is tomorrow. Neutral neck, eyes on the floor.', tip:'⚡ Brace, push the floor away, hips and shoulders rise together. Lock out with the glutes.' },
+        { id:'A2', name:'Romanian Deadlift', sets:3, reps:'6–8', weight:90, rpe:7, compound:true,
+          note:'HOLD 90, 3 sets at RPE 7 — 4x8 clean last week. Stays here until after the race.', tip:'Push the hips back, knees soft, bar hugs the legs. Deep stretch at the bottom.' },
       ]},
-      { label:'D · Superset 1 · Calf + oblique', ex:[
-        { id:'D1', name:'Standing Calf Raise (Smith)', sets:4, reps:'12–15', weight:150, rpe:8, ss:'SS1',
-          note:'Superset with Wood Chop. UP to 150 TOTAL to match Tuesday, where you ran it for 4x12. Chase 4x12-15.', tip:'MUSCLES YOU SHOULD FEEL: Gastrocnemius. FORM: balls of feet on a block, 1s squeeze top, 2s stretch bottom, legs straight.' },
-        { id:'D2', name:'Cable Wood Chop', sets:3, reps:'12–15/side', weight:80, rpe:7, ss:'SS1',
-          note:'Superset with Standing Calf. HOLD 80 — 3x12, chase 3x15/side. Core rotates, not just the arms.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (side of the waist), especially the side opposite the cable. FORM: cable HIGH, both hands at the upper shoulder, rotate AND chop down across to the opposite hip, pivot the back foot. The core rotates, not just the arms — controlled, no swinging.' },
+      { label:'B · Core', ex:[
+        { id:'B1', name:'Cable Wood Chop', sets:3, reps:'12–15/side', weight:80, rpe:7,
+          note:'HOLD 80 — 3x12, chase 3x15/side. Core rotates, not just the arms.', tip:'MUSCLES YOU SHOULD FEEL: Obliques (side of the waist), especially the side opposite the cable. FORM: cable HIGH, both hands at the upper shoulder, rotate AND chop down across to the opposite hip, pivot the back foot. The core rotates, not just the arms — controlled, no swinging.' },
+      ]},
+      { label:'C · Calf Prehab (not training)', ex:[
+        { id:'C1', name:'Eccentric Calf Raise (bodyweight)', sets:2, reps:'12', weight:0, rpe:6,
+          note:'Replaces the Smith calf raise until after the race. Then a bent-knee calf stretch, 2x30s per side. If the lower calf / Achilles is PAINFUL rather than stiff, skip this and tell me.', tip:'Rise on both feet, lower on ONE foot over 3 seconds. Slow is the point. No bouncing at the bottom.' },
       ]},
     ],
-    cardio:'10–15 min easy walk. End of the week — prioritize recovery.'
+    cardio:'10–15 min easy walk. Rehearsal tomorrow — nothing hard today.'
   }
 ];
-END_FULL_P_BACKUP */
 
 const MUSCLE_MAP = {
   upper_push: { label:'Upper P', color:'var(--upper)' },
@@ -833,7 +693,9 @@ function getProgramPosition(now){
   const block = Math.floor(weekIdx / WEEKS_PER_BLOCK) + 1;
   const week = (weekIdx % WEEKS_PER_BLOCK) + 1;
   // Determine the Monday of the *actual calendar* current week to check no-deload override
-  const calWeekStart = a.getTime() + Math.floor(days/7)*7*86400000;
+  // Calendar-day math (not ms) so DST changes (e.g. Nov 1) don't shift the week start by an hour
+  const cws = new Date(a); cws.setDate(a.getDate() + Math.floor(days/7)*7);
+  const calWeekStart = cws.getTime();
   const isForceDeload = FORCE_DELOAD_WEEKS.some(t => t === calWeekStart);
   const isDeload = isForceDeload; // deloads set explicitly per week (FORCE_DELOAD_WEEKS)
   const daysIntoWeek = days % 7;                  // 0=Mon, 6=Sun
@@ -1619,7 +1481,7 @@ function showToast(msg){
 // SERVICE WORKER
 // ═══════════════════════════════════════════════
 if('serviceWorker' in navigator){
-  const sw=`const CACHE='ravi-lifts-v20';
+  const sw=`const CACHE='ravi-lifts-v21';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
 self.addEventListener('fetch',e=>{
