@@ -257,6 +257,40 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 .coach-note{margin:8px 16px 0;padding:12px 14px;background:var(--accent-dim);border:1px solid var(--accent);border-radius:var(--radius-sm);font-size:12px;color:var(--text);line-height:1.5;display:flex;gap:10px;}
 .coach-note b{color:var(--accent);}
 .coach-icon{font-size:18px;flex-shrink:0;}
+
+/* PROFILES (v22) */
+.home-header{position:relative;}
+.prof-chip{position:absolute;top:20px;right:20px;padding:6px 11px;border-radius:20px;background:var(--card2);border:1px solid var(--border);color:var(--muted);font-family:var(--font);font-size:11px;font-weight:700;cursor:pointer;}
+.prof-chip:active{opacity:0.7;}
+.picker-wrap{flex:1;display:flex;flex-direction:column;justify-content:center;padding:24px;gap:14px;}
+.picker-t{font-size:30px;font-weight:800;letter-spacing:-0.8px;margin-bottom:4px;}
+.picker-s{font-size:14px;color:var(--muted);line-height:1.5;margin-bottom:10px;}
+.picker-btn{padding:20px;border-radius:var(--radius);background:var(--card);border:1px solid var(--border2);color:var(--text);font-family:var(--font);font-size:18px;font-weight:800;text-align:left;cursor:pointer;display:flex;align-items:center;gap:14px;}
+.picker-btn:active{transform:scale(0.98);border-color:var(--accent);}
+.picker-btn small{display:block;font-size:12px;font-weight:500;color:var(--muted);margin-top:2px;}
+
+/* DIET (Mini) */
+.diet-chips{display:flex;gap:8px;margin:0 16px 14px;flex-wrap:wrap;}
+.diet-chip{flex:1;min-width:calc(50% - 4px);background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;}
+.diet-chip-n{font-size:18px;font-weight:800;color:var(--accent);}
+.diet-chip-l{font-size:10px;color:var(--muted);margin-top:1px;}
+.meal-card{margin:0 16px 10px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;}
+.meal-hdr{padding:12px 14px;display:flex;align-items:center;gap:8px;border-bottom:1px solid var(--border);}
+.meal-name{font-size:15px;font-weight:800;flex:1;}
+.meal-macro{font-size:11px;font-weight:700;color:var(--accent);}
+.meal-row{padding:9px 14px;display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--border);font-size:13px;line-height:1.35;}
+.meal-row:last-child{border-bottom:none;}
+.meal-row span:last-child{color:var(--muted);font-weight:700;text-align:right;flex-shrink:0;}
+.tip-list{margin:0 16px 12px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:4px 14px;}
+.tip-list div{padding:9px 0;border-bottom:1px solid var(--border);font-size:12px;line-height:1.45;color:var(--text);}
+.tip-list div:last-child{border-bottom:none;}
+.chk-row{display:flex;align-items:center;gap:10px;margin-bottom:10px;}
+.chk-lbl{font-size:12px;color:var(--muted);font-weight:700;width:86px;flex-shrink:0;}
+.seg{display:flex;gap:6px;flex:1;}
+.seg-btn{flex:1;padding:9px 0;border-radius:8px;background:var(--card2);border:1px solid var(--border);color:var(--muted);font-family:var(--font);font-size:13px;font-weight:700;cursor:pointer;}
+.seg-btn.on{background:var(--accent-dim);border-color:var(--accent);color:var(--accent);}
+.ci-row{padding:8px 0;border-top:1px solid var(--border);font-size:12px;display:flex;justify-content:space-between;gap:8px;}
+.ci-row span:first-child{color:var(--muted);font-weight:700;}
 </style>
 </head>
 <body>
@@ -271,7 +305,8 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
   <div class="scroll-area">
     <div class="home-header">
       <div class="greeting" id="greeting">Good morning,</div>
-      <div class="home-title">Let's lift, <em>Ravi.</em></div>
+      <div class="home-title" id="home-title">Let's lift, <em>Ravi.</em></div>
+      <button class="prof-chip" onclick="switchProfile()">⇄ Switch</button>
     </div>
     <div class="phase-banner">
       <div class="phase-icon">🎯</div>
@@ -390,11 +425,36 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
   </div>
 </div>
 
+<!-- PROFILE PICKER (first launch on a new phone) -->
+<div class="screen" id="screen-picker">
+  <div class="safe-top"></div>
+  <div class="picker-wrap">
+    <div class="picker-t">Who's training? 💪</div>
+    <div class="picker-s">Pick once — this phone remembers it. Each person's log is saved separately.</div>
+    <button class="picker-btn" onclick="chooseProfile('mini')"><span style="font-size:28px">🌸</span><span>Mini<small>Beginner home plan + diet</small></span></button>
+    <button class="picker-btn" onclick="chooseProfile('ravi')"><span style="font-size:28px">🔥</span><span>Ravi<small>Cut phase · Smith + cables</small></span></button>
+  </div>
+</div>
+
+<!-- DIET (Mini) -->
+<div class="screen" id="screen-diet">
+  <div class="safe-top"></div>
+  <div class="status-row">
+    <span class="status-time" id="clk4">9:41</span>
+    <span class="status-icons">📶 🔋</span>
+  </div>
+  <div class="scroll-area" id="diet-body"></div>
+</div>
+
 <!-- NAV -->
 <div class="nav-bar">
   <div class="nav-item active" id="nav-home" onclick="switchNav('home')">
     <div class="nav-icon">🏠</div>
     <div class="nav-label">Home</div>
+  </div>
+  <div class="nav-item" id="nav-diet" onclick="switchNav('diet')" style="display:none;">
+    <div class="nav-icon">🥗</div>
+    <div class="nav-label">Diet</div>
   </div>
   <div class="nav-item" id="nav-progress" onclick="switchNav('progress')">
     <div class="nav-icon">📈</div>
@@ -442,6 +502,37 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 
 <script>
 // ═══════════════════════════════════════════════
+// PROFILES (v22) — one file, two athletes. Each phone remembers its profile.
+// Ravi keeps his original keys (ravi_gymlog_v3 / ravi_bw_v3) — untouched.
+// Mini gets her own keys. If Ravi's log already exists on a device, that device
+// auto-selects Ravi, so his phone opens exactly as before.
+// ═══════════════════════════════════════════════
+const PROFILE_KEY = 'lifts_profile';
+const PROFILES = {
+  ravi: { name:'Ravi', logKey:'ravi_gymlog_v3', bwKey:'ravi_bw_v3', dailyKey:null },
+  mini: { name:'Mini', logKey:'mini_gymlog_v1', bwKey:'mini_bw_v1', dailyKey:'mini_daily_v1' }
+};
+let ACTIVE_PROFILE = null;
+try { ACTIVE_PROFILE = localStorage.getItem(PROFILE_KEY); } catch(e){}
+if(!PROFILES[ACTIVE_PROFILE]){
+  ACTIVE_PROFILE = null;
+  try {
+    const raviLog = JSON.parse(localStorage.getItem('ravi_gymlog_v3') || localStorage.getItem('ravi_gymlog') || '[]');
+    if(raviLog.length){ ACTIVE_PROFILE = 'ravi'; localStorage.setItem(PROFILE_KEY,'ravi'); }
+  } catch(e){}
+}
+const IS_MINI = ACTIVE_PROFILE === 'mini';
+const PROF = PROFILES[ACTIVE_PROFILE || 'ravi'];
+function chooseProfile(p){
+  try { localStorage.setItem(PROFILE_KEY, p); } catch(e){}
+  location.reload();
+}
+function switchProfile(){
+  const other = IS_MINI ? 'ravi' : 'mini';
+  if(confirm(`Switch this phone to ${PROFILES[other].name}'s plan? Nothing is deleted — both logs stay saved separately.`)) chooseProfile(other);
+}
+
+// ═══════════════════════════════════════════════
 // CUT PHASE (Mesocycle 02) · Wk 1 = calibration deload · re-anchored Jul 13, 2026
 // SPLIT: Upper-Push / Lower-Quad / Pull / Upper-Pull-Arm / Lower-Posterior
 // PHILOSOPHY (fat-loss cut — RETAIN muscle in a deficit):
@@ -456,7 +547,7 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);font-size:14
 // Upper body progresses normally. Legs 3 sets, loads held. Calf raises OUT until after
 // the race (running now loads the calves; lower-calf stiffness reported) → BW eccentric
 // calf prehab instead. Shrugs stay parked until after Nov 14. Run/walk Mon + Thu.
-const P = [
+const P_RAVI = [
   // =============== MONDAY · UPPER (Push focus) ===============
   {
     id:'upper_push', day:'Monday', name:'Upper (Push focus)', emoji:'🔥',
@@ -613,6 +704,196 @@ const P = [
   }
 ];
 
+// ═══════════════════════════════════════════════
+// MINI · BEGINNER BLOCK 1 (Nov 2 – Nov 29, 2026)
+// Home: bodyweight + 2 lb / 5 lb DBs. Fat loss, 1,600 kcal.
+// RIGHT WRIST (surgery ~5 yrs ago, fine now): no loaded wrist extension —
+//   push-ups on fists/DB handles, planks on forearms, neutral-grip pressing.
+// Sets + RPE come from the WEEK (wk:[w1,w2,w3,w4]); prog:true lifts follow MINI_RPE.
+// Double progression: top of rep range on all sets, 2 sessions running → next DB.
+// Weights logged = ONE dumbbell.
+// ═══════════════════════════════════════════════
+const MINI_RPE = [6,7,8,6];
+const MINI_WEEKS = [
+  { title:'Week 1 · Learn the moves', steps:6000,
+    body:'2 sets of each lift, RPE 6 — finish every set feeling like you could do 4 more. Form is the only goal this week. Rest 60–90 sec. Any wrist pain → skip that move and tell Ravi.' },
+  { title:'Week 2 · Build volume', steps:7500,
+    body:'3 sets now, RPE 7 — the last 2–3 reps should feel like work. Same weights as Week 1 unless a set felt too easy.' },
+  { title:'Week 3 · Push the reps', steps:9000,
+    body:'3 sets, RPE 8 — chase the top of each rep range. Hit the top on every set two sessions in a row → next dumbbell up.' },
+  { title:'Week 4 · Easy week', steps:10000,
+    body:'2 sets, same weights, RPE 6. Let the body catch up. Friday: export the month and send it with waist/arm measurements.' }
+];
+const P_MINI = [
+  // =============== MONDAY · STRENGTH A ===============
+  {
+    id:'mini_full_a', day:'Monday', name:'Strength A (Full body)', emoji:'🌸',
+    color:'var(--upper)', bg:'var(--upperA)',
+    targets:['Legs','Glutes','Chest','Back','Core'],
+    coach:'5 min warm-up first: marching, arm circles, 10 bodyweight squats, 10 hip hinges. Then the lifts below, 60–90 sec rest. Finish with 5 min of stretching. Target 40–45 min.',
+    groups:[
+      { label:'A · Legs', ex:[
+        { id:'A1', name:'Goblet Squat to Chair', sets:3, reps:'10–12', weight:5, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          note:'Start with the 5 lb DB. If it feels light, good — the job right now is depth and control. Once 3×12 is clean twice, move to a heavier DB.',
+          tip:'MUSCLES: Front of thighs + glutes. FORM: hold the DB at your chest, feet shoulder-width, sit back and down until you lightly touch the chair, stand up tall. Knees follow the toes.' },
+        { id:'A2', name:'DB Romanian Deadlift', sets:3, reps:'10–12', weight:5, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          note:'One 5 lb DB in each hand. Log the weight of ONE dumbbell.',
+          tip:'MUSCLES: Back of thighs + glutes. FORM: soft knees, push the hips BACK like closing a car door with your butt, DBs slide down the thighs to mid-shin, flat back, squeeze glutes to stand.' },
+      ]},
+      { label:'B · Upper body', ex:[
+        { id:'B1', name:'Incline Push-up (counter/table)', sets:3, reps:'6–10', weight:0, rpe:7, prog:true, wk:[2,3,3,2],
+          note:'WRIST: hands on fists or gripping the dumbbells as handles so the wrist stays straight. Never flat palms. Higher surface = easier.',
+          tip:'MUSCLES: Chest + back of arms. FORM: body in one straight line head to heels, lower the chest to the edge, elbows at ~45° from the body, push away.' },
+        { id:'B2', name:'Bent-Over DB Row (both arms)', sets:3, reps:'10–12', weight:5, rpe:7, prog:true, wk:[2,3,3,2],
+          note:'No hand on a bench — so no weight on the wrist.',
+          tip:'MUSCLES: Upper back. FORM: hinge forward ~45°, flat back, pull the DBs to the hips, squeeze the shoulder blades together, lower slowly.' },
+      ]},
+      { label:'C · Glutes + core', ex:[
+        { id:'C1', name:'Glute Bridge', sets:3, reps:'12–15', weight:0, rpe:7, prog:true, wk:[2,3,3,2],
+          note:'Bodyweight first. When 3×15 is easy, rest the 5 lb DB on the hips.',
+          tip:'MUSCLES: Glutes. FORM: lie on your back, feet flat near the butt, push through the heels, squeeze 1 sec at the top. Ribs down — no arching the lower back.' },
+        { id:'C2', name:'Dead Bug', sets:3, reps:'6/side', weight:0, rpe:7, wk:[2,3,3,2],
+          note:'Slow and controlled. Quality over reps.',
+          tip:'MUSCLES: Deep core. FORM: on your back, arms up, knees at 90°. Lower opposite arm + leg slowly while the lower back stays PRESSED into the floor.' },
+      ]},
+    ],
+    cardio:'Steps: hit today\'s step target (see the Diet tab). A 15–20 min walk after dinner is the easiest way to get there.'
+  },
+
+  // =============== TUESDAY · CARDIO + CORE ===============
+  {
+    id:'mini_cardio_a', day:'Tuesday', name:'Cardio + Core', emoji:'🚶‍♀️',
+    color:'var(--pull)', bg:'var(--pullA)',
+    targets:['Cardio','Core','Mobility'],
+    coach:'Low impact — no jumping, no weight on the hands. Option: swap the circuit for a 30-min brisk walk, then do the core + mobility. Target 40–45 min.',
+    groups:[
+      { label:'A · Low-impact circuit', ex:[
+        { id:'A1', name:'Low-Impact Circuit', sets:4, reps:'5×40s', weight:0, rpe:6, wk:[3,4,4,3],
+          note:'Each set = ONE round of the 5 moves: 40 sec on, 20 sec off each. Rest 1 min between rounds.',
+          tip:'MOVES: ① High-knee march ② Bodyweight squat ③ Alternating step-back lunge ④ Standing oblique crunch (elbow to knee) ⑤ Side-step skater (no jump). Breathing hard but able to talk.' },
+      ]},
+      { label:'B · Core', ex:[
+        { id:'B1', name:'Dead Bug', sets:2, reps:'6/side', weight:0, rpe:7, wk:[2,2,3,2],
+          tip:'Lower back stays pressed into the floor the whole time.' },
+        { id:'B2', name:'Bird Dog', sets:2, reps:'6/side', weight:0, rpe:6, wk:[2,2,3,2],
+          note:'WRIST: do it on forearms if the right wrist complains on hands.',
+          tip:'On all fours, reach opposite arm + leg long, hold 2 sec, no hip twisting.' },
+        { id:'B3', name:'Glute Bridge Hold', sets:2, reps:'20–30s', weight:0, rpe:6, wk:[2,2,3,2],
+          tip:'Log seconds in the Reps box. Squeeze the glutes the whole hold.' },
+        { id:'B4', name:'Forearm Side Plank', sets:2, reps:'15–25s/side', weight:0, rpe:7, wk:[2,2,3,2],
+          tip:'Log seconds per side in the Reps box. Knees down is fine. On the forearm — not the hand.' },
+      ]},
+      { label:'C · Mobility', ex:[
+        { id:'C1', name:'Mobility Flow', sets:1, reps:'10 min', weight:0, rpe:3, wk:[1,1,1,1],
+          tip:'Hip flexor stretch, hamstring stretch, cat-cow (on forearms), child\'s pose, open-book upper-back rotation. 30–45 sec each.' },
+      ]},
+    ],
+    cardio:'Steps count too — today\'s target is on the Diet tab.'
+  },
+
+  // =============== WEDNESDAY · STRENGTH B ===============
+  {
+    id:'mini_full_b', day:'Wednesday', name:'Strength B (Full body)', emoji:'🌸',
+    color:'var(--upper)', bg:'var(--upperA)',
+    targets:['Legs','Glutes','Shoulders','Back','Core'],
+    coach:'5 min warm-up first. 60–90 sec rest between sets. Finish with 5 min of stretching. Target 40–45 min.',
+    groups:[
+      { label:'A · Legs + shoulders', ex:[
+        { id:'A1', name:'Reverse Lunge', sets:3, reps:'8/leg', weight:0, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          note:'Bodyweight for Weeks 1–2. Hold a wall or chair for balance if needed. DBs come in once it feels steady.',
+          tip:'MUSCLES: Glutes + thighs. FORM: step BACK, lower until both knees are ~90°, front knee over the ankle, push through the front heel to stand.' },
+        { id:'A2', name:'Seated DB Shoulder Press (neutral grip)', sets:3, reps:'8–12', weight:5, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          note:'WRIST: palms facing each other the whole rep — easiest position for the wrist.',
+          tip:'MUSCLES: Shoulders. FORM: sit tall, DBs at shoulder height, press up, slow lower. No arching the lower back.' },
+      ]},
+      { label:'B · Back + shoulders', ex:[
+        { id:'B1', name:'Split-Stance One-Arm Row', sets:3, reps:'10–12/side', weight:5, rpe:7, prog:true, wk:[2,3,3,2],
+          note:'Free hand rests on the front thigh — no weight through the wrist.',
+          tip:'MUSCLES: Upper back + lats. FORM: staggered stance, hinge forward, pull the elbow back to the hip, squeeze, lower slowly.' },
+        { id:'B2', name:'DB Lateral Raise', sets:3, reps:'12–15', weight:2, rpe:7, prog:true, wk:[2,3,3,2],
+          note:'2 lb DBs. Light is correct here — the side delt is a small muscle.',
+          tip:'MUSCLES: Side of the shoulders (the shape at the top of the arms). FORM: slight lean, lead with the elbows, raise to shoulder height, lower over 2–3 sec.' },
+      ]},
+      { label:'C · Glutes + core', ex:[
+        { id:'C1', name:'Single-Leg Glute Bridge', sets:3, reps:'8–10/side', weight:0, rpe:7, prog:true, wk:[2,3,3,2],
+          tip:'MUSCLES: Glutes. FORM: one foot planted, other leg straight up or bent, drive through the heel, hips level.' },
+        { id:'C2', name:'Forearm Side Plank', sets:3, reps:'15–25s/side', weight:0, rpe:7, wk:[2,3,3,2],
+          tip:'Log seconds per side in the Reps box. Knees down is fine.' },
+      ]},
+    ],
+    cardio:'Steps: hit today\'s target (see the Diet tab).'
+  },
+
+  // =============== THURSDAY · CARDIO + CORE ===============
+  {
+    id:'mini_cardio_b', day:'Thursday', name:'Cardio + Core', emoji:'🚶‍♀️',
+    color:'var(--pull)', bg:'var(--pullA)',
+    targets:['Cardio','Core','Mobility'],
+    coach:'Same as Tuesday. Low impact, no hands on the floor. A 30-min brisk walk can replace the circuit. Target 40–45 min.',
+    groups:[
+      { label:'A · Low-impact circuit', ex:[
+        { id:'A1', name:'Low-Impact Circuit', sets:4, reps:'5×40s', weight:0, rpe:6, wk:[3,4,4,3],
+          note:'Each set = ONE round of the 5 moves: 40 sec on, 20 sec off each. Rest 1 min between rounds.',
+          tip:'MOVES: ① High-knee march ② Bodyweight squat ③ Alternating step-back lunge ④ Standing oblique crunch (elbow to knee) ⑤ Side-step skater (no jump).' },
+      ]},
+      { label:'B · Core', ex:[
+        { id:'B1', name:'Dead Bug', sets:2, reps:'6/side', weight:0, rpe:7, wk:[2,2,3,2],
+          tip:'Lower back stays pressed into the floor the whole time.' },
+        { id:'B2', name:'Bird Dog', sets:2, reps:'6/side', weight:0, rpe:6, wk:[2,2,3,2],
+          note:'WRIST: do it on forearms if the right wrist complains on hands.',
+          tip:'Reach opposite arm + leg long, hold 2 sec, no hip twisting.' },
+        { id:'B3', name:'Glute Bridge Hold', sets:2, reps:'20–30s', weight:0, rpe:6, wk:[2,2,3,2],
+          tip:'Log seconds in the Reps box.' },
+        { id:'B4', name:'Forearm Side Plank', sets:2, reps:'15–25s/side', weight:0, rpe:7, wk:[2,2,3,2],
+          tip:'Log seconds per side in the Reps box. Knees down is fine.' },
+      ]},
+      { label:'C · Mobility', ex:[
+        { id:'C1', name:'Mobility Flow', sets:1, reps:'10 min', weight:0, rpe:3, wk:[1,1,1,1],
+          tip:'Hip flexor stretch, hamstring stretch, cat-cow (on forearms), child\'s pose, open-book upper-back rotation. 30–45 sec each.' },
+      ]},
+    ],
+    cardio:'Steps count too — today\'s target is on the Diet tab.'
+  },
+
+  // =============== FRIDAY · STRENGTH C ===============
+  {
+    id:'mini_full_c', day:'Friday', name:'Strength C (Full body + arms)', emoji:'🌸',
+    color:'var(--upper)', bg:'var(--upperA)',
+    targets:['Legs','Chest','Back','Arms','Core'],
+    coach:'5 min warm-up first. 60–90 sec rest between sets. End of week: open the Log tab → Export → send it to Ravi. Target 40–45 min.',
+    groups:[
+      { label:'A · Legs + chest', ex:[
+        { id:'A1', name:'Sumo Goblet Squat', sets:3, reps:'10–12', weight:5, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          tip:'MUSCLES: Inner thighs + glutes + quads. FORM: wide stance, toes out, DB held at the chest, sit straight down, knees push OUT over the toes.' },
+        { id:'A2', name:'DB Floor Press (neutral grip)', sets:3, reps:'8–12', weight:5, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          note:'WRIST: palms facing each other — the wrist-safe chest press.',
+          tip:'MUSCLES: Chest + back of arms. FORM: lie on the floor, knees bent, lower until the upper arms touch the floor, press up.' },
+      ]},
+      { label:'B · Hinge + back', ex:[
+        { id:'B1', name:'DB Romanian Deadlift', sets:3, reps:'10–12', weight:5, rpe:7, prog:true, compound:true, wk:[2,3,3,2],
+          note:'Same weight as Monday.',
+          tip:'Hips BACK, flat back, DBs slide down the thighs, squeeze glutes to stand.' },
+        { id:'B2', name:'Bent-Over DB Row (both arms)', sets:3, reps:'10–12', weight:5, rpe:7, prog:true, wk:[2,3,3,2],
+          note:'Same weight as Monday.',
+          tip:'Hinge ~45°, pull DBs to the hips, squeeze the shoulder blades.' },
+      ]},
+      { label:'C · Arms + core', ex:[
+        { id:'C1', name:'Hammer Curl', sets:2, reps:'10–12', weight:5, rpe:7, prog:true, wk:[2,2,2,2],
+          note:'Neutral grip (thumbs up) — easiest on the wrist.',
+          tip:'MUSCLES: Biceps + forearm. FORM: elbows pinned to the sides, no swinging, lower slowly.' },
+        { id:'C2', name:'Overhead DB Tricep Extension', sets:2, reps:'10–12', weight:5, rpe:7, prog:true, wk:[2,2,2,2],
+          note:'One DB held with both hands.',
+          tip:'MUSCLES: Back of the arms. FORM: elbows point up and stay close to the head, lower the DB behind the head, extend up.' },
+        { id:'C3', name:'Forearm Plank', sets:3, reps:'20–30s', weight:0, rpe:7, wk:[2,3,3,2],
+          tip:'Log seconds in the Reps box. On forearms. Straight line, glutes squeezed, breathe.' },
+      ]},
+    ],
+    cardio:'Steps: hit today\'s target. Weekend: walk with Ravi.'
+  }
+];
+
+const P = IS_MINI ? P_MINI : P_RAVI;
+
 const MUSCLE_MAP = {
   upper_push: { label:'Upper P', color:'var(--upper)' },
   lower_quad: { label:'Lower Q', color:'var(--lower)' },
@@ -631,13 +912,14 @@ const DAY_EMOJIS = ['🔥','🦵','💪','⚡','🏋️'];
 let curSess = null;
 let timerStart = null, timerAccumulated = 0, timerOn = false, timerIv = null;
 let restStart = null, restOn = false, restIv = null;
-let log = JSON.parse(localStorage.getItem('ravi_gymlog_v3') || '[]');
-let bwLog = JSON.parse(localStorage.getItem('ravi_bw_v3') || '[]');
+let log = JSON.parse(localStorage.getItem(PROF.logKey) || '[]');
+let bwLog = JSON.parse(localStorage.getItem(PROF.bwKey) || '[]');
+let dailyLog = PROF.dailyKey ? JSON.parse(localStorage.getItem(PROF.dailyKey) || '[]') : [];
 let setCounters = {};
 
-// One-time migration: if v3 log empty but v2 had data, copy it over
+// One-time migration: if v3 log empty but v2 had data, copy it over (Ravi only)
 (function migrate(){
-  if(log.length===0){
+  if(!IS_MINI && log.length===0){
     const old = JSON.parse(localStorage.getItem('ravi_gymlog') || '[]');
     if(old.length>0){
       log = old;
@@ -652,7 +934,7 @@ let setCounters = {};
 function tick() {
   const n = new Date();
   const t = n.getHours().toString().padStart(2,'0') + ':' + n.getMinutes().toString().padStart(2,'0');
-  ['clk','clk2','clk3'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=t; });
+  ['clk','clk2','clk3','clk4'].forEach(id => { const el=document.getElementById(id); if(el) el.textContent=t; });
   const h = n.getHours();
   document.getElementById('greeting').textContent = h<12?'Good morning,':h<17?'Good afternoon,':'Good evening,';
 }
@@ -666,11 +948,11 @@ tick(); setInterval(tick, 15000);
 // The previous 12-week hypertrophy mesocycle (anchored Apr 27) is complete.
 // We now run WEEK BY WEEK: loads are wired each Friday from the logs, so deloads
 // are set EXPLICITLY via FORCE_DELOAD_WEEKS rather than auto-fired on Wk 4.
-const PROG_ANCHOR = new Date(2026, 6, 13); // July 13, 2026 — Cut Wk 1
+const PROG_ANCHOR = IS_MINI ? new Date(2026, 10, 2) /* Mini Block 1 Wk 1 = Mon Nov 2, 2026 */ : new Date(2026, 6, 13); // July 13, 2026 — Cut Wk 1
 const WEEKS_PER_BLOCK = 4;
 const SKIPPED_WEEKS = []; // none in this phase
 // Weeks explicitly run as a deload. Update this each week as we reach one.
-const FORCE_DELOAD_WEEKS = [
+const FORCE_DELOAD_WEEKS = IS_MINI ? [] /* Mini: easy week handled by MINI_WEEKS */ : [
   new Date(2026, 6, 13).getTime(), // Mon Jul 13, 2026 — calibration deload (opened the cut)
   new Date(2026, 7, 10).getTime(), // Mon Aug 10, 2026 — deload + refeed (phase wk 5)
   new Date(2026, 8, 7).getTime(),  // Mon Sep 7, 2026 — Block 2 deload (phase wk 9)
@@ -711,6 +993,8 @@ function buildBanner(){
   const secEl = document.getElementById('sec-title');
   if(!titleEl) return;
 
+  if(IS_MINI){ buildMiniBanner(pos, titleEl, subEl, wkEl, secEl); return; }
+
   const phaseWeek = (pos.weekIdx||0) + 1;
 
   // Cut extended beyond the original 13 wks (stall Aug-Sep pushed the timeline out).
@@ -738,13 +1022,33 @@ function buildBanner(){
   secEl.textContent = `Cut · Week ${phaseWeek} split`;
 }
 
+// ── MINI timeline helpers ──
+function miniWeekNum(){ return (getProgramPosition(new Date()).weekIdx||0) + 1; }      // 1, 2, 3, ...
+function miniWeekIdx(){ return Math.min(miniWeekNum(), 4) - 1; }                      // 0..3 into MINI_WEEKS
+function miniStepTarget(){ return miniWeekNum() > 4 ? 10000 : MINI_WEEKS[miniWeekIdx()].steps; }
+function buildMiniBanner(pos, titleEl, subEl, wkEl, secEl){
+  const n = miniWeekNum();
+  const notStarted = new Date() < PROG_ANCHOR;
+  titleEl.textContent = 'Beginner Block 1 · Fat loss';
+  wkEl.textContent = n > 4 ? 'DONE' : `WK ${n}`;
+  if(notStarted){
+    subEl.textContent = 'Starts Mon Nov 2 · 1,600 kcal · ~6,000 steps/day';
+  } else if(n > 4){
+    subEl.textContent = 'Block 1 done 🎉 Export the month + measurements and send to Ravi';
+  } else {
+    const w = MINI_WEEKS[n-1];
+    subEl.textContent = `${w.title} · ${w.steps.toLocaleString()} steps/day · 1,600 kcal`;
+  }
+  secEl.textContent = n > 4 ? 'Repeat Week 3 until the new block is in' : `Week ${n} plan`;
+}
+
 // ═══════════════════════════════════════════════
 // WEEK STRIP
 // ═══════════════════════════════════════════════
 function buildWeek() {
   const DN=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
-  const DT=['Upper P','Lower Q','Pull','Upper L','Lower P','Walk','Rest'];
-  const DE=['🔥','🦵','💪','⚡','🏋️','🚶','🌿'];
+  const DT=IS_MINI?['Full A','Cardio','Full B','Cardio','Full C','Walk','Rest']:['Upper P','Lower Q','Pull','Upper L','Lower P','Walk','Rest'];
+  const DE=IS_MINI?['🌸','🚶‍♀️','🌸','🚶‍♀️','🌸','🚶','🌿']:['🔥','🦵','💪','⚡','🏋️','🚶','🌿'];
   const now=new Date();
   const dow=now.getDay();
   const mo = dow===0 ? -6 : 1-dow;
@@ -847,6 +1151,16 @@ function openSession(idx) {
       <div><b style="color:var(--accent2);">${dlLabel}</b><br>${dlBody}</div>
     </div>`;
   }
+  // MINI: sets/RPE come from the week (after Wk 4, repeat Wk 3 until the next block is wired)
+  const miniN = IS_MINI ? miniWeekNum() : 0;
+  const miniSetIdx = IS_MINI ? (miniN > 4 ? 2 : miniN - 1) : 0;
+  if(IS_MINI){
+    const w = MINI_WEEKS[miniSetIdx];
+    h+=`<div class="coach-note" style="background:rgba(77,166,255,0.12);border-color:var(--pull);">
+      <div class="coach-icon">📅</div>
+      <div><b style="color:var(--pull);">${miniN > 4 ? 'Repeating Week 3 · new block coming' : w.title}</b><br>${w.body}</div>
+    </div>`;
+  }
   if(s.coach){
     h+=`<div class="coach-note"><div class="coach-icon">🎯</div><div><b>Coach:</b> ${s.coach}</div></div>`;
   }
@@ -862,6 +1176,10 @@ function openSession(idx) {
         if(ex.compound){ effSets = Math.max(3, ex.sets - 1); }
         else { effSets = Math.max(2, ex.sets - 1); }
         effRpe = 7; // Cap RPE at 7 during deload
+      }
+      if(IS_MINI){
+        if(ex.wk) effSets = ex.wk[miniSetIdx];
+        if(ex.prog) effRpe = MINI_RPE[miniSetIdx];
       }
       const rc=effRpe>=9?'rpe9':effRpe>=8?'rpe8':'rpe7';
       const dw=ex.weight!==null?ex.weight:'';
@@ -1060,7 +1378,7 @@ function saveSession(){
     duration:Math.round(getElapsedSec()/60), exercises
   };
   log.unshift(entry);
-  localStorage.setItem('ravi_gymlog_v3',JSON.stringify(log));
+  localStorage.setItem(PROF.logKey,JSON.stringify(log));
   closeModal(); resetTimer(); resetRest();
   document.querySelector('.nav-bar').style.display='flex';
   showToast('Session saved! 💪');
@@ -1198,7 +1516,7 @@ function confirmExport(){
 }
 
 function generateExportText(entries){
-  let txt='=====================================\nLIFT LOG\n=====================================\n\nATHLETE: Ravi\n\n-------------------------------------\nSESSION LOG\n-------------------------------------\n\n';
+  let txt='=====================================\nLIFT LOG\n=====================================\n\nATHLETE: '+PROF.name+'\n\n-------------------------------------\nSESSION LOG\n-------------------------------------\n\n';
   // Sort chronologically (oldest first)
   const sorted=[...entries].sort((a,b)=>parseEntryDate(a.date)-parseEntryDate(b.date));
   sorted.forEach(e=>{
@@ -1221,6 +1539,7 @@ function generateExportText(entries){
     const avg=(bwSorted.reduce((a,b)=>a+b.weight,0)/bwSorted.length).toFixed(1);
     txt+=`\nEntries: ${bwSorted.length} · Average: ${avg} lbs · Latest: ${bwSorted[bwSorted.length-1].weight} lbs\n\n`;
   }
+  if(IS_MINI) txt+=miniCheckinExport(sorted);
   txt+='=====================================\nEND OF LOG\n=====================================\n';
   const prev=document.getElementById('eprev');
   prev.textContent=txt; prev.classList.add('show');
@@ -1273,7 +1592,7 @@ function addBw(){
     const [db,mb,yb]=b.date.split('/').map(Number);
     return new Date(ya,ma-1,da)-new Date(yb,mb-1,db);
   });
-  localStorage.setItem('ravi_bw_v3',JSON.stringify(bwLog));
+  localStorage.setItem(PROF.bwKey,JSON.stringify(bwLog));
   document.getElementById('bw-in').value='';
   showToast('Body weight logged!');
   buildBwChart();
@@ -1424,6 +1743,7 @@ function drawChart(name, data){
 }
 
 function buildVolBars(){
+  if(IS_MINI){ buildVolBarsGeneric(); return; }
   const counts={upper_push:0,lower_quad:0,pull:0,upper_pull:0,lower_post:0};
   log.forEach(e=>{
     const ref=(e.sessId||'').toLowerCase();
@@ -1450,6 +1770,218 @@ function buildVolBars(){
 }
 
 // ═══════════════════════════════════════════════
+// PROFILE CHROME — names, titles, tabs per profile
+// ═══════════════════════════════════════════════
+function applyProfileChrome(){
+  const ht = document.getElementById('home-title');
+  if(ht) ht.innerHTML = IS_MINI ? `Let's move, <em>Mini.</em>` : `Let's lift, <em>Ravi.</em>`;
+  if(IS_MINI){
+    document.title = 'Mini Lifts';
+    const m = document.querySelector('meta[name="apple-mobile-web-app-title"]');
+    if(m) m.setAttribute('content','Mini Lifts');
+    const nd = document.getElementById('nav-diet');
+    if(nd) nd.style.display = '';
+  }
+}
+
+// Generic volume bars (Mini) — one bar per session in the active programme
+function buildVolBarsGeneric(){
+  const counts = {};
+  P.forEach(s => counts[s.id] = 0);
+  log.forEach(e => {
+    if(counts.hasOwnProperty(e.sessId)) counts[e.sessId] += e.exercises.reduce((a,ex)=>a+ex.sets.length,0);
+  });
+  const max = Math.max(...Object.values(counts),1);
+  document.getElementById('vol-bars').innerHTML = P.map(s=>`
+    <div class="vol-row">
+      <div class="vol-label">${s.day.slice(0,3)}</div>
+      <div class="vol-track"><div class="vol-fill" style="width:${Math.round((counts[s.id]/max)*100)}%;background:${s.color};"></div></div>
+      <div class="vol-num" style="color:${s.color}">${counts[s.id]}</div>
+    </div>`).join('');
+}
+
+// ═══════════════════════════════════════════════
+// MINI · DIET (1,600 kcal) + DAILY CHECK-IN
+// Proteins: chicken / eggs / shrimp (sometimes). No nuts, no milk, no shakes.
+// ═══════════════════════════════════════════════
+const MINI_DIET = {
+  targets:[
+    { n:'1,600', l:'kcal / day' },
+    { n:'100–120 g', l:'protein / day' },
+    { n:'45–50 g', l:'fat (incl. 15–25 g oil)' },
+    { n:'~160 g', l:'carbs' }
+  ],
+  meals:[
+    { name:'🍳 Breakfast', macro:'~385 kcal · 26 g P', rows:[
+      ['Egg bhurji — 2 whole eggs + 2 egg whites, onion/tomato/chilli','5 g oil'],
+      ['Whole-wheat bread, 2 slices — OR ½ plain bagel','~60 g / ~50 g'] ]},
+    { name:'🥣 Mid-morning', macro:'~180 kcal · 17 g P', rows:[
+      ['Greek yogurt, plain low-fat','150 g'],
+      ['Guava (or 1 small apple / orange)','100 g'] ]},
+    { name:'🍛 Lunch', macro:'~535 kcal · 36 g P', rows:[
+      ['Rice, cooked','120 g'],
+      ['Dal, cooked (lemon on top)','100 g'],
+      ['Chicken curry — breast, weighed raw','100 g · 5 g oil'],
+      ['Sabzi (any veg)','150 g · 5 g oil'],
+      ['Cucumber / onion salad','any'] ]},
+    { name:'☕ Evening', macro:'~110 kcal · 6 g P', rows:[
+      ['Roasted chana','30 g'],
+      ['Black tea / coffee — 1 hr+ after lunch','—'] ]},
+    { name:'🍗 Dinner', macro:'~395 kcal · 37 g P', rows:[
+      ['Chicken curry (breast, raw) — or shrimp curry 2–3×/week','120 g / 150 g · 5 g oil'],
+      ['Palak or other veg sabzi','150 g · 5 g oil'],
+      ['Phulka','1 (40 g atta)'] ]}
+  ],
+  total:'≈ 1,600 kcal · ~120 g protein · ~47 g fat',
+  swaps:[
+    ['Chicken breast (raw)','100 g = 120 kcal · 23 g P'],
+    ['Shrimp (raw)','100 g = 85 kcal · 20 g P'],
+    ['Whole egg','1 large = 70 kcal · 6 g P'],
+    ['Egg white','1 = 17 kcal · 3.5 g P'],
+    ['Greek yogurt, low-fat','100 g = ~75 kcal · 10 g P'],
+    ['Whole-wheat bread','1 slice (~30 g) = ~75 kcal — check the label'],
+    ['Plain bagel','½ (~50 g) = ~135 kcal · a whole one is ~270'],
+    ['Rice, cooked','100 g = 130 kcal'],
+    ['Phulka','30 g atta = ~100 kcal'],
+    ['Oil / ghee','1 tsp (5 g) = 45 kcal']
+  ],
+  tips:[
+    '⚖️ Weigh the oil every time — 1 tbsp is ~120 kcal and it is the biggest hidden calorie in home cooking.',
+    '🍗 Protein at every meal. Chicken, eggs and shrimp are the main sources; Greek yogurt fills the gap.',
+    '🩸 Iron: have lemon, tomato or guava with dal, palak and chana. Keep tea/coffee at least 1 hour away from meals — it blocks iron absorption.',
+    '🥒 Still hungry? Add more veg, salad or cucumber first — big volume, few calories.',
+    '🚫 No nuts, no milk, no shakes in this plan. Yogurt and curd are fine.',
+    '📆 Weekends: same targets. One flexible meal is fine — just log how it went.'
+  ]
+};
+
+let ciDraft = { protein:null, energy:null, period:false };
+
+function todayStr(){ return new Date().toLocaleDateString('en-GB'); }
+
+function buildDiet(keep){
+  // keep = typed values to preserve when only a toggle changed
+  const el = document.getElementById('diet-body');
+  if(!el) return;
+  const today = dailyLog.find(d => d.date === todayStr());
+  if(!keep){
+    ciDraft = today ? { protein:today.protein, energy:today.energy, period:!!today.period }
+                    : { protein:null, energy:null, period:false };
+  }
+  const stepT = miniStepTarget();
+  const todayBw = bwLog.find(b => b.date === todayStr());
+  const seg = (field, val, label) =>
+    `<button class="seg-btn ${ciDraft[field]===val?'on':''}" onclick="setCi('${field}',${JSON.stringify(val)})">${label}</button>`;
+
+  let h = `<div class="log-hdr">
+      <div class="log-title">Diet 🥗</div>
+      <div class="log-sub">1,600 kcal · weigh food in grams · today's steps: ${stepT.toLocaleString()}</div>
+    </div>
+
+    <div class="sec-title">Today's check-in</div>
+    <div class="bw-card">
+      <div class="chk-row"><div class="chk-lbl">Steps</div>
+        <input class="bw-input" id="ci-steps" type="number" inputmode="numeric" placeholder="target ${stepT.toLocaleString()}" value="${today&&today.steps!=null?today.steps:''}"></div>
+      <div class="chk-row"><div class="chk-lbl">Weight (lbs)</div>
+        <input class="bw-input" id="ci-bw" type="number" inputmode="decimal" placeholder="optional · morning, fasted" value="${todayBw?todayBw.weight:''}"></div>
+      <div class="chk-row"><div class="chk-lbl">Protein hit?</div>
+        <div class="seg">${seg('protein',true,'Yes ✓')}${seg('protein',false,'No')}</div></div>
+      <div class="chk-row"><div class="chk-lbl">Energy</div>
+        <div class="seg">${[1,2,3,4,5].map(n=>seg('energy',n,String(n))).join('')}</div></div>
+      <div class="chk-row"><div class="chk-lbl">Period day</div>
+        <div class="seg">${seg('period',true,'Yes')}${seg('period',false,'No')}</div></div>
+      <div class="chk-row"><div class="chk-lbl">Notes</div>
+        <input class="bw-input" id="ci-note" type="text" placeholder="sleep, hunger, wrist, anything" value="${today&&today.note?today.note.replace(/"/g,'&quot;'):''}"></div>
+      <button class="bw-add" style="width:100%;padding:13px;" onclick="saveCheckin()">${today?'Update':'Save'} today's check-in</button>
+    </div>
+
+    <div class="sec-title">Daily targets</div>
+    <div class="diet-chips">${MINI_DIET.targets.map(t=>`<div class="diet-chip"><div class="diet-chip-n">${t.n}</div><div class="diet-chip-l">${t.l}</div></div>`).join('')}</div>
+
+    <div class="sec-title">Sample day</div>
+    ${MINI_DIET.meals.map(m=>`<div class="meal-card">
+      <div class="meal-hdr"><div class="meal-name">${m.name}</div><div class="meal-macro">${m.macro}</div></div>
+      ${m.rows.map(r=>`<div class="meal-row"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')}
+    </div>`).join('')}
+    <div class="cardio-note" style="margin-top:0;margin-bottom:14px;"><b>Day total</b>${MINI_DIET.total}</div>
+
+    <div class="sec-title">Swaps · per portion</div>
+    <div class="meal-card">${MINI_DIET.swaps.map(r=>`<div class="meal-row"><span>${r[0]}</span><span>${r[1]}</span></div>`).join('')}</div>
+
+    <div class="sec-title">Rules that matter</div>
+    <div class="tip-list">${MINI_DIET.tips.map(t=>`<div>${t}</div>`).join('')}</div>`;
+
+  const recent = [...dailyLog].sort((a,b)=>parseEntryDate(b.date)-parseEntryDate(a.date)).slice(0,7);
+  if(recent.length){
+    h += `<div class="sec-title">Last 7 check-ins</div><div class="bw-card" style="padding:4px 16px;">` +
+      recent.map(d=>`<div class="ci-row"><span>${d.date}</span><span>${ciSummary(d)}</span></div>`).join('') + `</div>`;
+  }
+  h += `<div class="safe-bottom"></div>`;
+  el.innerHTML = h;
+}
+
+function setCi(field, val){
+  const keep = { steps:document.getElementById('ci-steps').value, bw:document.getElementById('ci-bw').value, note:document.getElementById('ci-note').value };
+  ciDraft[field] = val;
+  const y = document.getElementById('diet-body').scrollTop;
+  buildDiet(keep);
+  document.getElementById('ci-steps').value = keep.steps;
+  document.getElementById('ci-bw').value = keep.bw;
+  document.getElementById('ci-note').value = keep.note;
+  document.getElementById('diet-body').scrollTop = y;
+}
+
+function ciSummary(d){
+  const parts = [];
+  if(d.steps!=null) parts.push(`${Number(d.steps).toLocaleString()} steps`);
+  if(d.protein!=null) parts.push(d.protein ? 'protein ✓' : 'protein ✗');
+  if(d.energy) parts.push(`energy ${d.energy}/5`);
+  if(d.period) parts.push('period');
+  return parts.join(' · ') || '—';
+}
+
+function saveCheckin(){
+  const stepsRaw = document.getElementById('ci-steps').value.trim();
+  const bwRaw = document.getElementById('ci-bw').value.trim();
+  const note = document.getElementById('ci-note').value.trim();
+  const steps = stepsRaw === '' ? null : parseInt(stepsRaw, 10);
+  if(steps !== null && (isNaN(steps) || steps < 0 || steps > 100000)){ showToast('Enter a valid step count'); return; }
+  if(bwRaw !== ''){
+    const v = parseFloat(bwRaw);
+    if(isNaN(v) || v < 50 || v > 500){ showToast('Enter a valid weight (lbs)'); return; }
+    bwLog = bwLog.filter(b => b.date !== todayStr());
+    bwLog.push({ date:todayStr(), weight:v });
+    bwLog.sort((a,b)=>parseEntryDate(a.date)-parseEntryDate(b.date));
+    localStorage.setItem(PROF.bwKey, JSON.stringify(bwLog));
+  }
+  const entry = { date:todayStr(), steps, protein:ciDraft.protein, energy:ciDraft.energy, period:!!ciDraft.period, note };
+  dailyLog = dailyLog.filter(d => d.date !== entry.date);
+  dailyLog.push(entry);
+  localStorage.setItem(PROF.dailyKey, JSON.stringify(dailyLog));
+  showToast('Check-in saved ✓');
+  buildDiet();
+}
+
+// Export block: check-ins from the Monday of the earliest exported session to today
+function miniCheckinExport(sortedSessions){
+  if(!dailyLog.length) return '';
+  let from = mondayOf(new Date());
+  if(sortedSessions.length) from = mondayOf(parseEntryDate(sortedSessions[0].date));
+  const rows = dailyLog.filter(d => parseEntryDate(d.date) >= from)
+                       .sort((a,b)=>parseEntryDate(a.date)-parseEntryDate(b.date));
+  if(!rows.length) return '';
+  let t = '-------------------------------------\nDAILY CHECK-INS (steps · protein · energy · period · notes)\n-------------------------------------\n\n';
+  rows.forEach(d => {
+    t += `${d.date}  ${d.steps!=null?d.steps+' steps':'— steps'} · protein ${d.protein==null?'—':(d.protein?'✓':'✗')} · energy ${d.energy||'—'}/5${d.period?' · period':''}${d.note?' · '+d.note:''}\n`;
+  });
+  const st = rows.filter(d=>d.steps!=null);
+  const avgSteps = st.length ? Math.round(st.reduce((a,d)=>a+d.steps,0)/st.length) : null;
+  const pHit = rows.filter(d=>d.protein===true).length;
+  t += `\nDays logged: ${rows.length} · Avg steps: ${avgSteps!=null?avgSteps.toLocaleString():'—'} (target ${miniStepTarget().toLocaleString()}) · Protein hit: ${pHit}/${rows.length}\n\n`;
+  return t;
+}
+
+// ═══════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════
 function switchNav(tab){
@@ -1458,6 +1990,7 @@ function switchNav(tab){
   if(tab==='home'){ buildBanner(); buildWeek(); buildCards(); switchScreen('home'); }
   if(tab==='log'){ buildLog(); switchScreen('log'); }
   if(tab==='progress'){ buildProgress(); switchScreen('progress'); }
+  if(tab==='diet'){ buildDiet(); switchScreen('diet'); }
 }
 function switchScreen(name){
   document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
@@ -1481,7 +2014,7 @@ function showToast(msg){
 // SERVICE WORKER
 // ═══════════════════════════════════════════════
 if('serviceWorker' in navigator){
-  const sw=`const CACHE='ravi-lifts-v21';
+  const sw=`const CACHE='ravi-lifts-v22';
 self.addEventListener('install',()=>self.skipWaiting());
 self.addEventListener('activate',e=>e.waitUntil(clients.claim()));
 self.addEventListener('fetch',e=>{
@@ -1506,9 +2039,16 @@ document.addEventListener('visibilitychange', () => {
 });
 
 // INIT
-buildBanner();
-buildWeek();
-buildCards();
+applyProfileChrome();
+if(!ACTIVE_PROFILE){
+  // New phone: ask who's training before showing anything
+  document.querySelector('.nav-bar').style.display='none';
+  switchScreen('picker');
+} else {
+  buildBanner();
+  buildWeek();
+  buildCards();
+}
 </script>
 </body>
 </html>
